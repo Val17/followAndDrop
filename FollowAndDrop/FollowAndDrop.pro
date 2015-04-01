@@ -7,7 +7,9 @@ TARGET = FollowAndDrop
 INCLUDEPATH += .
 
 # Input
-HEADERS += mainwindow.h
+HEADERS += mainwindow.h \
+    sphere.h
 FORMS += mainwindow.ui
-SOURCES += main.cpp mainwindow.cpp
+SOURCES += main.cpp mainwindow.cpp \
+    sphere.cpp
 QT += widgets
