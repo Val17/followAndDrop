@@ -18,11 +18,11 @@ HEADERS  += webcamwindow.h
 INCLUDEPATH +=$$(OPENCV_DIR)\include
 
 LIBS += -L$$(OPENCV_DIR)\lib \
-    -lopencv_core2411 \
-    -lopencv_highgui2411 \
-    -lopencv_imgproc2411 \
-    -lopencv_video2411 \
-    -lopencv_features2d2411 \
-    -lopencv_calib3d2411 \
-    -lopencv_objdetect2411
+    -lopencv_core \
+    -lopencv_highgui \
+    -lopencv_imgproc \
+    -lopencv_video \
+    -lopencv_features2d \
+    -lopencv_calib3d \
+    -lopencv_objdetect
 
