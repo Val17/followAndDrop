@@ -13,3 +13,4 @@ FORMS += mainwindow.ui
 SOURCES += main.cpp mainwindow.cpp \
     sphere.cpp
 QT += widgets
+LIBS = -lglut -lGLU \
