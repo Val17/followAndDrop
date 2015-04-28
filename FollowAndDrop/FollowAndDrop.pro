@@ -8,9 +8,15 @@ INCLUDEPATH += .
 
 # Input
 HEADERS += mainwindow.h \
-    sphere.h
+    sphere.h \
+    arena.h \
+    myglwidget.h
 FORMS += mainwindow.ui
 SOURCES += main.cpp mainwindow.cpp \
-    sphere.cpp
-QT += widgets
-LIBS = -lglut -lGLU \
+    sphere.cpp \
+    arena.cpp \
+    myglwidget.cpp
+QT += core gui opengl
+
+LIBS = -lGLU #-lglut \
+

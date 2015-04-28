@@ -1,22 +1,44 @@
 #ifndef SPHERE_H
 #define SPHERE_H
-#include <GL/glut.h>
+#include <GL/glu.h>
+#include <QWidget>
+#include <QGLWidget>
 
-class Sphere
+class Sphere : public QGLWidget
 {
 public:
-    Sphere();
+    explicit Sphere(QWidget *parent = 0);
+    GLuint loadtgadisplayCDV ( const char* filename );
 
 protected:
-    void initializeSphere();
-    void paintSphere();
-    void resizeSphere(int width, int height);
-    void displaySphereDisplayList( void );
+    void initializeGL();
+    void paintGL();
+    void resizeGL(int width, int height);
 
 
 private:
-    void drawSphere();
+    void draw();
     GLuint GLdisplayList[1];
+
+    GLuint GLtexture[1];
+    int xRot;
+    int yRot;
+    int zRot;
+
+
+
+public slots:
+    void setYRotation(int angle);
+    void setZRotation(int angle);
+    void setXRotation(int angle);
+
+
+signals:
+    // signaling rotation from mouse movement
+    void xRotationChanged(int angle);
+    void yRotationChanged(int angle);
+    void zRotationChanged(int angle);
+
 
 
 };
