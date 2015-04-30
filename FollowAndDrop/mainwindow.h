@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <game.h>
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +21,8 @@ protected:
 
 private:
     Ui::MainWindow *ui;
+    Game *myGame;
+
 };
 
 #endif // MAINWINDOW_H

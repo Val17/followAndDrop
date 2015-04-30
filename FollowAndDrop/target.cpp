@@ -1,22 +1,45 @@
-#include "sphere.h"
+#include "target.h"
+#include <GL/glu.h>
+#include "math.h"
+#include <stdio.h>
+#include<iostream>
+#include <QDebug>
+#include <QMouseEvent>
 
-Sphere::Sphere(QObject *parent) : QObject(parent)
+Target::Target(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
 
 }
 
-void Sphere::drawSphere(double radius, int slices, int stacks)
+
+void Target::drawTarget()
 {
-    glColor3f(0,.8,.1);
-    GLUquadric* params = gluNewQuadric();
-    gluSphere(params,radius, slices, stacks);
+
+    int nb_faces = 100;
+    int rayon = 1;
+
+    glBegin(GL_POLYGON);
+
+        for(int i=0; i<nb_faces; i++)
+        {
+            double angle = 2*M_PI*i/nb_faces;
+            double xcos = cos(angle);
+            double ycos = sin(angle);
+
+            glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
+
+            glVertex2f(xcos*rayon, ycos*rayon );
+        }
 
 
-    //GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/lena.tga");
+    glEnd();
+
+    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/cible.tga");
+
 
 }
 
-GLuint Sphere::loadtgadisplayCDV ( const char* filename )
+GLuint Target::loadtgadisplayCDV ( const char* filename )
 {
     FILE* fp;
     char magic[12];
@@ -71,11 +94,10 @@ GLuint Sphere::loadtgadisplayCDV ( const char* filename )
     glPixelStorei(GL_UNPACK_ROW_LENGTH,width);
     glTexSubImage2D(GL_TEXTURE_2D,0, 0,0, width, height,
     type ,GL_UNSIGNED_BYTE, imageData );
-free(imageData);
+    free(imageData);
 
 return textureId;
 }
-
 
 
 

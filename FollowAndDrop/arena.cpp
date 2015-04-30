@@ -1,9 +1,5 @@
 #include "arena.h"
-#include <GL/glu.h>
-#include "math.h"
-#include <stdio.h>
-#include<iostream>
-#include <QDebug>
+
 
 
 Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
@@ -11,7 +7,7 @@ Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
     xRot = 0;
     yRot = 0;
     zRot = 0;
-    GLtexture[0];
+    GLtextureArena[0];
 
 }
 
@@ -21,50 +17,12 @@ Arena::~Arena()
 }
 
 
-
-void Arena::initializeGL()
+void Arena::drawArena()
 {
-    glClearColor(0,0,0,0);
+    qDebug()<<"Arena";
 
-    glEnable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
-    glShadeModel(GL_SMOOTH);
-    glEnable( GL_TEXTURE_2D );
-
-    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/bois.tga");
-
-}
-
-void Arena::paintGL()
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
-
-
-    // initalize the coordinate system to correct alignement
-    glTranslatef(0.0, 0.0, -3.0);
-
-    /*
-    glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
-    glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
-    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
-
-
-    //perform world transformation
-
-    glRotatef(-xRot/20, 0.0, 1.0, 0.0); //theta
-    glRotatef(-yRot/20, 0.0, 0.0, 1.0); //phi
-    glRotatef(-zRot/20, 1.0, 0.0, 0.0);
-*/
-
-    draw();
-}
-
-
-void Arena::draw()
-{
     int nb_faces = 100;
-    int rayon = 1;
+    int rayon = 10;
 
     glBegin(GL_POLYGON);
 
@@ -77,79 +35,16 @@ void Arena::draw()
             glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
 
             glVertex2f(xcos*rayon, ycos*rayon );
+
         }
 
-    glEnd();
+     glEnd();
+
+     GLtextureArena[0]= loadtgadisplayCDV("../FollowAndDrop/texturebois2.tga");
+
 
 }
 
-void Arena::resizeGL(int width, int height)
-{
-    int side = qMin(width, height);
-    glViewport((width - side) / 2, (height - side) / 2, side, side);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    /*
-#ifdef QT_OPENGL_ES_1
-    glOrthof(-2, +2, -2, +2, 1.0, 15.0);
-#else
-    glOrtho(-2, +2, -2, +2, 1.0, 15.0);
-#endif
-    */
-    gluPerspective(70, ((float)width/(float)height),0.01,30);
-    glMatrixMode(GL_MODELVIEW);
-}
-
-QSize Arena::sizeHint() const
-{
-    return QSize(400, 400);
-}
-
-/*QSize Arena::minimumSizeHint() const
-{
-    return QSize(50, 50);
-}*/
-
-static void qNormalizeAngle(int &angle)
-{
-
-    while (angle < 0)
-        angle += 360 * 20;
-    while (angle > 360)
-        angle -= 360 * 20;
-}
-
-void Arena::setXRotation(int angle)
-{
-    qDebug()<<"Arena";
-    qNormalizeAngle(angle);
-    if (angle != xRot) {
-        xRot = angle;
-        emit xRotationChanged(angle);
-        updateGL();
-    }
-}
-
-void Arena::setYRotation(int angle)
-{
-    qNormalizeAngle(angle);
-    if (angle != yRot) {
-        yRot = angle;
-        emit yRotationChanged(angle);
-        updateGL();
-    }
-}
-
-void Arena::setZRotation(int angle)
-{
-    qNormalizeAngle(angle);
-    if (angle != zRot) {
-        zRot = angle;
-        emit zRotationChanged(angle);
-        updateGL();
-    }
-}
 
 
 GLuint Arena::loadtgadisplayCDV ( const char* filename )
@@ -207,7 +102,9 @@ GLuint Arena::loadtgadisplayCDV ( const char* filename )
     glPixelStorei(GL_UNPACK_ROW_LENGTH,width);
     glTexSubImage2D(GL_TEXTURE_2D,0, 0,0, width, height,
     type ,GL_UNSIGNED_BYTE, imageData );
-free(imageData);
+    free(imageData);
 
-return textureId;
+    return textureId;
 }
+
+

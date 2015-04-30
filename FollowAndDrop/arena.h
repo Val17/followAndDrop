@@ -3,6 +3,12 @@
 
 #include <QWidget>
 #include <QGLWidget>
+#include <GL/glu.h>
+#include "math.h"
+#include <stdio.h>
+#include<iostream>
+#include <QDebug>
+#include <QMouseEvent>
 
 
 class Arena : public QGLWidget
@@ -14,32 +20,24 @@ public:
     explicit Arena(QWidget *parent = 0);
     GLuint loadtgadisplayCDV ( const char* filename );
     ~Arena();
+    void drawArena();
+    GLuint GLtextureArena[1];
 
 public slots:
-    void setYRotation(int angle);
-    void setZRotation(int angle);
-    void setXRotation(int angle);
+
+
 protected:
 
-    void initializeGL();
-    void paintGL();
-    void resizeGL(int width, int height);
-    QSize sizeHint() const;
-
 signals:
-    // signaling rotation from mouse movement
-    void xRotationChanged(int angle);
-    void yRotationChanged(int angle);
-    void zRotationChanged(int angle);
+
 
 private:
 
-    void draw();
 
-    GLuint GLtexture[1];
     int xRot;
     int yRot;
     int zRot;
+    QPoint lastPos;
 };
 
 #endif // ARENA_H

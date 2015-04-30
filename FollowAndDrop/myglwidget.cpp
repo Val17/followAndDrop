@@ -75,22 +75,25 @@ void MyGLWidget::setZRotation(int angle)
 
 void MyGLWidget::initializeGL()
 {
-    glClearColor(.3,.5,.7,0);
-
-    glEnable(GL_DEPTH_TEST);
+    qDebug()<<"initializeGL";
+    glClearColor(0,.5,0,0);
+    /*glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
     static GLfloat lightPosition[4] = { 0, 0, 10, 1.0 };
-    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);*/
 
-    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/bois.tga");
+    //glEnable(GL_LIGHT0);
+
+    //GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/bois.tga");
 }
 
 void MyGLWidget::paintGL()
 {
+    qDebug()<<"paintGL";
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
@@ -100,11 +103,6 @@ void MyGLWidget::paintGL()
     glTranslatef(0.0, 0.0, -3.0);
     glRotatef(60, -1, 0, 0);
 
-    /*
-    glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
-    glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
-    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
-    */
 
     //perform world transformation
 
@@ -119,6 +117,7 @@ void MyGLWidget::paintGL()
 
 void MyGLWidget::resizeGL(int width, int height)
 {
+    qDebug()<<"resizeGL";
     int side = qMin(width, height);
     glViewport((width - side) / 2, (height - side) / 2, side, side);
 
@@ -131,7 +130,7 @@ void MyGLWidget::resizeGL(int width, int height)
     glOrtho(-2, +2, -2, +2, 1.0, 15.0);
 #endif
     */
-    gluPerspective(70, ((float)width/(float)height),0.01,30);
+    gluPerspective(100, ((float)width/(float)height),0.01,30);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -158,78 +157,18 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 
 void MyGLWidget::draw()
 {
-    qglColor(Qt::red);
-    /*
-    glBegin(GL_QUADS);
-        glNormal3f(0,0,-1);
-        glVertex3f(-1,-1,0);
-        glVertex3f(-1,1,0);
-        glVertex3f(1,1,0);
-        glVertex3f(1,-1,0);
 
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(0,-1,0.707);
-        glVertex3f(-1,-1,0);
-        glVertex3f(1,-1,0);
-        glVertex3f(0,0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(1,0, 0.707);
-        glVertex3f(1,-1,0);
-        glVertex3f(1,1,0);
-        glVertex3f(0,0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(0,1,0.707);
-        glVertex3f(1,1,0);
-        glVertex3f(-1,1,0);
-        glVertex3f(0,0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(-1,0,0.707);
-        glVertex3f(-1,1,0);
-        glVertex3f(-1,-1,0);
-        glVertex3f(0,0,1.2);
-    glEnd();
-*/
+    qDebug()<<"draw";
+    GLUquadric* params = gluNewQuadric();
+    //glColor3f(1,0,0);
+    gluQuadricDrawStyle(params,GLU_LINE);
+    gluSphere(params,0.75,20,20);
 
-    /*
-    glBegin(GL_QUADS);
-        glColor3f(0.3,0.4,0.1);
-        glVertex3f(-1,3,2);
-        glColor3f(0.8,0.7,0.3);
-        glVertex3f(-1,8,2);
-        glColor3f(1,0,0.1);
-        glVertex3f(-4,8,2);
-        glColor3f(0.3,0.4,1);
-        glVertex3f(-4,3,2);
-    glEnd();
+    //gluCylinder(params,1,1,2,20,1);
 
-    */
+    //gluLookAt(3,4,2,0,0,0,0,0,1);
 
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_TEXTURE_2D);
-    glDisable( GL_CULL_FACE );
-    glBindTexture(GL_TEXTURE_2D, GLtexture[0]);
-    int nb_faces = 100;
-    int rayon = 2;
-    glBegin(GL_POLYGON);
-    for(int i=0; i<nb_faces; i++)
-    {
-        double angle = 2*M_PI*i/nb_faces;
-        double xcos = cos(angle);
-        double ysin = sin(angle);
 
-        glNormal3f(xcos, ysin, 1);
-        glTexCoord2f(xcos *0.5 + 0.5, ysin * 0.5 + 0.5);
-
-        glVertex2f(xcos*rayon, ysin*rayon );
-    }
-
-    glEnd();
-    glDisable( GL_TEXTURE_2D );
-    glEnable( GL_CULL_FACE );
 
 }
 
