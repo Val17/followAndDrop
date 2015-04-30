@@ -7,6 +7,7 @@
 #include <sphere.h>
 #include <target.h>
 #include <arm.h>
+#include <brasarticule.h>
 
 
 
@@ -50,10 +51,13 @@ private:
     GLuint theSphere;
     GLuint theTarget;
     GLuint theArm;
+    GLuint theArticulateArm;
     Arena myArena;
     Sphere mySphere;
     Target myTarget;
     Arm myArm;
+    ArticulateArm myArticulateArm;
+
 
 
     QPoint lastPos;

@@ -40,7 +40,7 @@ void Arena::drawArena()
 
      glEnd();
 
-     GLtextureArena[0]= loadtgadisplayCDV("../FollowAndDrop/texturebois2.tga");
+     GLtextureArena[0]= loadtgadisplayCDV("../FollowAndDrop/Images/texturebois2.tga");
 
 
 }

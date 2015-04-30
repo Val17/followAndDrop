@@ -21,13 +21,13 @@ Game::Game(QWidget *parent) :
     yRandom=0;
     zRandom=7;
 
-    QTimer *timer = new QTimer(this);
+    /*QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->start(10);
 
     int VALUE = 10;
 
-    timer -> start(VALUE);
+    timer -> start(VALUE);*/
 
 }
 
@@ -48,10 +48,12 @@ QSize Game::sizeHint() const
 static void qNormalizeAngle(int &angle)
 {
     //qDebug()<<"Game:qNormalizeAngle";
-    while (angle < 0)
-        angle += 360 * 20;
-    while (angle > 360)
-        angle -= 360 * 20;
+    //while (angle < 0)
+        //angle += 360 * 20;
+        //angle +=360;
+    //while (angle > 360)
+        //angle -= 360 * 20;
+        //angle -= 360;
 }
 
 void Game::setXRotation(int angle)
@@ -117,6 +119,12 @@ void Game::initializeGL()
         myArm.drawArm();
     glEndList();
 
+    theArticulateArm = glGenLists(1);
+
+    glNewList(theArticulateArm, GL_COMPILE);
+        myArticulateArm.drawArm();
+    glEndList();
+
 }
 
 void Game::paintGL()
@@ -130,15 +138,15 @@ void Game::paintGL()
     // initalize the coordinate system to correct alignement
 
     glTranslatef(0.0, -5.0, -20.0);
-    glRotatef(70, -1, 0, 0);
+    glRotatef(40, -1, 0, 0);
 
     /*glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
     glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
     glRotatef(-zRot/16, 1.0, 0.0, 0.0);*/
 
     glRotatef(-xRot/16, 1.0, 0.0, 0.0); //theta
-    glRotatef(-yRot/16, 0.0, 1.0, 0.0); //phi
-    glRotatef(-zRot/16, 0.0, 0.0, 1.0);
+    glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
+    glRotatef(-zRot/16, 1.0, 0.0, 0.0);
 
     draw();
 
@@ -153,7 +161,7 @@ void Game::resizeGL(int width, int height)
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(70, ((float)width/(float)height),0.01,30);
+    gluPerspective(110, ((float)width/(float)height),0.01,30);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -184,10 +192,10 @@ void Game::draw()
 {
     qDebug()<<"Game: draw";
 
-    qDebug()<<"Position: "<<lastPos;
+    qDebug()<<xRot<<"-"<<yRot<<"-"<<zRot;
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glPushMatrix();
+    /*glPushMatrix();
 
         /* Ces lignes servent a incrementer ou decrementer
          * l'attribut chrono pour le deplacement*/
@@ -203,29 +211,35 @@ void Game::draw()
             chrono -=104;
         }
 
-        //qDebug()<<chrono;*/
+        //qDebug()<<chrono;
 
 
         //glColor3f(1,0,.8);
         glTranslatef(1,.2,7);
         glCallList(theArena);
 
-    glPopMatrix();
 
-    glPushMatrix();
+        //glTranslatef(10,13,3);
+        glCallList(theArticulateArm);
 
-        //glColor3f(.2,0,.8);
+        glTranslatef(0,2,0);
         glCallList(theTarget);
 
 
     glPopMatrix();
+
+
 
     glPushMatrix();
 
         glTranslatef(xRandom, yRandom, zRandom);
         glCallList(theSphere);
 
-    glPopMatrix();
+    glPopMatrix();*/
+
+    glCallList(theArticulateArm);
+
+
 
 
 }

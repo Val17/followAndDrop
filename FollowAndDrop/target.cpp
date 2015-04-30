@@ -34,7 +34,7 @@ void Target::drawTarget()
 
     glEnd();
 
-    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/cible.tga");
+    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/cible.tga");
 
 
 }

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QtWidgets>
 
-MainWindow::MainWindow(QWidget *parent) :
+Window::Window(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -14,12 +14,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-MainWindow::~MainWindow()
+Window::~Window()
 {
     delete ui;
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *e)
+void Window::keyPressEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Escape)
         close();
