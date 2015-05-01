@@ -1,7 +1,14 @@
+// Fichier de declaration de la classe Arena
+// Davy/Denizet
+
 #include "arena.h"
 
 
-
+/**
+ * Constructeur de la classe Arena
+ * @brief Arena::Arena
+ * @param parent
+ */
 Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
     xRot = 0;
@@ -11,11 +18,21 @@ Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 
 }
 
+/**
+ * Destructeur de la classe Arena
+ * @brief Arena::~Arena
+ * @class Arena
+ */
 Arena::~Arena()
 {
 
 }
 
+
+/**
+ * Methode permettant de dessiner l'arene.
+ * @brief Arena::drawArena
+ */
 
 void Arena::drawArena()
 {
@@ -48,7 +65,12 @@ void Arena::drawArena()
 }
 
 
-
+/**
+ * Methode permettant de charger la texture
+ * @brief Arena::loadtgadisplayCDV
+ * @param filename
+ * @return
+ */
 GLuint Arena::loadtgadisplayCDV ( const char* filename )
 {
     FILE* fp;
