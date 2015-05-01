@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QtWidgets>
 
-Window::Window(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -14,20 +14,31 @@ Window::Window(QWidget *parent) :
 
 }
 
-Window::~Window()
+MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-void Window::keyPressEvent(QKeyEvent *e)
+void MainWindow::keyPressEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Escape)
         close();
+
+    else if (e->key() == Qt::Key_S)
+    {
+        setWindowTitle("Lalala");
+    }
 
     else
 
     {
         QWidget::keyPressEvent(e);
     }
+
+}
+
+void MainWindow::on_gameButton_clicked()
+{
+    myGameWidget.show();
 
 }

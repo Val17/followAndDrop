@@ -14,9 +14,11 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "game.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -24,22 +26,49 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    Game *widget;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout;
+    QLabel *label;
+    QPushButton *gameButton;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(500, 500);
-        MainWindow->setMinimumSize(QSize(200, 200));
+        MainWindow->setWindowModality(Qt::WindowModal);
+        MainWindow->setEnabled(true);
+        MainWindow->resize(500, 261);
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMinimumSize(QSize(500, 261));
+        MainWindow->setMaximumSize(QSize(500, 500));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setMinimumSize(QSize(500, 500));
-        widget = new Game(centralWidget);
+        widget = new QWidget(centralWidget);
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(110, 10, 400, 400));
-        widget->setMinimumSize(QSize(400, 400));
-        widget->setMaximumSize(QSize(200, 200));
+        widget->setGeometry(QRect(180, 170, 93, 60));
+        widget->setMinimumSize(QSize(93, 60));
+        verticalLayout = new QVBoxLayout(widget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        label = new QLabel(widget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setMinimumSize(QSize(91, 21));
+
+        verticalLayout->addWidget(label);
+
+        gameButton = new QPushButton(widget);
+        gameButton->setObjectName(QStringLiteral("gameButton"));
+        gameButton->setMinimumSize(QSize(88, 31));
+
+        verticalLayout->addWidget(gameButton, 0, Qt::AlignHCenter|Qt::AlignVCenter);
+
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -50,6 +79,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        label->setText(QApplication::translate("MainWindow", "Main Window", 0));
+        gameButton->setText(QApplication::translate("MainWindow", "Voir le jeu", 0));
     } // retranslateUi
 
 };

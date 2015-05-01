@@ -7,6 +7,7 @@
 #include <GL/gl.h>
 #include <stdio.h>
 #include <GL/glu.h>
+#include <qdebug.h>
 
 class Sphere : public QObject
 {

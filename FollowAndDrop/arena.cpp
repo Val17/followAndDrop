@@ -22,9 +22,9 @@ void Arena::drawArena()
     qDebug()<<"Arena";
 
     int nb_faces = 100;
-    int rayon = 10;
+    int rayon = 20;
 
-    GLtextureArena[0]= loadtgadisplayCDV("../FollowAndDrop/Images/texturebois2.tga");
+    GLtextureArena[0]= loadtgadisplayCDV("../FollowAndDrop/Images/universe.tga");
 
     glBegin(GL_POLYGON);
 

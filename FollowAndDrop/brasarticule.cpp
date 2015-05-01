@@ -112,7 +112,7 @@ void ArticulateArm::drawSphere(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/robot.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/satellite.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
 
@@ -124,7 +124,7 @@ void ArticulateArm::drawCylinder(double r,int height, int lats, int longs)
 
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/robot.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/satellite.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluCylinder(param, r, r, height, lats, longs);
 }

@@ -21,13 +21,15 @@ Game::Game(QWidget *parent) :
     yRandom=0;
     zRandom=7;
 
-    /*QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(dropSphere()));
     timer->start(10);
 
     int VALUE = 10;
 
-    timer -> start(VALUE);*/
+    timer -> start(VALUE);
+
+    boolDrop = false;
 
 }
 
@@ -161,7 +163,7 @@ void Game::resizeGL(int width, int height)
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(110, ((float)width/(float)height),0.01,30);
+    gluPerspective(130, ((float)width/(float)height),0.01,30);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -197,23 +199,6 @@ void Game::draw()
 
     glPushMatrix();
 
-        /* Ces lignes servent a incrementer ou decrementer
-         * l'attribut chrono pour le deplacement*/
-
-        /*glTranslatef(chrono *-.5,0,0);
-        if (chrono <10)
-        {
-            chrono +=1;
-        }
-
-        else
-        {
-            chrono -=104;
-        }
-
-        //qDebug()<<chrono;*/
-
-
         //glColor3f(1,0,.8);
         glTranslatef(1,.2,7);
         glCallList(theArena);
@@ -228,18 +213,35 @@ void Game::draw()
 
     glPopMatrix();
 
+    if (boolDrop == true)
+    {
+        glPushMatrix();
+
+            /* Ces lignes servent a incrementer ou decrementer
+             * l'attribut chrono pour le deplacement*/
+
+            glTranslatef(0,0,chrono *-.5);
+            if (chrono <10)
+            {
+                chrono +=1;
+            }
+
+            else
+            {
+                chrono -=104;
+            }
+
+            //qDebug()<<chrono;
+
+            glTranslatef(xRandom, yRandom, zRandom);
+            glCallList(theSphere);
 
 
-    glPushMatrix();
+        glPopMatrix();
 
-        glTranslatef(xRandom, yRandom, zRandom);
-        glCallList(theSphere);
+        boolDrop=false;
 
-    glPopMatrix();
-
-    //glCallList(theArticulateArm);
-
-
+    }
 
 
 }
@@ -305,7 +307,19 @@ GLuint Game::loadtgadisplayCDV ( const char* filename )
 
 }
 
+void Game::dropSphere()
+{
+    qDebug()<<"Game: dropSphere()";
 
+
+
+    boolDrop = true;
+
+    draw();
+
+
+
+}
 
 
 

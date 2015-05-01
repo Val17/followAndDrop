@@ -20,6 +20,7 @@ public:
     int yRot;
     int zRot;
     ~Game();
+    void dropSphere();
 protected:
 
     void initializeGL();
@@ -57,6 +58,8 @@ private:
     Target myTarget;
     Arm myArm;
     ArticulateArm myArticulateArm;
+
+    bool boolDrop;
 
 
 

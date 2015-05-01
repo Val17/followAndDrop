@@ -2,26 +2,31 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <game.h>
+#include <gamewidget.h>
+
 
 namespace Ui {
 class MainWindow;
 }
 
-class Window : public QMainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit Window(QWidget *parent = 0);
-    ~Window();
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
 
+private slots:
+    void on_gameButton_clicked();
+
 private:
     Ui::MainWindow *ui;
-    Game *myGame;
+    GameWidget myGameWidget;
+
 
 };
 

@@ -14,8 +14,10 @@ HEADERS += mainwindow.h \
     game.h \
     sphere.h \
     arm.h \
-    brasarticule.h
-FORMS += mainwindow.ui
+    brasarticule.h \
+    gamewidget.h
+FORMS += mainwindow.ui \
+    gamewidget.ui
 SOURCES += main.cpp mainwindow.cpp \
     arena.cpp \
     myglwidget.cpp \
@@ -23,7 +25,8 @@ SOURCES += main.cpp mainwindow.cpp \
     game.cpp \
     sphere.cpp \
     arm.cpp \
-    brasarticule.cpp
+    brasarticule.cpp \
+    gamewidget.cpp
 QT += core gui opengl
 
 LIBS = -lGLU #-lglut \
