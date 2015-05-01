@@ -14,11 +14,17 @@ class GameWidget : public QWidget
 public:
     explicit GameWidget(QWidget *parent = 0);
     ~GameWidget();
+    int xCoord; // Coordonnee x de l'endroit ou l'on clique
+    int yCoord; // Coordonnee y de l'endroit ou l'on clique
+    int zCoord; // Coordonnee z de l'endroit ou l'on clique
+
 
 private slots:
     void on_dropButton_clicked();
-
     void on_targetButton_clicked();
+
+
+    void on_coordonateButton_clicked();
 
 private:
     Ui::GameWidget *ui;

@@ -17,7 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
@@ -57,33 +57,103 @@
       <widget class="Game" name="myGame" native="true">
        <property name="minimumSize">
         <size>
-         <width>400</width>
-         <height>500</height>
+         <width>300</width>
+         <height>300</height>
         </size>
        </property>
+       <zorder>xCoord</zorder>
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
-        <widget class="QPushButton" name="dropButton">
-         <property name="text">
-          <string>Drop</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="dropButton">
+           <property name="text">
+            <string>Drop</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="targetButton">
+           <property name="text">
+            <string>Target</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="coordonateButton">
+           <property name="text">
+            <string>Coordonate</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="targetButton">
-         <property name="text">
-          <string>Target</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="xLabel">
+             <property name="text">
+              <string>x:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="xCoord">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="yLabel">
+             <property name="text">
+              <string>y:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="yCoord">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4"/>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
     </layout>
    </item>
   </layout>
+  <zorder>myGame</zorder>
+  <zorder>label</zorder>
+  <zorder>horizontalSpacer_2</zorder>
+  <zorder>dropButton</zorder>
+  <zorder>targetButton</zorder>
+  <zorder>zCoord</zorder>
+  <zorder>yCoord</zorder>
+  <zorder>xCoord</zorder>
+  <zorder>xLabel</zorder>
+  <zorder>yLabel</zorder>
+  <zorder>zLabel</zorder>
+  <zorder>yCoord</zorder>
+  <zorder>zCoord</zorder>
+  <zorder>dropButton</zorder>
+  <zorder></zorder>
  </widget>
  <customwidgets>
   <customwidget>
@@ -91,8 +161,14 @@
    <extends>QWidget</extends>
    <header>game.h</header>
    <container>1</container>
+   <slots>
+    <slot>clicked()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
  <connections/>
+ <slots>
+  <slot>clicked()</slot>
+ </slots>
 </ui>

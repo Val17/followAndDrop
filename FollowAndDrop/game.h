@@ -22,6 +22,7 @@ public:
     ~Game();
     void dropSphere();
     void appearTarget();
+    QPoint lastPos; // Point correspondant au point ou l'utilisateur a clique
 protected:
 
     void initializeGL();
@@ -74,7 +75,7 @@ private:
     bool boolArm;
 
 
-    QPoint lastPos;
+
     int chrono;
 
     int xRandom;
