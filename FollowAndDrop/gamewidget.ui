@@ -17,7 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
@@ -57,18 +57,29 @@
       <widget class="Game" name="myGame" native="true">
        <property name="minimumSize">
         <size>
-         <width>500</width>
+         <width>400</width>
          <height>500</height>
         </size>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="dropButton">
-       <property name="text">
-        <string>Drop</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="dropButton">
+         <property name="text">
+          <string>Drop</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="targetButton">
+         <property name="text">
+          <string>Target</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

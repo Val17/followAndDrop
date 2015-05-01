@@ -18,3 +18,9 @@ void GameWidget::on_dropButton_clicked()
     qDebug()<<"GameWidget: dropButton clicked";
     ui->myGame->dropSphere();
 }
+
+void GameWidget::on_targetButton_clicked()
+{
+    qDebug()<<"GameWidget: targetButton clicked";
+    ui->myGame->appearTarget();
+}

@@ -1,3 +1,6 @@
+// Fichier de definition de la classe Arena
+// Davy/Denizet
+
 #ifndef ARENA_H
 #define ARENA_H
 
@@ -17,11 +20,11 @@ class Arena : public QGLWidget
 
 public:
 
-    explicit Arena(QWidget *parent = 0);
-    GLuint loadtgadisplayCDV ( const char* filename );
-    ~Arena();
-    void drawArena();
-    GLuint GLtextureArena[1];
+    explicit Arena(QWidget *parent = 0); // constructeur de la classe
+    GLuint loadtgadisplayCDV ( const char* filename ); // charge la texture
+    ~Arena(); // destructeur de la classe
+    void drawArena(); // dessiner l'arene
+    GLuint GLtextureArena[1]; // texture de l'arene
 
 public slots:
 
@@ -30,14 +33,8 @@ protected:
 
 signals:
 
-
 private:
 
-
-    int xRot;
-    int yRot;
-    int zRot;
-    QPoint lastPos;
 };
 
 #endif // ARENA_H

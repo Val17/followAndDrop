@@ -18,6 +18,8 @@ public:
 private slots:
     void on_dropButton_clicked();
 
+    void on_targetButton_clicked();
+
 private:
     Ui::GameWidget *ui;
 };

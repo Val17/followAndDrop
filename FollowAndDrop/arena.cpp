@@ -11,9 +11,7 @@
  */
 Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-    xRot = 0;
-    yRot = 0;
-    zRot = 0;
+
     GLtextureArena[0];
 
 }
@@ -42,6 +40,7 @@ void Arena::drawArena()
     int rayon = 20;
 
     GLtextureArena[0]= loadtgadisplayCDV("../FollowAndDrop/Images/universe.tga");
+
 
     glBegin(GL_POLYGON);
 

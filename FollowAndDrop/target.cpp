@@ -8,7 +8,8 @@
 
 Target::Target(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-
+    xTar = 0;
+    yTar = 5;
 }
 
 

@@ -12,8 +12,10 @@ class Target : public QGLWidget
 public:
     explicit Target(QWidget *parent = 0);
     GLuint loadtgadisplayCDV(const char *filename);
-     void drawTarget();
-     GLuint GLtexture[1];
+    void drawTarget();
+    GLuint GLtexture[1];
+    int xTar; // abscisse aleatoire
+    int yTar; // ordonnee aleatoire
 
 protected:
 
@@ -23,10 +25,7 @@ public slots:
 
 private:
 
-    int xRot;
-    int yRot;
-    int zRot;
-    QPoint lastPos;
+
 };
 
 #endif // TARGET_H

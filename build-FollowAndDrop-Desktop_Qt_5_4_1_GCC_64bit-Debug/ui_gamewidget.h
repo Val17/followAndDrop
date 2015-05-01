@@ -29,12 +29,14 @@ class Ui_GameWidget
 public:
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
-    QHBoxLayout *horizontalLayout;
+    QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_2;
     QLabel *label;
     QSpacerItem *horizontalSpacer;
     Game *myGame;
+    QHBoxLayout *horizontalLayout;
     QPushButton *dropButton;
+    QPushButton *targetButton;
 
     void setupUi(QWidget *GameWidget)
     {
@@ -45,34 +47,44 @@ public:
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addItem(horizontalSpacer_2);
+        horizontalLayout_2->addItem(horizontalSpacer_2);
 
         label = new QLabel(GameWidget);
         label->setObjectName(QStringLiteral("label"));
 
-        horizontalLayout->addWidget(label);
+        horizontalLayout_2->addWidget(label);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addItem(horizontalSpacer);
+        horizontalLayout_2->addItem(horizontalSpacer);
 
 
-        verticalLayout->addLayout(horizontalLayout);
+        verticalLayout->addLayout(horizontalLayout_2);
 
         myGame = new Game(GameWidget);
         myGame->setObjectName(QStringLiteral("myGame"));
-        myGame->setMinimumSize(QSize(500, 500));
+        myGame->setMinimumSize(QSize(400, 500));
 
         verticalLayout->addWidget(myGame);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         dropButton = new QPushButton(GameWidget);
         dropButton->setObjectName(QStringLiteral("dropButton"));
 
-        verticalLayout->addWidget(dropButton);
+        horizontalLayout->addWidget(dropButton);
+
+        targetButton = new QPushButton(GameWidget);
+        targetButton->setObjectName(QStringLiteral("targetButton"));
+
+        horizontalLayout->addWidget(targetButton);
+
+
+        verticalLayout->addLayout(horizontalLayout);
 
 
         verticalLayout_2->addLayout(verticalLayout);
@@ -88,6 +100,7 @@ public:
         GameWidget->setWindowTitle(QApplication::translate("GameWidget", "Game", 0));
         label->setText(QApplication::translate("GameWidget", "Follow and Drop", 0));
         dropButton->setText(QApplication::translate("GameWidget", "Drop", 0));
+        targetButton->setText(QApplication::translate("GameWidget", "Target", 0));
     } // retranslateUi
 
 };

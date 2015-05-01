@@ -29,7 +29,14 @@ Game::Game(QWidget *parent) :
 
     timer -> start(VALUE);
 
+    /*
+     * Au depart, il n'y aucun element graphique
+     * */
+
     boolDrop = false;
+    boolArena = false;
+    boolArm = false;
+    boolTarget = false;
 
 }
 
@@ -202,16 +209,16 @@ void Game::draw()
         //glColor3f(1,0,.8);
         glTranslatef(1,.2,7);
         glCallList(theArena);
-
+        boolArena = true; // l'Arene apparait
 
         //glTranslatef(10,13,3);
         glCallList(theArticulateArm);
-
-        glTranslatef(0,5,0);
-        glCallList(theTarget);
+        boolArm=true; // le Bras apparait
 
 
     glPopMatrix();
+
+    // Il y a eu appel de la methode dropSphere
 
     if (boolDrop == true)
     {
@@ -239,8 +246,22 @@ void Game::draw()
 
         glPopMatrix();
 
-        boolDrop=false;
+        //boolDrop=false;
 
+    }
+
+    /*
+     * Il y a eu appel de la methode
+     * appearTarget()
+     * */
+
+    if (boolTarget==true)
+    {
+        qDebug()<<"Game: draw() boolTarget true";
+        glPushMatrix();
+            glTranslatef(myTarget.xTar, myTarget.yTar,0);
+            glCallList(theTarget);
+        glPopMatrix();
     }
 
 
@@ -311,14 +332,17 @@ void Game::dropSphere()
 {
     qDebug()<<"Game: dropSphere()";
 
-
-
     boolDrop = true;
 
     draw();
 
+}
 
-
+void Game::appearTarget()
+{
+    qDebug()<<"Game: appearTarget()";
+    boolTarget=true;
+    draw();
 }
 
 

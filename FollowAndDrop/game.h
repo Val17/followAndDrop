@@ -21,6 +21,7 @@ public:
     int zRot;
     ~Game();
     void dropSphere();
+    void appearTarget();
 protected:
 
     void initializeGL();
@@ -59,8 +60,18 @@ private:
     Arm myArm;
     ArticulateArm myArticulateArm;
 
-    bool boolDrop;
+    /*
+     * Booleens qui permettent de controler
+     * la presence de l'element graphique
+     * correspondant.
+     * Exemple: boolArena a comme valeur true
+     * si il y a l'Arene qui est a l'ecran.
+     * */
 
+    bool boolDrop;
+    bool boolTarget;
+    bool boolArena;
+    bool boolArm;
 
 
     QPoint lastPos;
