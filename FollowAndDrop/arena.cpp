@@ -24,6 +24,8 @@ void Arena::drawArena()
     int nb_faces = 100;
     int rayon = 10;
 
+    GLtextureArena[0]= loadtgadisplayCDV("../FollowAndDrop/Images/texturebois2.tga");
+
     glBegin(GL_POLYGON);
 
         for(int i=0; i<nb_faces; i++)
@@ -40,7 +42,7 @@ void Arena::drawArena()
 
      glEnd();
 
-     GLtextureArena[0]= loadtgadisplayCDV("../FollowAndDrop/Images/texturebois2.tga");
+
 
 
 }

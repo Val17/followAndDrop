@@ -2,7 +2,9 @@
 
 ArticulateArm::ArticulateArm(QGLWidget *parent) : QGLWidget(parent)
 {
-
+    alpha=60;
+    beta=0;
+    gamma=0;
 }
 
 ArticulateArm::~ArticulateArm()
@@ -17,7 +19,7 @@ void ArticulateArm::drawArm()
     glPushMatrix();
         glTranslatef(0,0,1);
         glScalef(1,1,0.5);
-        glColor3f (1.0, 0, 0.0);
+        //glColor3f (1.0, 0, 0.0);
         drawSphere(1, 50,50);
     glPopMatrix();
 
@@ -27,6 +29,8 @@ void ArticulateArm::drawArm()
         glPushMatrix();
 
         // epaule
+
+            glRotatef(alpha, 1, 0, 0);
 
             glPushMatrix();
             glScalef(1,1,1);
@@ -108,8 +112,8 @@ void ArticulateArm::drawSphere(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    //glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/texturebois2.tga"));
-    //gluQuadricTexture(param, GL_TRUE);
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/robot.tga"));
+    gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
 
 
@@ -120,6 +124,8 @@ void ArticulateArm::drawCylinder(double r,int height, int lats, int longs)
 
     GLUquadric* param;
     param = gluNewQuadric();
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/robot.tga"));
+    gluQuadricTexture(param, GL_TRUE);
     gluCylinder(param, r, r, height, lats, longs);
 }
 

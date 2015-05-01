@@ -20,6 +20,9 @@ public:
     void drawArm();
     void drawSphere(double r, int lats, int longs);
     void drawCylinder(double r,int height, int lats, int stacks);
+    int alpha;
+    int beta;
+    int gamma;
 
 public slots:
 

@@ -7,12 +7,13 @@ Sphere::Sphere(QObject *parent) : QObject(parent)
 
 void Sphere::drawSphere(double radius, int slices, int stacks)
 {
-    glColor3f(0,.8,.1);
-    GLUquadric* params = gluNewQuadric();
-    gluSphere(params,radius, slices, stacks);
 
+    GLUquadric* param;
+    param = gluNewQuadric();
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/earth.tga"));
+    gluQuadricTexture(param, GL_TRUE);
+    gluSphere(param, radius, slices, stacks);
 
-    //GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/lena.tga");
 
 }
 

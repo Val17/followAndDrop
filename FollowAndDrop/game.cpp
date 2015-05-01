@@ -144,9 +144,9 @@ void Game::paintGL()
     glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
     glRotatef(-zRot/16, 1.0, 0.0, 0.0);*/
 
-    glRotatef(-xRot/16, 1.0, 0.0, 0.0); //theta
+    //glRotatef(-xRot/16, 1.0, 0.0, 0.0); //theta
     glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
-    glRotatef(-zRot/16, 1.0, 0.0, 0.0);
+    //glRotatef(-zRot/16, 1.0, 0.0, 0.0);
 
     draw();
 
@@ -195,7 +195,7 @@ void Game::draw()
     qDebug()<<xRot<<"-"<<yRot<<"-"<<zRot;
     glClear(GL_COLOR_BUFFER_BIT);
 
-    /*glPushMatrix();
+    glPushMatrix();
 
         /* Ces lignes servent a incrementer ou decrementer
          * l'attribut chrono pour le deplacement*/
@@ -211,7 +211,7 @@ void Game::draw()
             chrono -=104;
         }
 
-        //qDebug()<<chrono;
+        //qDebug()<<chrono;*/
 
 
         //glColor3f(1,0,.8);
@@ -222,7 +222,7 @@ void Game::draw()
         //glTranslatef(10,13,3);
         glCallList(theArticulateArm);
 
-        glTranslatef(0,2,0);
+        glTranslatef(0,5,0);
         glCallList(theTarget);
 
 
@@ -235,9 +235,9 @@ void Game::draw()
         glTranslatef(xRandom, yRandom, zRandom);
         glCallList(theSphere);
 
-    glPopMatrix();*/
+    glPopMatrix();
 
-    glCallList(theArticulateArm);
+    //glCallList(theArticulateArm);
 
 
 
