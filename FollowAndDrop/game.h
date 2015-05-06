@@ -20,9 +20,11 @@ public:
     int yRot;
     int zRot;
     ~Game();
-    void dropSphere();
-    void appearTarget();
+
     QPoint lastPos; // Point correspondant au point ou l'utilisateur a clique
+    Arena myArena;
+    bool boolArm;
+
 protected:
 
     void initializeGL();
@@ -41,7 +43,10 @@ public slots:
     void setXRotation(int angle);
     void setYRotation(int angle);
     void setZRotation(int angle);
-signals:
+    void dropSphere();
+    void appearTarget();
+    void moveArm();
+   signals:
     // signaling rotation from mouse movement
     void xRotationChanged(int angle);
     void yRotationChanged(int angle);
@@ -55,7 +60,7 @@ private:
     GLuint theTarget;
     GLuint theArm;
     GLuint theArticulateArm;
-    Arena myArena;
+
     Sphere mySphere;
     Target myTarget;
     Arm myArm;
@@ -72,7 +77,7 @@ private:
     bool boolDrop;
     bool boolTarget;
     bool boolArena;
-    bool boolArm;
+
 
 
 
@@ -84,6 +89,7 @@ private:
 
 
     GLuint loadtgadisplayCDV(const char *filename);
+
 };
 
 #endif // GAME_H

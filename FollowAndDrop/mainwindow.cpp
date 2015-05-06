@@ -7,9 +7,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    /*ui->xValue->setText(QString::number(myGame->xRot));
-    ui->yValue->setText(QString::number(myGame->yRot));
-    ui->zValue->setText(QString::number(myGame->zRot));*/
+
+    QPushButton *button = ui->animationButton;
+
+
+    QPropertyAnimation animation(button,"geometry");
+    animation.setKeyValueAt(0, QRect(0, 0, 100, 30));
+    animation.setKeyValueAt(0.8, QRect(250, 250, 100, 30));
+    animation.setKeyValueAt(1, QRect(0, 0, 100, 30));
+
+    //animation.start();
+
+    animation.start();
 
 
 }

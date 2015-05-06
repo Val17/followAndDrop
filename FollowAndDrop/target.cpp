@@ -19,7 +19,7 @@ void Target::drawTarget()
     int nb_faces = 100;
     int rayon = 3;
 
-    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga");
+    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/cible.tga");
 
     glBegin(GL_POLYGON);
 

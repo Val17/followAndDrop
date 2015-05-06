@@ -25,6 +25,8 @@ public:
     ~Arena(); // destructeur de la classe
     void drawArena(); // dessiner l'arene
     GLuint GLtextureArena[1]; // texture de l'arene
+    char* texture; // texture utilisee pour l'arene
+
 
 public slots:
 

@@ -24,6 +24,9 @@ public:
     int beta;
     int gamma;
 
+    void moveShoulder(int b);
+    void moveBase(int a);
+    void moveHand(int g);
 public slots:
 
 signals:

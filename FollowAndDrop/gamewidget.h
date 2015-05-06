@@ -19,12 +19,17 @@ public:
     int zCoord; // Coordonnee z de l'endroit ou l'on clique
 
 
+protected:
+    void keyPressEvent(QKeyEvent *e);
 private slots:
     void on_dropButton_clicked();
     void on_targetButton_clicked();
 
 
     void on_coordonateButton_clicked();
+
+    void on_menuButton_clicked();
+
 
 private:
     Ui::GameWidget *ui;

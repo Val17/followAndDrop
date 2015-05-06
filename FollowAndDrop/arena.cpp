@@ -13,6 +13,7 @@ Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
 
     GLtextureArena[0];
+    texture = "../FollowAndDrop/Images/ground1.tga";
 
 }
 
@@ -34,12 +35,13 @@ Arena::~Arena()
 
 void Arena::drawArena()
 {
-    qDebug()<<"Arena";
+    qDebug()<<"Arena: drawArena";
+    qDebug()<<texture;
 
     int nb_faces = 100;
     int rayon = 20;
 
-    GLtextureArena[0]= loadtgadisplayCDV("../FollowAndDrop/Images/universe.tga");
+    GLtextureArena[0]= loadtgadisplayCDV(texture);
 
 
     glBegin(GL_POLYGON);
@@ -129,5 +131,4 @@ GLuint Arena::loadtgadisplayCDV ( const char* filename )
 
     return textureId;
 }
-
 

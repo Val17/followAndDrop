@@ -32,3 +32,28 @@ void GameWidget::on_coordonateButton_clicked()
     ui->xCoord->setText(QString::number(ui->myGame->lastPos.x()));
     ui->yCoord->setText(QString::number(ui->myGame->lastPos.y()));
 }
+
+void GameWidget::on_menuButton_clicked()
+{
+    close();
+}
+
+void GameWidget::keyPressEvent(QKeyEvent *e)
+{
+    if (e->key() == Qt::Key_Escape)
+        close();
+
+    else if (e->key() == Qt::Key_S)
+    {
+        ui->myGame->boolArm=false;
+        ui->myGame->update();
+    }
+
+    else
+
+    {
+        QWidget::keyPressEvent(e);
+    }
+
+}
+

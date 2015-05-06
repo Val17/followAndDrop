@@ -22,12 +22,10 @@ Game::Game(QWidget *parent) :
     zRandom=7;
 
     QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(dropSphere()));
-    timer->start(10);
+    connect(timer, SIGNAL(timeout()), this, SLOT(moveArm()));
 
-    int VALUE = 10;
+    timer->start(1);
 
-    timer -> start(VALUE);
 
     /*
      * Au depart, il n'y aucun element graphique
@@ -35,7 +33,7 @@ Game::Game(QWidget *parent) :
 
     boolDrop = false;
     boolArena = false;
-    boolArm = false;
+    boolArm = true;
     boolTarget = false;
 
 }
@@ -57,12 +55,12 @@ QSize Game::sizeHint() const
 static void qNormalizeAngle(int &angle)
 {
     //qDebug()<<"Game:qNormalizeAngle";
-    //while (angle < 0)
-        //angle += 360 * 20;
-        //angle +=360;
-    //while (angle > 360)
-        //angle -= 360 * 20;
-        //angle -= 360;
+    while (angle < 0)
+        angle += 360 * 20;
+        angle +=360;
+    while (angle > 360)
+        angle -= 360 * 20;
+        angle -= 360;
 }
 
 void Game::setXRotation(int angle)
@@ -103,7 +101,7 @@ void Game::initializeGL()
 {
     qDebug()<<"Game: init";
 
-    theArena = glGenLists(5);
+    /*theArena = glGenLists(5);
 
     glNewList(theArena, GL_COMPILE);
          myArena.drawArena();
@@ -132,7 +130,9 @@ void Game::initializeGL()
 
     glNewList(theArticulateArm, GL_COMPILE);
         myArticulateArm.drawArm();
-    glEndList();
+    glEndList();*/
+
+
 
 }
 
@@ -146,18 +146,26 @@ void Game::paintGL()
 
     // initalize the coordinate system to correct alignement
 
-    glTranslatef(0.0, -5.0, -20.0);
-    glRotatef(40, -1, 0, 0);
+    /*glTranslatef(0.0, -5.0, -27.0);
+    glRotatef(70, -1, 0.0, 0.0);*/
 
-    /*glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
+    glRotatef (90,1,0,0);
+    glRotatef (90,0,0,1);
+
+
+    // Perform world transformations
+
+    glTranslatef(-35,0,-10);
+
+
+    glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
     glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
-    glRotatef(-zRot/16, 1.0, 0.0, 0.0);*/
+    glRotatef(-zRot/16, 1.0, 0.0, 0.0);
 
-    //glRotatef(-xRot/16, 1.0, 0.0, 0.0); //theta
-    glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
-    //glRotatef(-zRot/16, 1.0, 0.0, 0.0);
-
+    cout<<xRot<<endl<<yRot<<endl<<zRot<<endl;
     draw();
+
+
 
 
 }
@@ -170,7 +178,7 @@ void Game::resizeGL(int width, int height)
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(130, ((float)width/(float)height),0.01,30);
+    gluPerspective(50, ((float)width/(float)height),0.01,1000);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -186,12 +194,12 @@ void Game::mouseMoveEvent(QMouseEvent *event)
     int dy = event->y() - lastPos.y();
 
     if (event->buttons() & Qt::LeftButton) {
-        setXRotation(xRot + 8 * dx);
-        setYRotation(yRot + 8 * dy);
+        setXRotation(xRot + 8 * dy);
+        setYRotation(yRot + 8 * dx);
         //setZRotation(zRot + 8 * dy);
     } else if (event->buttons() & Qt::RightButton) {
-        setXRotation(xRot + 8 * dx);
-        setZRotation(zRot + 8 * dy);
+        setXRotation(xRot + 8 * dy);
+        setZRotation(zRot + 8 * dx);
     }
 
     lastPos = event->pos();
@@ -199,70 +207,22 @@ void Game::mouseMoveEvent(QMouseEvent *event)
 
 void Game::draw()
 {
-    qDebug()<<"Game: draw";
 
-    qDebug()<<xRot<<"-"<<yRot<<"-"<<zRot;
+
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glPushMatrix();
 
-        //glColor3f(1,0,.8);
-        glTranslatef(1,.2,7);
-        glCallList(theArena);
-        boolArena = true; // l'Arene apparait
-
-        //glTranslatef(10,13,3);
-        glCallList(theArticulateArm);
-        boolArm=true; // le Bras apparait
-
-
-    glPopMatrix();
-
-    // Il y a eu appel de la methode dropSphere
-
-    if (boolDrop == true)
+    if (boolArm==true)
     {
         glPushMatrix();
-
-            /* Ces lignes servent a incrementer ou decrementer
-             * l'attribut chrono pour le deplacement*/
-
-            glTranslatef(0,0,chrono *-.5);
-            if (chrono <10)
-            {
-                chrono +=1;
-            }
-
-            else
-            {
-                chrono -=104;
-            }
-
-            //qDebug()<<chrono;
-
-            glTranslatef(xRandom, yRandom, zRandom);
-            glCallList(theSphere);
-
-
+            myArena.drawArena();
         glPopMatrix();
 
-        //boolDrop=false;
-
-    }
-
-    /*
-     * Il y a eu appel de la methode
-     * appearTarget()
-     * */
-
-    if (boolTarget==true)
-    {
-        qDebug()<<"Game: draw() boolTarget true";
         glPushMatrix();
-            glTranslatef(myTarget.xTar, myTarget.yTar,0);
-            glCallList(theTarget);
+            myArticulateArm.drawArm();
         glPopMatrix();
     }
+
 
 
 }
@@ -345,7 +305,27 @@ void Game::appearTarget()
     draw();
 }
 
+void Game::moveArm()
+{
 
+    //myArticulateArm.moveShoulder(chrono);
+    //myArticulateArm.moveBase(chrono);
+    myArticulateArm.moveHand(chrono);
+    update();
+
+    if (chrono<360)
+    {
+        chrono +=10;
+    }
+
+    else
+    {
+        chrono -=360;
+    }
+
+    //xRot+=10;
+
+}
 
 
 

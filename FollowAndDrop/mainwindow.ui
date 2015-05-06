@@ -47,17 +47,11 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>170</y>
+      <x>200</x>
+      <y>51</y>
       <width>93</width>
-      <height>60</height>
+      <height>97</height>
      </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>93</width>
-      <height>60</height>
-     </size>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
@@ -73,7 +67,7 @@
        </property>
       </widget>
      </item>
-     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+     <item>
       <widget class="QPushButton" name="gameButton">
        <property name="minimumSize">
         <size>
@@ -83,6 +77,13 @@
        </property>
        <property name="text">
         <string>Voir le jeu</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="animationButton">
+       <property name="text">
+        <string>Animation</string>
        </property>
       </widget>
      </item>

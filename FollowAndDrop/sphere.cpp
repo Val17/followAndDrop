@@ -10,7 +10,7 @@ void Sphere::drawSphere(double radius, int slices, int stacks)
     qDebug()<<"Sphere: drawSphere()";
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/mars.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, radius, slices, stacks);
 

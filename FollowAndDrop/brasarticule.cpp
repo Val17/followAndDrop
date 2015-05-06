@@ -1,8 +1,11 @@
 #include "brasarticule.h"
+#include <iostream>
+
+using namespace std;
 
 ArticulateArm::ArticulateArm(QGLWidget *parent) : QGLWidget(parent)
 {
-    alpha=60;
+    alpha=0;
     beta=0;
     gamma=0;
 }
@@ -14,6 +17,7 @@ ArticulateArm::~ArticulateArm()
 
 void ArticulateArm::drawArm()
 {
+
 
     //base
     glPushMatrix();
@@ -48,9 +52,15 @@ void ArticulateArm::drawArm()
 
             glPushMatrix();
 
+
+
                 glTranslatef(0,0,7.5);
                 glPushMatrix();
                 //coude
+
+                    glRotatef(beta, 0, 1, 0);
+
+
                     glPushMatrix();
                         glScalef(1,1,1);
                         //glColor3f(1.0, 0, 0);
@@ -68,6 +78,8 @@ void ArticulateArm::drawArm()
 
                         glTranslatef(0,0,7);
                         // poignet
+
+                        glRotatef(gamma, 0, 0, 1);
 
                         glPushMatrix();
                             glScalef(1,1,1);
@@ -112,7 +124,7 @@ void ArticulateArm::drawSphere(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/satellite.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/robot.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
 
@@ -124,7 +136,7 @@ void ArticulateArm::drawCylinder(double r,int height, int lats, int longs)
 
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/satellite.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/robot.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluCylinder(param, r, r, height, lats, longs);
 }
@@ -189,4 +201,19 @@ free(imageData);
 return textureId;
 }
 
+void ArticulateArm::moveShoulder(int b)
+{
 
+    beta=b;
+    //drawArm();
+}
+
+void ArticulateArm::moveBase(int a)
+{
+    alpha = a;
+}
+
+void ArticulateArm::moveHand(int g)
+{
+    gamma = g;
+}
