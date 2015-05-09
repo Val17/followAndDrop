@@ -8,18 +8,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QPushButton *button = ui->animationButton;
-
-
-    QPropertyAnimation animation(button,"geometry");
-    animation.setKeyValueAt(0, QRect(0, 0, 100, 30));
-    animation.setKeyValueAt(0.8, QRect(250, 250, 100, 30));
-    animation.setKeyValueAt(1, QRect(0, 0, 100, 30));
-
-    //animation.start();
-
-    animation.start();
-
+    QPixmap bkgnd("../FollowAndDrop/Images/background_1.png");
+            bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+            QPalette palette;
+            palette.setBrush(QPalette::Background, bkgnd);
+            this->setPalette(palette);
 
 }
 
@@ -33,11 +26,6 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
     if (e->key() == Qt::Key_Escape)
         close();
 
-    else if (e->key() == Qt::Key_S)
-    {
-        setWindowTitle("Lalala");
-    }
-
     else
 
     {
@@ -50,4 +38,24 @@ void MainWindow::on_gameButton_clicked()
 {
     myGameWidget.show();
 
+}
+
+void MainWindow::on_gameButton_pressed()
+{
+    myGameWidget.show();
+}
+
+void MainWindow::on_quitButton_clicked()
+{
+    close();
+}
+
+void MainWindow::on_newGameAction_clicked()
+{
+    myGameWidget.show();
+}
+
+void MainWindow::on_quitAction_clicked()
+{
+    close();
 }

@@ -21,10 +21,10 @@ Game::Game(QWidget *parent) :
     yRandom=0;
     zRandom=7;
 
-    QTimer *timer = new QTimer(this);
+    /*QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(moveArm()));
 
-    timer->start(1);
+    timer->start(1);*/
 
 
     /*
@@ -35,6 +35,7 @@ Game::Game(QWidget *parent) :
     boolArena = false;
     boolArm = true;
     boolTarget = false;
+    intGluPerspective = 70;
 
 }
 
@@ -99,7 +100,7 @@ void Game::setZRotation(int angle)
 
 void Game::initializeGL()
 {
-    qDebug()<<"Game: init";
+    //qDebug()<<"Game: init";
 
     /*theArena = glGenLists(5);
 
@@ -138,7 +139,7 @@ void Game::initializeGL()
 
 void Game::paintGL()
 {
-    qDebug()<<"Game: paintGL";
+    //qDebug()<<"Game: paintGL";
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1,1,1);
     glLoadIdentity();
@@ -149,18 +150,26 @@ void Game::paintGL()
     /*glTranslatef(0.0, -5.0, -27.0);
     glRotatef(70, -1, 0.0, 0.0);*/
 
-    glRotatef (90,1,0,0);
-    glRotatef (90,0,0,1);
+    /*glRotatef (90,1,0,0);
+    glRotatef (90,0,0,1);*/
 
 
     // Perform world transformations
 
-    glTranslatef(-35,0,-10);
+    glTranslatef(0,0,-35);
+    glRotatef(-80,1,0,0);
+    glTranslatef(0,0,zRot);
+    /*glRotatef(xRot,1,0,0);
+    glRotatef(yRot,0,1,0);
+    glRotatef(zRot,0,0,1);*/
 
+    /*glTranslatef(xRot,0,0);
+    glTranslatef(0,yRot,0);
+    glTranslatef(0,0,zRot);*/
 
-    glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
-    glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
-    glRotatef(-zRot/16, 1.0, 0.0, 0.0);
+    //glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
+    //glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
+    //glRotatef(-zRot/16, 1.0, 0.0, 0.0);
 
     cout<<xRot<<endl<<yRot<<endl<<zRot<<endl;
     draw();
@@ -172,13 +181,13 @@ void Game::paintGL()
 
 void Game::resizeGL(int width, int height)
 {
-    qDebug()<<"Game: resizeGL";
+    //qDebug()<<"Game: resizeGL";
     int side = qMin(width, height);
     glViewport((width - side) / 2, (height - side) / 2, side, side);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(50, ((float)width/(float)height),0.01,1000);
+    gluPerspective(intGluPerspective, ((float)width/(float)height),0.01,1000);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -189,7 +198,7 @@ void Game::mousePressEvent(QMouseEvent *event)
 
 void Game::mouseMoveEvent(QMouseEvent *event)
 {
-    qDebug()<<"Game: mouseEvent";
+    //qDebug()<<"Game: mouseEvent";
     int dx = event->x() - lastPos.x();
     int dy = event->y() - lastPos.y();
 
@@ -221,6 +230,13 @@ void Game::draw()
         glPushMatrix();
             myArticulateArm.drawArm();
         glPopMatrix();
+    }
+
+    if (boolSphere==true)
+    {
+        glTranslatef(mySphere.xSphere,mySphere.ySphere,0);
+        qDebug()<<"Sphere: "<<mySphere.xSphere<<" - "<<mySphere.ySphere;
+        mySphere.drawSphere(2, 50, 50);
     }
 
 
@@ -310,7 +326,7 @@ void Game::moveArm()
 
     //myArticulateArm.moveShoulder(chrono);
     //myArticulateArm.moveBase(chrono);
-    myArticulateArm.moveHand(chrono);
+    /*myArticulateArm.moveHand(chrono);
     update();
 
     if (chrono<360)
@@ -321,7 +337,7 @@ void Game::moveArm()
     else
     {
         chrono -=360;
-    }
+    }*/
 
     //xRot+=10;
 

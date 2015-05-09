@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>689</width>
-    <height>394</height>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -113,9 +113,12 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="targetButton">
+        <widget class="QPushButton" name="sphereButton">
          <property name="text">
-          <string>Target</string>
+          <string>Sphere</string>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -182,12 +185,6 @@
    </item>
   </layout>
   <zorder></zorder>
-  <zorder>texture1Button</zorder>
-  <zorder>texture2Button</zorder>
-  <zorder>horizontalSpacer_4</zorder>
-  <zorder>verticalSpacer</zorder>
-  <zorder>horizontalSpacer_7</zorder>
-  <zorder>horizontalSpacer_8</zorder>
  </widget>
  <customwidgets>
   <customwidget>

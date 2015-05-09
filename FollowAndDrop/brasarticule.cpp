@@ -7,6 +7,7 @@ ArticulateArm::ArticulateArm(QGLWidget *parent) : QGLWidget(parent)
 {
     alpha=0;
     beta=0;
+    delta=0;
     gamma=0;
 }
 
@@ -21,15 +22,16 @@ void ArticulateArm::drawArm()
 
     //base
     glPushMatrix();
-        glTranslatef(0,0,1);
-        glScalef(1,1,0.5);
-        //glColor3f (1.0, 0, 0.0);
+
+        glScalef(2,2,0.1);
         drawSphere(1, 50,50);
+
     glPopMatrix();
 
     glPushMatrix();
 
-        glTranslatef(0,0, 1.5);
+        glTranslatef(0,0,1);
+
         glPushMatrix();
 
         // epaule
@@ -37,73 +39,79 @@ void ArticulateArm::drawArm()
             glRotatef(alpha, 1, 0, 0);
 
             glPushMatrix();
-            glScalef(1,1,1);
-            //glColor3f(0.0,1.0,0.0);
-            drawSphere(1 ,50,50);
-            glPopMatrix();
 
-            glPushMatrix();
-            glTranslatef(0,0, 2.25);
+                drawSphere(1 ,50,50);
 
-            glScalef(1,1,1);
-            //glColor3f(0.0,1.0,1.0);
-            drawCylinder(1, 3, 20, 1);
             glPopMatrix();
 
             glPushMatrix();
 
+                glTranslatef(0,0, 1);
+                glScalef(1,1,1);
+                drawCylinder(1, 3, 20, 1);
 
+            glPopMatrix();
 
-                glTranslatef(0,0,7.5);
+            glPushMatrix();
+
+                glTranslatef(0,0,5);
+
                 glPushMatrix();
-                //coude
+
+                    //coude
 
                     glRotatef(beta, 0, 1, 0);
 
-
                     glPushMatrix();
-                        glScalef(1,1,1);
-                        //glColor3f(1.0, 0, 0);
+
                         drawSphere(1, 50, 50);
+
                     glPopMatrix();
 
                     //avant-bras
+
                     glPushMatrix();
-                        glTranslatef(0,0,2.5);
-                        //glColor3f(1,0,1);
+
+                        glTranslatef(0,0,1);
                         drawCylinder(1,3,20,1);
+
                     glPopMatrix();
 
                     glPushMatrix();
 
-                        glTranslatef(0,0,7);
+                        glTranslatef(0,0,5);
+
                         // poignet
 
+                        glRotatef(delta, 0, 1, 0);
                         glRotatef(gamma, 0, 0, 1);
 
                         glPushMatrix();
-                            glScalef(1,1,1);
+
                             drawSphere(1, 50, 50);
+
                         glPopMatrix();
 
                         // pince 1
 
                         glPushMatrix();
-                            glTranslatef(0, 2, 1.5);
+
+                            glTranslatef(0, 2, 1);
                             glRotatef(-40, 1, 0, 1);
-                            //glColor3f(1.0,0,1.0);
                             glScalef(.5,.5,2);
                             drawCylinder(.5,1,20,1);
+
                          glPopMatrix();
 
                          // pince 2
 
                          glPushMatrix();
-                             glTranslatef(0, -2, 1.5);
+
+                             glTranslatef(0, -2, 1);
                              glRotatef(40, 1, 0, 1);
-                             //glColor3f(1.0,0,1.0);
                              glScalef(.5,.5,2);
                              drawCylinder(.5,1,20,1);
+
                           glPopMatrix();
 
                      glPopMatrix();
@@ -208,12 +216,27 @@ void ArticulateArm::moveShoulder(int b)
     //drawArm();
 }
 
-void ArticulateArm::moveBase(int a)
+void ArticulateArm::moveBase (int e)
+{
+    epsilon = e;
+}
+
+/*void ArticulateArm::moveShoulder(int a)
 {
     alpha = a;
 }
 
-void ArticulateArm::moveHand(int g)
+void ArticulateArm::movePliers(int g)
 {
     gamma = g;
+}*/
+
+void ArticulateArm::moveHand(int d)
+{
+    delta = d;
+}
+
+void ArticulateArm::catchSphere(int a, int b, int d, int g)
+{
+
 }

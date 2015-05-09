@@ -24,6 +24,12 @@ public:
     QPoint lastPos; // Point correspondant au point ou l'utilisateur a clique
     Arena myArena;
     bool boolArm;
+    bool boolSphere;
+    Sphere mySphere;
+    Target myTarget;
+    Arm myArm;
+    ArticulateArm myArticulateArm;
+    int intGluPerspective;
 
 protected:
 
@@ -61,10 +67,8 @@ private:
     GLuint theArm;
     GLuint theArticulateArm;
 
-    Sphere mySphere;
-    Target myTarget;
-    Arm myArm;
-    ArticulateArm myArticulateArm;
+
+
 
     /*
      * Booleens qui permettent de controler

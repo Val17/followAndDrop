@@ -14,8 +14,11 @@ class Sphere : public QObject
     Q_OBJECT
 public:
     explicit Sphere(QObject *parent = 0);
+    int xSphere; // coordonnee x de la sphere
+    int ySphere; // coordonne y de la sphere
 
     void drawSphere(double radius, int slices, int stacks);
+    bool isMovable(int x, int y, int s);
 signals:
 
 public slots:

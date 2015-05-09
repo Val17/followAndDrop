@@ -1,4 +1,4 @@
-// Fichier de declaration de la classe Arena
+﻿// Fichier de declaration de la classe Arena
 // Davy/Denizet
 
 #include "arena.h"
@@ -14,6 +14,7 @@ Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 
     GLtextureArena[0];
     texture = "../FollowAndDrop/Images/ground1.tga";
+    size = 20;
 
 }
 
@@ -39,7 +40,7 @@ void Arena::drawArena()
     qDebug()<<texture;
 
     int nb_faces = 100;
-    int rayon = 20;
+
 
     GLtextureArena[0]= loadtgadisplayCDV(texture);
 
@@ -54,13 +55,11 @@ void Arena::drawArena()
 
             glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
 
-            glVertex2f(xcos*rayon, ycos*rayon );
+            glVertex2f(xcos*size, ycos*size );
 
         }
 
      glEnd();
-
-
 
 
 }

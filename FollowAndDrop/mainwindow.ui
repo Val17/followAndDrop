@@ -44,7 +44,7 @@
      <height>500</height>
     </size>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -78,12 +78,8 @@
        <property name="text">
         <string>Voir le jeu</string>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="animationButton">
-       <property name="text">
-        <string>Animation</string>
+       <property name="default">
+        <bool>false</bool>
        </property>
       </widget>
      </item>

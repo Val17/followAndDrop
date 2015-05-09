@@ -30,15 +30,15 @@ struct qt_meta_stringdata_GameWidget_t {
 static const qt_meta_stringdata_GameWidget_t qt_meta_stringdata_GameWidget = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "GameWidget"
-QT_MOC_LITERAL(1, 11, 21), // "on_dropButton_clicked"
-QT_MOC_LITERAL(2, 33, 0), // ""
-QT_MOC_LITERAL(3, 34, 23), // "on_targetButton_clicked"
-QT_MOC_LITERAL(4, 58, 27) // "on_coordonateButton_clicked"
+QT_MOC_LITERAL(1, 11, 23), // "on_sphereButton_clicked"
+QT_MOC_LITERAL(2, 35, 0), // ""
+QT_MOC_LITERAL(3, 36, 27), // "on_coordonateButton_clicked"
+QT_MOC_LITERAL(4, 64, 21) // "on_menuButton_clicked"
 
     },
-    "GameWidget\0on_dropButton_clicked\0\0"
-    "on_targetButton_clicked\0"
-    "on_coordonateButton_clicked"
+    "GameWidget\0on_sphereButton_clicked\0\0"
+    "on_coordonateButton_clicked\0"
+    "on_menuButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -73,9 +73,9 @@ void GameWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         GameWidget *_t = static_cast<GameWidget *>(_o);
         switch (_id) {
-        case 0: _t->on_dropButton_clicked(); break;
-        case 1: _t->on_targetButton_clicked(); break;
-        case 2: _t->on_coordonateButton_clicked(); break;
+        case 0: _t->on_sphereButton_clicked(); break;
+        case 1: _t->on_coordonateButton_clicked(); break;
+        case 2: _t->on_menuButton_clicked(); break;
         default: ;
         }
     }

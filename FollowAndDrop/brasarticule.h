@@ -23,13 +23,18 @@ public:
     int alpha;
     int beta;
     int gamma;
+    int delta;
+    int epsilon;
 
     void moveShoulder(int b);
-    void moveBase(int a);
-    void moveHand(int g);
+    //void moveShoulder(int a);
+    void movePliers(int g);
+    void moveHand(int d);
+    void catchSphere(int a, int b, int d, int g);
+    void moveBase(int e);
 public slots:
 
-signals:
+
 };
 
 #endif // BRASARTICULE_H

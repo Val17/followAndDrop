@@ -22,8 +22,7 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *e);
 private slots:
-    void on_dropButton_clicked();
-    void on_targetButton_clicked();
+    void on_sphereButton_clicked();
 
 
     void on_coordonateButton_clicked();

@@ -2,7 +2,8 @@
 
 Sphere::Sphere(QObject *parent) : QObject(parent)
 {
-
+    xSphere=0;
+    ySphere=0;
 }
 
 void Sphere::drawSphere(double radius, int slices, int stacks)
@@ -75,6 +76,31 @@ GLuint Sphere::loadtgadisplayCDV ( const char* filename )
 free(imageData);
 
 return textureId;
+}
+
+/**
+ * @brief Sphere::isMovable
+ * @param x abscisse limite
+ * @param y ordonnee limite
+ * @param s seuil a ne pas depasser
+ */
+bool Sphere::isMovable(int x, int y, int s)
+{
+    bool b = true;
+    qDebug()<<"isMovable: "<<xSphere<<" - "<<ySphere;
+
+    if (sqrt((xSphere+x)*(xSphere+x)+(ySphere+y)*(ySphere+y))>=s)
+    {
+        b = false;
+        return b;
+    }
+
+    else
+    {
+        return b;
+    }
+
+
 }
 
 
