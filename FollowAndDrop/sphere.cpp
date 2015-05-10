@@ -2,8 +2,8 @@
 
 Sphere::Sphere(QObject *parent) : QObject(parent)
 {
-    xSphere=0;
-    ySphere=0;
+    xSphere=5;
+    ySphere=2;
 }
 
 void Sphere::drawSphere(double radius, int slices, int stacks)

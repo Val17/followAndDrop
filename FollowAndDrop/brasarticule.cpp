@@ -9,6 +9,7 @@ ArticulateArm::ArticulateArm(QGLWidget *parent) : QGLWidget(parent)
     beta=0;
     delta=0;
     gamma=0;
+    theta = 0;
 }
 
 ArticulateArm::~ArticulateArm()
@@ -37,6 +38,7 @@ void ArticulateArm::drawArm()
         // epaule
 
             glRotatef(alpha, 1, 0, 0);
+            glRotatef(theta,0,0,1);
 
             glPushMatrix();
 
@@ -61,6 +63,7 @@ void ArticulateArm::drawArm()
                     //coude
 
                     glRotatef(beta, 0, 1, 0);
+
 
                     glPushMatrix();
 
@@ -96,8 +99,8 @@ void ArticulateArm::drawArm()
 
                         glPushMatrix();
 
-                            glTranslatef(0, 2, 1);
-                            glRotatef(-40, 1, 0, 1);
+                            glTranslatef(0, 1, 1);
+                            glRotatef(-30, 1, 0, 1);
                             glScalef(.5,.5,2);
                             drawCylinder(.5,1,20,1);
 
@@ -107,8 +110,8 @@ void ArticulateArm::drawArm()
 
                          glPushMatrix();
 
-                             glTranslatef(0, -2, 1);
-                             glRotatef(40, 1, 0, 1);
+                             glTranslatef(0, -1, 1);
+                             glRotatef(30, 1, 0, 1);
                              glScalef(.5,.5,2);
                              drawCylinder(.5,1,20,1);
 
@@ -209,7 +212,8 @@ free(imageData);
 return textureId;
 }
 
-void ArticulateArm::moveShoulder(int b)
+/*
+void ArticulateArm::moveShoulder(double b)
 {
 
     beta=b;
@@ -221,7 +225,7 @@ void ArticulateArm::moveBase (int e)
     epsilon = e;
 }
 
-/*void ArticulateArm::moveShoulder(int a)
+void ArticulateArm::moveShoulder(int a)
 {
     alpha = a;
 }
@@ -229,14 +233,15 @@ void ArticulateArm::moveBase (int e)
 void ArticulateArm::movePliers(int g)
 {
     gamma = g;
-}*/
+}
 
-void ArticulateArm::moveHand(int d)
+void ArticulateArm::moveHand(double d)
 {
     delta = d;
 }
 
-void ArticulateArm::catchSphere(int a, int b, int d, int g)
+void ArticulateArm::catchSphere(double a, double b, double d, double g)
 {
 
 }
+*/

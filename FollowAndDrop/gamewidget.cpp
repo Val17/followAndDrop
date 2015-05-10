@@ -93,9 +93,23 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
         ui->myGame->update();
     }
 
+    else if (e->key() == Qt::Key_W)
+    {
+        ui->myGame->myArticulateArm.alpha-=1;
+        qDebug()<<"Alpha: "<<ui->myGame->myArticulateArm.alpha;
+        ui->myGame->update();
+    }
+
     else if (e->key() == Qt::Key_B)
     {
         ui->myGame->myArticulateArm.beta+=1;
+        qDebug()<<"Beta: "<<ui->myGame->myArticulateArm.beta;
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_X)
+    {
+        ui->myGame->myArticulateArm.beta-=1;
         qDebug()<<"Beta: "<<ui->myGame->myArticulateArm.beta;
         ui->myGame->update();
     }
@@ -107,9 +121,23 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
         ui->myGame->update();
     }
 
+    else if (e->key() == Qt::Key_F)
+    {
+        ui->myGame->myArticulateArm.gamma-=1;
+        qDebug()<<"Gamma: "<<ui->myGame->myArticulateArm.gamma;
+        ui->myGame->update();
+    }
+
     else if (e->key() == Qt::Key_T)
     {
         ui->myGame->myArticulateArm.delta+=1;
+        qDebug()<<"Delta: "<<ui->myGame->myArticulateArm.delta;
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_H)
+    {
+        ui->myGame->myArticulateArm.delta-=1;
         qDebug()<<"Delta: "<<ui->myGame->myArticulateArm.delta;
         ui->myGame->update();
     }
@@ -123,6 +151,20 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
     else if (e->key() == Qt::Key_L)
     {
         ui->myGame->intGluPerspective-=1;
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_4)
+    {
+        ui->myGame->myArticulateArm.theta-=1;
+        qDebug()<<"theta: "<<ui->myGame->myArticulateArm.theta;
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_6)
+    {
+        ui->myGame->myArticulateArm.theta+=1;
+         qDebug()<<"theta: "<<ui->myGame->myArticulateArm.theta;
         ui->myGame->update();
     }
 

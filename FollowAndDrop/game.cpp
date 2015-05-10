@@ -35,6 +35,7 @@ Game::Game(QWidget *parent) :
     boolArena = false;
     boolArm = true;
     boolTarget = false;
+    boolSphere = false;
     intGluPerspective = 70;
 
 }
@@ -234,7 +235,7 @@ void Game::draw()
 
     if (boolSphere==true)
     {
-        glTranslatef(mySphere.xSphere,mySphere.ySphere,0);
+        glTranslatef(mySphere.xSphere,mySphere.ySphere,2);
         qDebug()<<"Sphere: "<<mySphere.xSphere<<" - "<<mySphere.ySphere;
         mySphere.drawSphere(2, 50, 50);
     }

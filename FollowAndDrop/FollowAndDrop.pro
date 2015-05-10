@@ -29,5 +29,5 @@ SOURCES += main.cpp mainwindow.cpp \
     gamewidget.cpp
 QT += core gui opengl
 
-LIBS = -lGLU #-lglut \
+#LIBS = -lGLU #-lglut \
 

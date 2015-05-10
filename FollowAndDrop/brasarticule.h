@@ -20,20 +20,15 @@ public:
     void drawArm();
     void drawSphere(double r, int lats, int longs);
     void drawCylinder(double r,int height, int lats, int stacks);
-    int alpha;
-    int beta;
-    int gamma;
-    int delta;
-    int epsilon;
+    double alpha;
+    double beta;
+    double gamma;
+    double delta;
+    double theta;
 
-    void moveShoulder(int b);
-    //void moveShoulder(int a);
-    void movePliers(int g);
-    void moveHand(int d);
-    void catchSphere(int a, int b, int d, int g);
-    void moveBase(int e);
 public slots:
 
+signals:
 
 };
 
