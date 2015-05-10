@@ -57,7 +57,8 @@ SOURCES       = ../FollowAndDrop/main.cpp \
 		../FollowAndDrop/sphere.cpp \
 		../FollowAndDrop/arm.cpp \
 		../FollowAndDrop/brasarticule.cpp \
-		../FollowAndDrop/gamewidget.cpp moc_mainwindow.cpp \
+		../FollowAndDrop/gamewidget.cpp qrc_followanddrop.cpp \
+		moc_mainwindow.cpp \
 		moc_arena.cpp \
 		moc_myglwidget.cpp \
 		moc_target.cpp \
@@ -75,6 +76,7 @@ OBJECTS       = main.o \
 		arm.o \
 		brasarticule.o \
 		gamewidget.o \
+		qrc_followanddrop.o \
 		moc_mainwindow.o \
 		moc_arena.o \
 		moc_myglwidget.o \
@@ -370,6 +372,7 @@ Makefile: ../FollowAndDrop/FollowAndDrop.pro ../../Qt/5.4/gcc_64/mkspecs/linux-g
 		../../Qt/5.4/gcc_64/mkspecs/features/yacc.prf \
 		../../Qt/5.4/gcc_64/mkspecs/features/lex.prf \
 		../FollowAndDrop/FollowAndDrop.pro \
+		../FollowAndDrop/followanddrop.qrc \
 		/home/valentin/Qt/5.4/gcc_64/lib/libQt5OpenGL.prl \
 		/home/valentin/Qt/5.4/gcc_64/lib/libQt5Widgets.prl \
 		/home/valentin/Qt/5.4/gcc_64/lib/libQt5Gui.prl \
@@ -495,6 +498,7 @@ Makefile: ../FollowAndDrop/FollowAndDrop.pro ../../Qt/5.4/gcc_64/mkspecs/linux-g
 ../../Qt/5.4/gcc_64/mkspecs/features/yacc.prf:
 ../../Qt/5.4/gcc_64/mkspecs/features/lex.prf:
 ../FollowAndDrop/FollowAndDrop.pro:
+../FollowAndDrop/followanddrop.qrc:
 /home/valentin/Qt/5.4/gcc_64/lib/libQt5OpenGL.prl:
 /home/valentin/Qt/5.4/gcc_64/lib/libQt5Widgets.prl:
 /home/valentin/Qt/5.4/gcc_64/lib/libQt5Gui.prl:
@@ -513,6 +517,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../FollowAndDrop/followanddrop.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../FollowAndDrop/mainwindow.h ../FollowAndDrop/arena.h ../FollowAndDrop/myglwidget.h ../FollowAndDrop/target.h ../FollowAndDrop/game.h ../FollowAndDrop/sphere.h ../FollowAndDrop/arm.h ../FollowAndDrop/brasarticule.h ../FollowAndDrop/gamewidget.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../FollowAndDrop/main.cpp ../FollowAndDrop/mainwindow.cpp ../FollowAndDrop/arena.cpp ../FollowAndDrop/myglwidget.cpp ../FollowAndDrop/target.cpp ../FollowAndDrop/game.cpp ../FollowAndDrop/sphere.cpp ../FollowAndDrop/arm.cpp ../FollowAndDrop/brasarticule.cpp ../FollowAndDrop/gamewidget.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../FollowAndDrop/mainwindow.ui ../FollowAndDrop/gamewidget.ui $(DISTDIR)/
@@ -536,8 +541,13 @@ mocables: compiler_moc_header_make_all compiler_moc_source_make_all
 
 check: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_followanddrop.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_followanddrop.cpp
+qrc_followanddrop.cpp: ../FollowAndDrop/followanddrop.qrc \
+		../FollowAndDrop/Images/background_1.jpg
+	/home/valentin/Qt/5.4/gcc_64/bin/rcc -name followanddrop ../FollowAndDrop/followanddrop.qrc -o qrc_followanddrop.cpp
+
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_arena.cpp moc_myglwidget.cpp moc_target.cpp moc_game.cpp moc_sphere.cpp moc_brasarticule.cpp moc_gamewidget.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_arena.cpp moc_myglwidget.cpp moc_target.cpp moc_game.cpp moc_sphere.cpp moc_brasarticule.cpp moc_gamewidget.cpp
@@ -1628,7 +1638,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -3898,12 +3908,6 @@ gamewidget.o: ../FollowAndDrop/gamewidget.cpp ../FollowAndDrop/gamewidget.h \
 		../../Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
 		../../Qt/5.4/gcc_64/include/QtWidgets/QLabel \
 		../../Qt/5.4/gcc_64/include/QtWidgets/qlabel.h \
-		../../Qt/5.4/gcc_64/include/QtWidgets/QLineEdit \
-		../../Qt/5.4/gcc_64/include/QtWidgets/qlineedit.h \
-		../../Qt/5.4/gcc_64/include/QtGui/qtextcursor.h \
-		../../Qt/5.4/gcc_64/include/QtGui/qtextformat.h \
-		../../Qt/5.4/gcc_64/include/QtGui/qpen.h \
-		../../Qt/5.4/gcc_64/include/QtGui/qtextoption.h \
 		../../Qt/5.4/gcc_64/include/QtWidgets/QPushButton \
 		../../Qt/5.4/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../Qt/5.4/gcc_64/include/QtWidgets/qabstractbutton.h \
@@ -3918,6 +3922,8 @@ gamewidget.o: ../FollowAndDrop/gamewidget.cpp ../FollowAndDrop/gamewidget.h \
 		../../Qt/5.4/gcc_64/include/QtGui/qopenglext.h \
 		../../Qt/5.4/gcc_64/include/QtGui/qpaintengine.h \
 		../../Qt/5.4/gcc_64/include/QtGui/qpainter.h \
+		../../Qt/5.4/gcc_64/include/QtGui/qtextoption.h \
+		../../Qt/5.4/gcc_64/include/QtGui/qpen.h \
 		../../Qt/5.4/gcc_64/include/QtOpenGL/qglcolormap.h \
 		../../Qt/5.4/gcc_64/include/QtOpenGL/qtopenglglobal.h \
 		../../Qt/5.4/gcc_64/include/QtGui/QSurfaceFormat \
@@ -3931,6 +3937,9 @@ gamewidget.o: ../FollowAndDrop/gamewidget.cpp ../FollowAndDrop/gamewidget.h \
 		../FollowAndDrop/arm.h \
 		../FollowAndDrop/brasarticule.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gamewidget.o ../FollowAndDrop/gamewidget.cpp
+
+qrc_followanddrop.o: qrc_followanddrop.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_followanddrop.o qrc_followanddrop.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

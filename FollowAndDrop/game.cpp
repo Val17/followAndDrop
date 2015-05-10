@@ -13,21 +13,10 @@ using namespace std;
 Game::Game(QWidget *parent) :
     QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-    //mySphere = new Sphere();
-
     xRot = 0;
     yRot = 0;
     zRot = 0;
-
-    xRandom=5;
-    yRandom=0;
-    zRandom=7;
-
-    /*QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(moveArm()));
-
-    timer->start(1);*/
-
+    chrono = 0;
 
     /*
      * Au depart, il n'y aucun element graphique
@@ -38,7 +27,7 @@ Game::Game(QWidget *parent) :
     boolArm = true;
     boolTarget = false;
     boolSphere = false;
-    intGluPerspective = 65;
+    intGluPerspective = 35;
 
 }
 
@@ -130,6 +119,7 @@ void Game::initializeGL()
     glNewList(theArticulateArm, GL_COMPILE);
         myArticulateArm.drawArm();
     glEndList();*/
+    glDisable(GL_CULL_FACE);
 
 
 
@@ -229,6 +219,7 @@ void Game::draw()
     if (boolSphere==true)
     {
         glTranslatef(mySphere.xSphere,mySphere.ySphere,2);
+        //mySphere = Sphere();
         mySphere.drawSphere(2, 50, 50);
     }
 
@@ -308,30 +299,45 @@ void Game::dropSphere()
 
 void Game::appearTarget()
 {
-    boolTarget=true;
-    draw();
+
 }
 
 void Game::moveArm()
 {
 
-    //myArticulateArm.moveShoulder(chrono);
-    //myArticulateArm.moveBase(chrono);
-    /*myArticulateArm.moveHand(chrono);
-    update();
-
-    if (chrono<360)
+    if (myArticulateArm.theta<mySphere.theta)
     {
-        chrono +=10;
+        myArticulateArm.theta +=1;
+        update();
     }
 
-    else
+    if (myArticulateArm.beta<90)
     {
-        chrono -=360;
+        myArticulateArm.beta+=1;
+        update();
+    }
+
+    if (myArticulateArm.beta<90)
+    {
+        myArticulateArm.gamma+=1;
+        update();
+    }
+
+    /*if (myArticulateArm.alpha<30)
+    {
+        myArticulateArm.alpha+=1;
+        update();
     }*/
 
-    //xRot+=10;
+}
 
+void Game :: startChrono()
+{
+    qDebug()<<"startChrono()";
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(moveArm()));
+
+    timer->start(1);
 }
 
 

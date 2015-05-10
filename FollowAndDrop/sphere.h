@@ -17,6 +17,7 @@ public:
     int xSphere; // coordonnee x de la sphere
     int ySphere; // coordonne y de la sphere
     double theta; // angle d'orientation de la sphere
+    double r; // distance entre l'origine et le centre de la sphere
     void drawSphere(double radius, int slices, int stacks);
     bool isMovable(int x, int y, int s);
 signals:

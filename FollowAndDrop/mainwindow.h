@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <gamewidget.h>
+#include <qgraphicsscene.h>
+#include <qgraphicsview.h>
 
 
 namespace Ui {
@@ -16,6 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    QGraphicsScene myScene;
 
 protected:
     void keyPressEvent(QKeyEvent *event);

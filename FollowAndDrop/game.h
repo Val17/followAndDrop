@@ -31,6 +31,8 @@ public:
     ArticulateArm myArticulateArm;
     int intGluPerspective;
 
+
+    void startChrono();
 protected:
 
     void initializeGL();

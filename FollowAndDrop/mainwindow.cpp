@@ -8,12 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QPixmap bkgnd("../FollowAndDrop/Images/background_1.png");
-            bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-            QPalette palette;
-            palette.setBrush(QPalette::Background, bkgnd);
-            this->setPalette(palette);
-
 }
 
 MainWindow::~MainWindow()

@@ -26,6 +26,8 @@ private slots:
     void on_menuButton_clicked();
     void on_reinitializeButton_clicked();
 
+    void on_catchButton_clicked();
+
 private:
     Ui::GameWidget *ui;
 };

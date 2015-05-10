@@ -1,28 +1,38 @@
 #include "sphere.h"
 #include "math.h"
 
+#define PI 3.14159265
+
 Sphere::Sphere()
 {
+    xSphere=10;
+    ySphere=5;
+
+    theta = atan(ySphere/(double)xSphere)* 180 / PI;
+
+    if (ySphere==0)
+    {
+        r = xSphere / (double) cos(theta);
+    }
+
+    else
+
+    {
+        r = ySphere / (double) cos(theta);
+    }
 
 }
 
 void Sphere::drawSphere(double radius, int slices, int stacks)
 {
-    xSphere=8;
-    ySphere=2;
-
-    theta = atan(ySphere/xSphere);
-
     GLUquadric* param;
     param = gluNewQuadric();
     glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, radius, slices, stacks);
 
-    qDebug()<<"Theta:"<<theta;
 
-
-
+    qDebug()<<"Theta:"<<theta<<" Rayon:"<<r;
 
 }
 

@@ -12,8 +12,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>261</height>
+    <width>370</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,8 +24,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>500</width>
-    <height>261</height>
+    <width>164</width>
+    <height>500</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -47,10 +47,10 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>51</y>
+      <x>180</x>
+      <y>170</y>
       <width>93</width>
-      <height>97</height>
+      <height>60</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">

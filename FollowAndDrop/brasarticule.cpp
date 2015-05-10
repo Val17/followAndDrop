@@ -212,36 +212,10 @@ free(imageData);
 return textureId;
 }
 
-/*
-void ArticulateArm::moveShoulder(double b)
-{
 
-    beta=b;
-    //drawArm();
+
+void ArticulateArm::catchSphere(double t)
+{
+    theta = t;
 }
 
-void ArticulateArm::moveBase (int e)
-{
-    epsilon = e;
-}
-
-void ArticulateArm::moveShoulder(int a)
-{
-    alpha = a;
-}
-
-void ArticulateArm::movePliers(int g)
-{
-    gamma = g;
-}
-
-void ArticulateArm::moveHand(double d)
-{
-    delta = d;
-}
-
-void ArticulateArm::catchSphere(double a, double b, double d, double g)
-{
-
-}
-*/

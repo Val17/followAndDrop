@@ -32,3 +32,6 @@ QT += core gui opengl
 
 LIBS = -lGLU #-lglut \
 
+RESOURCES += \
+    followanddrop.qrc
+

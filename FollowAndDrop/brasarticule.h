@@ -26,6 +26,7 @@ public:
     double delta;
     double theta;
 
+    void catchSphere(double t);
 public slots:
 
 signals:

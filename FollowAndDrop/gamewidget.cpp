@@ -31,9 +31,15 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
         close();
 
 
-    else if (e->key() == Qt::Key_N)
+    else if (e->key() == Qt::Key_P)
     {
         ui->myGame->myArticulateArm.theta+=1;
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_M)
+    {
+        ui->myGame->myArticulateArm.theta-=1;
         ui->myGame->update();
     }
 
@@ -54,4 +60,9 @@ void GameWidget::on_reinitializeButton_clicked()
     ui->myGame->zRot=0;
     ui->myGame->update();
 
+}
+
+void GameWidget::on_catchButton_clicked()
+{
+    ui->myGame->startChrono();
 }

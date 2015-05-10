@@ -39,8 +39,8 @@ public:
     QSpacerItem *horizontalSpacer_7;
     QHBoxLayout *horizontalLayout_6;
     QHBoxLayout *horizontalLayout;
-    QPushButton *dropButton;
     QPushButton *sphereButton;
+    QPushButton *catchButton;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *reinitializeButton;
     QPushButton *menuButton;
@@ -99,16 +99,16 @@ public:
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        dropButton = new QPushButton(GameWidget);
-        dropButton->setObjectName(QStringLiteral("dropButton"));
-
-        horizontalLayout->addWidget(dropButton);
-
         sphereButton = new QPushButton(GameWidget);
         sphereButton->setObjectName(QStringLiteral("sphereButton"));
         sphereButton->setAutoDefault(true);
 
         horizontalLayout->addWidget(sphereButton);
+
+        catchButton = new QPushButton(GameWidget);
+        catchButton->setObjectName(QStringLiteral("catchButton"));
+
+        horizontalLayout->addWidget(catchButton);
 
 
         horizontalLayout_6->addLayout(horizontalLayout);
@@ -141,8 +141,8 @@ public:
     {
         GameWidget->setWindowTitle(QApplication::translate("GameWidget", "Game", 0));
         label->setText(QApplication::translate("GameWidget", "Follow and Drop", 0));
-        dropButton->setText(QApplication::translate("GameWidget", "Drop", 0));
         sphereButton->setText(QApplication::translate("GameWidget", "Sphere", 0));
+        catchButton->setText(QApplication::translate("GameWidget", "Catch", 0));
         reinitializeButton->setText(QApplication::translate("GameWidget", "Reinitialize", 0));
         menuButton->setText(QApplication::translate("GameWidget", "Menu", 0));
     } // retranslateUi
