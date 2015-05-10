@@ -23,12 +23,8 @@ protected:
     void keyPressEvent(QKeyEvent *e);
 private slots:
     void on_sphereButton_clicked();
-
-
-    void on_coordonateButton_clicked();
-
     void on_menuButton_clicked();
-
+    void on_reinitializeButton_clicked();
 
 private:
     Ui::GameWidget *ui;

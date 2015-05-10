@@ -13,6 +13,8 @@ using namespace std;
 Game::Game(QWidget *parent) :
     QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
+    //mySphere = new Sphere();
+
     xRot = 0;
     yRot = 0;
     zRot = 0;
@@ -36,7 +38,7 @@ Game::Game(QWidget *parent) :
     boolArm = true;
     boolTarget = false;
     boolSphere = false;
-    intGluPerspective = 70;
+    intGluPerspective = 65;
 
 }
 
@@ -56,7 +58,6 @@ QSize Game::sizeHint() const
 
 static void qNormalizeAngle(int &angle)
 {
-    //qDebug()<<"Game:qNormalizeAngle";
     while (angle < 0)
         angle += 360 * 20;
         angle +=360;
@@ -67,7 +68,6 @@ static void qNormalizeAngle(int &angle)
 
 void Game::setXRotation(int angle)
 {
-    //qDebug()<<"Game: setXRotation";
     qNormalizeAngle(angle);
     if (angle != xRot) {
         xRot = angle;
@@ -78,7 +78,6 @@ void Game::setXRotation(int angle)
 
 void Game::setYRotation(int angle)
 {
-    //qDebug()<<"Game: setYRotation";
     qNormalizeAngle(angle);
     if (angle != yRot) {
         yRot = angle;
@@ -89,7 +88,6 @@ void Game::setYRotation(int angle)
 
 void Game::setZRotation(int angle)
 {
-    //qDebug()<<"Game: setZRotation";
     qNormalizeAngle(angle);
     if (angle != zRot) {
         zRot = angle;
@@ -101,7 +99,6 @@ void Game::setZRotation(int angle)
 
 void Game::initializeGL()
 {
-    //qDebug()<<"Game: init";
 
     /*theArena = glGenLists(5);
 
@@ -140,7 +137,6 @@ void Game::initializeGL()
 
 void Game::paintGL()
 {
-    //qDebug()<<"Game: paintGL";
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1,1,1);
     glLoadIdentity();
@@ -168,11 +164,10 @@ void Game::paintGL()
     glTranslatef(0,yRot,0);
     glTranslatef(0,0,zRot);*/
 
-    //glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
-    //glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
-    //glRotatef(-zRot/16, 1.0, 0.0, 0.0);
+    glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
+    glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
+    glRotatef(-zRot/16, 1.0, 0.0, 0.0);
 
-    cout<<xRot<<endl<<yRot<<endl<<zRot<<endl;
     draw();
 
 
@@ -182,7 +177,6 @@ void Game::paintGL()
 
 void Game::resizeGL(int width, int height)
 {
-    //qDebug()<<"Game: resizeGL";
     int side = qMin(width, height);
     glViewport((width - side) / 2, (height - side) / 2, side, side);
 
@@ -199,7 +193,6 @@ void Game::mousePressEvent(QMouseEvent *event)
 
 void Game::mouseMoveEvent(QMouseEvent *event)
 {
-    //qDebug()<<"Game: mouseEvent";
     int dx = event->x() - lastPos.x();
     int dy = event->y() - lastPos.y();
 
@@ -236,7 +229,6 @@ void Game::draw()
     if (boolSphere==true)
     {
         glTranslatef(mySphere.xSphere,mySphere.ySphere,2);
-        qDebug()<<"Sphere: "<<mySphere.xSphere<<" - "<<mySphere.ySphere;
         mySphere.drawSphere(2, 50, 50);
     }
 
@@ -307,7 +299,6 @@ GLuint Game::loadtgadisplayCDV ( const char* filename )
 
 void Game::dropSphere()
 {
-    qDebug()<<"Game: dropSphere()";
 
     boolDrop = true;
 
@@ -317,7 +308,6 @@ void Game::dropSphere()
 
 void Game::appearTarget()
 {
-    qDebug()<<"Game: appearTarget()";
     boolTarget=true;
     draw();
 }

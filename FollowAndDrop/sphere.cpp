@@ -1,19 +1,27 @@
 #include "sphere.h"
+#include "math.h"
 
-Sphere::Sphere(QObject *parent) : QObject(parent)
+Sphere::Sphere()
 {
-    xSphere=5;
-    ySphere=2;
+
 }
 
 void Sphere::drawSphere(double radius, int slices, int stacks)
 {
-    qDebug()<<"Sphere: drawSphere()";
+    xSphere=8;
+    ySphere=2;
+
+    theta = atan(ySphere/xSphere);
+
     GLUquadric* param;
     param = gluNewQuadric();
     glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, radius, slices, stacks);
+
+    qDebug()<<"Theta:"<<theta;
+
+
 
 
 }
@@ -87,7 +95,6 @@ return textureId;
 bool Sphere::isMovable(int x, int y, int s)
 {
     bool b = true;
-    qDebug()<<"isMovable: "<<xSphere<<" - "<<ySphere;
 
     if (sqrt((xSphere+x)*(xSphere+x)+(ySphere+y)*(ySphere+y))>=s)
     {

@@ -52,6 +52,7 @@ public slots:
     void dropSphere();
     void appearTarget();
     void moveArm();
+
    signals:
     // signaling rotation from mouse movement
     void xRotationChanged(int angle);
@@ -60,15 +61,6 @@ public slots:
 
 
 private:
-
-    GLuint theArena;
-    GLuint theSphere;
-    GLuint theTarget;
-    GLuint theArm;
-    GLuint theArticulateArm;
-
-
-
 
     /*
      * Booleens qui permettent de controler

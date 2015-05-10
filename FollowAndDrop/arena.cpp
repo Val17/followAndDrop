@@ -36,8 +36,7 @@ Arena::~Arena()
 
 void Arena::drawArena()
 {
-    qDebug()<<"Arena: drawArena";
-    qDebug()<<texture;
+
 
     int nb_faces = 100;
 

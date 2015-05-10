@@ -13,10 +13,10 @@ class Sphere : public QObject
 {
     Q_OBJECT
 public:
-    explicit Sphere(QObject *parent = 0);
+    explicit Sphere();
     int xSphere; // coordonnee x de la sphere
     int ySphere; // coordonne y de la sphere
-
+    double theta; // angle d'orientation de la sphere
     void drawSphere(double radius, int slices, int stacks);
     bool isMovable(int x, int y, int s);
 signals:

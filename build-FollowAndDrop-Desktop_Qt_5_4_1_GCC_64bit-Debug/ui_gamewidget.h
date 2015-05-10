@@ -16,7 +16,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
@@ -42,16 +41,9 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *dropButton;
     QPushButton *sphereButton;
-    QPushButton *coordonateButton;
     QHBoxLayout *horizontalLayout_5;
-    QHBoxLayout *horizontalLayout_2;
-    QLabel *xLabel;
-    QLineEdit *xCoord;
-    QHBoxLayout *horizontalLayout_3;
-    QLabel *yLabel;
-    QLineEdit *yCoord;
+    QPushButton *reinitializeButton;
     QPushButton *menuButton;
-    QHBoxLayout *horizontalLayout_4;
 
     void setupUi(QWidget *GameWidget)
     {
@@ -118,57 +110,20 @@ public:
 
         horizontalLayout->addWidget(sphereButton);
 
-        coordonateButton = new QPushButton(GameWidget);
-        coordonateButton->setObjectName(QStringLiteral("coordonateButton"));
-
-        horizontalLayout->addWidget(coordonateButton);
-
 
         horizontalLayout_6->addLayout(horizontalLayout);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        xLabel = new QLabel(GameWidget);
-        xLabel->setObjectName(QStringLiteral("xLabel"));
+        reinitializeButton = new QPushButton(GameWidget);
+        reinitializeButton->setObjectName(QStringLiteral("reinitializeButton"));
 
-        horizontalLayout_2->addWidget(xLabel);
-
-        xCoord = new QLineEdit(GameWidget);
-        xCoord->setObjectName(QStringLiteral("xCoord"));
-        xCoord->setEnabled(false);
-
-        horizontalLayout_2->addWidget(xCoord);
-
-
-        horizontalLayout_5->addLayout(horizontalLayout_2);
-
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        yLabel = new QLabel(GameWidget);
-        yLabel->setObjectName(QStringLiteral("yLabel"));
-
-        horizontalLayout_3->addWidget(yLabel);
-
-        yCoord = new QLineEdit(GameWidget);
-        yCoord->setObjectName(QStringLiteral("yCoord"));
-        yCoord->setEnabled(false);
-
-        horizontalLayout_3->addWidget(yCoord);
-
-
-        horizontalLayout_5->addLayout(horizontalLayout_3);
+        horizontalLayout_5->addWidget(reinitializeButton);
 
         menuButton = new QPushButton(GameWidget);
         menuButton->setObjectName(QStringLiteral("menuButton"));
 
         horizontalLayout_5->addWidget(menuButton);
-
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-
-        horizontalLayout_5->addLayout(horizontalLayout_4);
 
 
         horizontalLayout_6->addLayout(horizontalLayout_5);
@@ -188,9 +143,7 @@ public:
         label->setText(QApplication::translate("GameWidget", "Follow and Drop", 0));
         dropButton->setText(QApplication::translate("GameWidget", "Drop", 0));
         sphereButton->setText(QApplication::translate("GameWidget", "Sphere", 0));
-        coordonateButton->setText(QApplication::translate("GameWidget", "Coordonate", 0));
-        xLabel->setText(QApplication::translate("GameWidget", "x:", 0));
-        yLabel->setText(QApplication::translate("GameWidget", "y:", 0));
+        reinitializeButton->setText(QApplication::translate("GameWidget", "Reinitialize", 0));
         menuButton->setText(QApplication::translate("GameWidget", "Menu", 0));
     } // retranslateUi
 

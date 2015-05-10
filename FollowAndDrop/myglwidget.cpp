@@ -158,7 +158,6 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 void MyGLWidget::draw()
 {
 
-    qDebug()<<"draw";
     GLUquadric* params = gluNewQuadric();
     //glColor3f(1,0,0);
     gluQuadricDrawStyle(params,GLU_LINE);
@@ -190,7 +189,6 @@ char* imageData;
 char* imageTmp;
 if(!(fp = fopen(filename, "rb")))
 {
-    cout <<"erreur 1"<< endl;
     return 0;
 }
 if(!fread(&magic, 12, 1, fp))

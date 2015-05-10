@@ -122,52 +122,16 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="coordonateButton">
-         <property name="text">
-          <string>Coordonate</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="xLabel">
-           <property name="text">
-            <string>x:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="xCoord">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLabel" name="yLabel">
-           <property name="text">
-            <string>y:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="yCoord">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QPushButton" name="reinitializeButton">
+         <property name="text">
+          <string>Reinitialize</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="menuButton">
@@ -175,9 +139,6 @@
           <string>Menu</string>
          </property>
         </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4"/>
        </item>
       </layout>
      </item>
