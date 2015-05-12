@@ -19,6 +19,9 @@ public:
     int xRot;
     int yRot;
     int zRot;
+    int xTrans;
+    int yTrans;
+    int zTrans;
     ~Game();
 
     QPoint lastPos; // Point correspondant au point ou l'utilisateur a clique
@@ -33,6 +36,9 @@ public:
 
 
     void startChrono();
+    void moveY(int y);
+    void moveZ(int z);
+    void moveX(int x);
 protected:
 
     void initializeGL();

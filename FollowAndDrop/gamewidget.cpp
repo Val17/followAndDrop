@@ -33,15 +33,73 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
 
     else if (e->key() == Qt::Key_P)
     {
-        ui->myGame->myArticulateArm.theta+=1;
+        ui->myGame->myArticulateArm.alpha+=1;
         ui->myGame->update();
     }
 
     else if (e->key() == Qt::Key_M)
     {
-        ui->myGame->myArticulateArm.theta-=1;
+        ui->myGame->myArticulateArm.alpha-=1;
         ui->myGame->update();
     }
+
+    else if (e->key() == Qt::Key_O)
+    {
+        ui->myGame->myArticulateArm.beta+=1;
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_L)
+    {
+        ui->myGame->myArticulateArm.beta-=1;
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_I)
+    {
+        ui->myGame->myArticulateArm.gamma+=1;
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_K)
+    {
+        ui->myGame->myArticulateArm.gamma-=1;
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_U)
+    {
+        ui->myGame->mySphere.xSphere+=1;
+        ui->buttonXSphere->setText(QString::number(ui->myGame->mySphere.xSphere));
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_J)
+    {
+        ui->myGame->mySphere.xSphere-=1;
+        ui->buttonXSphere->setText(QString::number(ui->myGame->mySphere.xSphere));
+        ui->myGame->update();
+    }
+
+
+
+    else if (e->key() == Qt::Key_Y)
+    {
+        ui->myGame->mySphere.ySphere+=1;
+        ui->buttonYSphere->setText(QString::number(ui->myGame->mySphere.ySphere));
+        ui->myGame->update();
+    }
+
+    else if (e->key() == Qt::Key_H)
+    {
+        ui->myGame->mySphere.ySphere-=1;
+        ui->buttonYSphere->setText(QString::number(ui->myGame->mySphere.ySphere));
+        ui->myGame->update();
+    }
+
+
+
+
 
     else
 
@@ -65,4 +123,36 @@ void GameWidget::on_reinitializeButton_clicked()
 void GameWidget::on_catchButton_clicked()
 {
     ui->myGame->startChrono();
+}
+
+void GameWidget::on_buttonA_clicked()
+{
+    ui->buttonA->setText(QString::number(ui->myGame->myArticulateArm.alpha));
+}
+
+void GameWidget::on_buttonB_clicked()
+{
+    ui->buttonB->setText(QString::number(ui->myGame->myArticulateArm.beta));
+}
+
+void GameWidget::on_buttonG_clicked()
+{
+    ui->buttonG->setText(QString::number(ui->myGame->myArticulateArm.gamma));
+}
+
+void GameWidget::on_buttonS_clicked()
+{
+    ui->buttonS->setText(QString::number(ui->myGame->mySphere.theta));
+}
+
+
+
+void GameWidget::on_buttonYSphere_clicked()
+{
+    ui->buttonYSphere->setText(QString::number(ui->myGame->mySphere.ySphere));
+}
+
+void GameWidget::on_buttonXSphere_clicked()
+{
+    ui->buttonYSphere->setText(QString::number(ui->myGame->mySphere.ySphere));
 }

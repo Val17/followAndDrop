@@ -28,6 +28,20 @@ private slots:
 
     void on_catchButton_clicked();
 
+    void on_buttonA_clicked();
+
+    void on_buttonB_clicked();
+
+    void on_buttonG_clicked();
+
+    void on_buttonS_clicked();
+
+    void on_buttonXSere_clicked();
+
+    void on_buttonYSphere_clicked();
+
+    void on_buttonXSphere_clicked();
+
 private:
     Ui::GameWidget *ui;
 };

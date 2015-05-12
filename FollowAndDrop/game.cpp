@@ -18,6 +18,10 @@ Game::Game(QWidget *parent) :
     zRot = 0;
     chrono = 0;
 
+    xTrans=0;
+    yTrans=0;
+    zTrans=0;
+
     /*
      * Au depart, il n'y aucun element graphique
      * */
@@ -27,7 +31,7 @@ Game::Game(QWidget *parent) :
     boolArm = true;
     boolTarget = false;
     boolSphere = false;
-    intGluPerspective = 35;
+    intGluPerspective = 55;
 
 }
 
@@ -134,25 +138,19 @@ void Game::paintGL()
 
     // initalize the coordinate system to correct alignement
 
-    /*glTranslatef(0.0, -5.0, -27.0);
-    glRotatef(70, -1, 0.0, 0.0);*/
+    glTranslatef(0.0, -5.0, -27.0);
+    glRotatef(70, -1, 0.0, 0.0);
 
     /*glRotatef (90,1,0,0);
-    glRotatef (90,0,0,1);*/
+    glRotatef (90,0,0,1);
 
 
     // Perform world transformations
 
-    glTranslatef(0,0,-35);
+    /*glTranslatef(0,0,-35);
     glRotatef(-80,1,0,0);
-    glTranslatef(0,0,zRot);
-    /*glRotatef(xRot,1,0,0);
-    glRotatef(yRot,0,1,0);
-    glRotatef(zRot,0,0,1);*/
-
-    /*glTranslatef(xRot,0,0);
-    glTranslatef(0,yRot,0);
     glTranslatef(0,0,zRot);*/
+
 
     glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
     glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
@@ -218,10 +216,13 @@ void Game::draw()
 
     if (boolSphere==true)
     {
-        glTranslatef(mySphere.xSphere,mySphere.ySphere,2);
-        //mySphere = Sphere();
-        mySphere.drawSphere(2, 50, 50);
+        glPushMatrix();
+            glTranslatef(mySphere.xSphere,mySphere.ySphere,0);
+            mySphere.drawSphere(2, 50, 50);
+        glPopMatrix();
     }
+
+
 
 
 
@@ -338,6 +339,24 @@ void Game :: startChrono()
     connect(timer, SIGNAL(timeout()), this, SLOT(moveArm()));
 
     timer->start(1);
+}
+
+void Game :: moveX(int x)
+{
+    glTranslatef(xTrans + x, 0, 0);
+    update();
+}
+
+void Game :: moveY(int y)
+{
+    glTranslatef(0,yTrans+y,0);
+    update();
+}
+
+void Game :: moveZ(int z)
+{
+    glTranslatef(0,0,zTrans+z);
+    update();
 }
 
 
