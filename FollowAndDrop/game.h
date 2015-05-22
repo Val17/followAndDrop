@@ -55,6 +55,7 @@ public:
     void moveZ(int z);
     void moveX(int x);
     void appearSphere();
+    QPoint getRandomCoordinates();
 protected:
 
     void initializeGL();

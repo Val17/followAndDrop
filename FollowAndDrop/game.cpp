@@ -220,7 +220,7 @@ void Game::draw()
     if (boolTarget==true)
     {
         glPushMatrix();
-            glTranslatef(myTarget.xTarget, myTarget.yTarget,0);
+            glTranslatef(getRandomCoordinates().x(), getRandomCoordinates().y(),0);
             myTarget.drawTarget();
         glPopMatrix();
 
@@ -229,7 +229,7 @@ void Game::draw()
     if (boolSphere==true)
     {
         glPushMatrix();
-            glTranslatef(mySphere.xSphere, mySphere.ySphere,0);
+            glTranslatef(getRandomCoordinates().x(), getRandomCoordinates().y(),0);
             mySphere.drawSphere(2,20,20);
         glPopMatrix();
     }
@@ -237,7 +237,7 @@ void Game::draw()
     if (boolHole==true)
     {
         glPushMatrix();
-            glTranslatef(myHole.xHole, myHole.yHole, 0);
+            glTranslatef(getRandomCoordinates().x(), getRandomCoordinates().y(),0);
             myHole.drawHole();
         glPopMatrix();
     }
@@ -406,5 +406,18 @@ void Game :: appearHole()
 {
     boolHole = true;
     update();
+}
+
+QPoint Game :: getRandomCoordinates ()
+{
+    int high = myArena.size /2;
+    int low = - myArena.size /2;
+
+    QPoint point;
+
+    point.setX(qrand() % ((high + 1) - low) + low);
+    point.setY(qrand() % ((high + 1) - low) + low);
+
+    return point;
 }
 

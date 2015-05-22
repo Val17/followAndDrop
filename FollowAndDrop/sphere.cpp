@@ -1,5 +1,4 @@
 #include "sphere.h"
-#include "math.h"
 
 #define PI 3.14159265
 
@@ -27,7 +26,7 @@ void Sphere::drawSphere(double radius, int slices, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/ball2.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/water.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, radius, slices, stacks);
 

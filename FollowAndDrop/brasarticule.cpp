@@ -117,7 +117,7 @@ void ArticulateArm::drawArm()
                          {
                              glPushMatrix();
 
-                                glTranslatef(0,0,2);
+                                glTranslatef(0,0,1.5);
                                 drawSphereGame(1,50,50);
 
                              glPopMatrix();

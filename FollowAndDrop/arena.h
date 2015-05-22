@@ -28,6 +28,10 @@ public:
     char* texture; // texture utilisee pour l'arene
     int getSize(){qDebug()<<"lalal"<<size;return size;}
 
+    int xLimit; // abscisse limite
+    int yLimit; // ordonnee limite
+    int size; // taille de l'arene
+
 
 
 public slots:
@@ -35,7 +39,7 @@ public slots:
 
 protected:
 
-     int size; // taille de l'arene
+
 
 signals:
 

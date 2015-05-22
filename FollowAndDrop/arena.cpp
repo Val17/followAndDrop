@@ -16,6 +16,9 @@ Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
     texture = "../FollowAndDrop/Images/ground1.tga";
     size = 20;
 
+    xLimit = size;
+    yLimit = size;
+
 }
 
 /**
