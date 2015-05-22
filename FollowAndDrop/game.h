@@ -6,7 +6,7 @@
 #include <arena.h>
 #include <sphere.h>
 #include <target.h>
-#include <arm.h>
+#include <hole.h>
 #include <brasarticule.h>
 
 
@@ -26,12 +26,27 @@ public:
 
     QPoint lastPos; // Point correspondant au point ou l'utilisateur a clique
     Arena myArena;
+
+    /*
+     * Booleens qui permettent de controler
+     * la presence de l'element graphique
+     * correspondant.
+     * Exemple: boolArena a comme valeur true
+     * si il y a l'Arene qui est a l'ecran.
+     * */
+
+    bool boolDrop;
+    bool boolTarget;
+    bool boolArena;
     bool boolArm;
     bool boolSphere;
+    bool boolHole;
+
     Sphere mySphere;
     Target myTarget;
-    Arm myArm;
-    ArticulateArm myArticulateArm;
+    ArticulateArm myArm;
+    Hole myHole;
+
     int intGluPerspective;
 
 
@@ -39,6 +54,7 @@ public:
     void moveY(int y);
     void moveZ(int z);
     void moveX(int x);
+    void appearSphere();
 protected:
 
     void initializeGL();
@@ -57,11 +73,10 @@ public slots:
     void setXRotation(int angle);
     void setYRotation(int angle);
     void setZRotation(int angle);
-    void dropSphere();
     void appearTarget();
-    void moveArm();
-
-   signals:
+    void dropSphere();
+    void appearHole();
+signals:
     // signaling rotation from mouse movement
     void xRotationChanged(int angle);
     void yRotationChanged(int angle);
@@ -70,26 +85,11 @@ public slots:
 
 private:
 
-    /*
-     * Booleens qui permettent de controler
-     * la presence de l'element graphique
-     * correspondant.
-     * Exemple: boolArena a comme valeur true
-     * si il y a l'Arene qui est a l'ecran.
-     * */
-
-    bool boolDrop;
-    bool boolTarget;
-    bool boolArena;
-
-
-
-
     int chrono;
-
     int xRandom;
     int yRandom;
     int zRandom;
+    QTimer *timer;
 
 
     GLuint loadtgadisplayCDV(const char *filename);

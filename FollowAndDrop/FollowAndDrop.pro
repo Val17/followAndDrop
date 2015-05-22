@@ -13,9 +13,10 @@ HEADERS += mainwindow.h \
     target.h \
     game.h \
     sphere.h \
-    arm.h \
     brasarticule.h \
-    gamewidget.h
+    gamewidget.h \
+    webcamwindow.h \
+    hole.h
 FORMS += mainwindow.ui \
     gamewidget.ui
 SOURCES += main.cpp mainwindow.cpp \
@@ -24,13 +25,21 @@ SOURCES += main.cpp mainwindow.cpp \
     target.cpp \
     game.cpp \
     sphere.cpp \
-    arm.cpp \
     brasarticule.cpp \
-    gamewidget.cpp
+    gamewidget.cpp \
+    webcamwindow.cpp \
+    hole.cpp
 QT += core gui opengl
 
-
-LIBS = -lGLU #-lglut \
+LIBS += -L$$(OPENCV_DIR)\lib \
+    -lopencv_core \
+    -lopencv_highgui \
+    -lopencv_imgproc \
+    #-lopencv_videoio \
+    -lopencv_features2d \
+    -lopencv_calib3d \
+    -lopencv_objdetect \
+    -lGLU #-lglut \
 
 RESOURCES += \
     followanddrop.qrc

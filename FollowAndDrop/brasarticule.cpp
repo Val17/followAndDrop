@@ -7,9 +7,13 @@ ArticulateArm::ArticulateArm(QGLWidget *parent) : QGLWidget(parent)
 {
     alpha=0;
     beta=0;
-    delta=0;
     gamma=0;
-    theta = 0;
+
+    sA=6;
+    sFa=6;
+
+    boolSphere=false;
+
 }
 
 ArticulateArm::~ArticulateArm()
@@ -21,24 +25,25 @@ void ArticulateArm::drawArm()
 {
 
 
-    //base
+    //socle
+
     glPushMatrix();
 
-        glScalef(2,2,0.1);
-        drawSphere(1, 50,50);
+        glScalef(1,1,.1);
+        drawSphere(3, 50, 50);
 
     glPopMatrix();
 
     glPushMatrix();
 
-        glTranslatef(0,0,1);
+        glTranslatef(0,0,2);
 
         glPushMatrix();
 
         // epaule
 
-            glRotatef(alpha, 0, 1, 0);
-            //glRotatef(theta,0,0,1);
+            glRotatef(alpha, 0, 0, 1);
+            glRotatef(beta, 0, 1, 0);
 
             glPushMatrix();
 
@@ -62,7 +67,7 @@ void ArticulateArm::drawArm()
 
                     //coude
 
-                    glRotatef(beta, 0, 1, 0);
+                    glRotatef(gamma, 0, 1, 0);
 
 
                     glPushMatrix();
@@ -86,8 +91,7 @@ void ArticulateArm::drawArm()
 
                         // poignet
 
-                        glRotatef(delta, 0, 1, 0);
-                        glRotatef(gamma, 0, 0, 1);
+                        //glRotatef(delta, 0, 1, 0);
 
                         glPushMatrix();
 
@@ -99,19 +103,34 @@ void ArticulateArm::drawArm()
 
                         glPushMatrix();
 
-                            glTranslatef(0, 1, 1);
+                            glTranslatef(0, 2, 1);
                             glRotatef(-30, 1, 0, 1);
+                            glRotatef(delta, 1, 0, -1);
                             glScalef(.5,.5,2);
                             drawCylinder(.5,1,20,1);
 
                          glPopMatrix();
 
+                         // le bras a attrape la sphere
+
+                         if (boolSphere == true)
+                         {
+                             glPushMatrix();
+
+                                glTranslatef(0,0,2);
+                                drawSphereGame(1,50,50);
+
+                             glPopMatrix();
+                         }
+
+
                          // pince 2
 
                          glPushMatrix();
 
-                             glTranslatef(0, -1, 1);
+                             glTranslatef(0, -2, 1);
                              glRotatef(30, 1, 0, 1);
+                             glRotatef(delta, -1, 0, 1);
                              glScalef(.5,.5,2);
                              drawCylinder(.5,1,20,1);
 
@@ -135,11 +154,20 @@ void ArticulateArm::drawSphere(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/robot.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/herbe.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
 
 
+}
+
+void ArticulateArm::drawSphereGame(double r, int lats, int stacks)
+{
+    GLUquadric* param;
+    param = gluNewQuadric();
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/ball.tga"));
+    gluQuadricTexture(param, GL_TRUE);
+    gluSphere(param, r, lats, stacks);
 }
 
 void ArticulateArm::drawCylinder(double r,int height, int lats, int longs)
@@ -147,7 +175,7 @@ void ArticulateArm::drawCylinder(double r,int height, int lats, int longs)
 
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/robot.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/herbe.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluCylinder(param, r, r, height, lats, longs);
 }
@@ -213,9 +241,4 @@ return textureId;
 }
 
 
-
-void ArticulateArm::catchSphere(double t)
-{
-    theta = t;
-}
 

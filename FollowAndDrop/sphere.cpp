@@ -8,17 +8,17 @@ Sphere::Sphere()
     xSphere=10;
     ySphere=5;
 
-    theta = atan(ySphere/(double)xSphere)* 180 / PI;
+    thetaSphere = atan(ySphere/(double)xSphere)* 180 / PI;
 
     if (ySphere==0)
     {
-        r = xSphere / (double) cos(theta);
+        r = xSphere / (double) cos(thetaSphere);
     }
 
     else
 
     {
-        r = ySphere / (double) cos(theta);
+        r = ySphere / (double) cos(thetaSphere);
     }
 
 }

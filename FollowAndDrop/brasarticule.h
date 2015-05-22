@@ -13,6 +13,7 @@
 class ArticulateArm : public QGLWidget
 {
     Q_OBJECT
+    void drawSphereGame(double r, int lats, int stacks);
 public:
     explicit ArticulateArm(QGLWidget *parent = 0);
     ~ArticulateArm();
@@ -25,6 +26,9 @@ public:
     double gamma;
     double delta;
     double theta;
+    double sA; // taille du bras (arm)
+    double sFa; // taille de l'avant bras (forearm)
+    bool boolSphere;
 
     void catchSphere(double t);
 public slots:

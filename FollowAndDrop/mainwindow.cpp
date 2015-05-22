@@ -34,22 +34,3 @@ void MainWindow::on_gameButton_clicked()
 
 }
 
-void MainWindow::on_gameButton_pressed()
-{
-    myGameWidget.show();
-}
-
-void MainWindow::on_quitButton_clicked()
-{
-    close();
-}
-
-void MainWindow::on_newGameAction_clicked()
-{
-    myGameWidget.show();
-}
-
-void MainWindow::on_quitAction_clicked()
-{
-    close();
-}

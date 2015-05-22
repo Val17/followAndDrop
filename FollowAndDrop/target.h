@@ -14,8 +14,11 @@ public:
     GLuint loadtgadisplayCDV(const char *filename);
     void drawTarget();
     GLuint GLtexture[1];
-    int xTar; // abscisse aleatoire
-    int yTar; // ordonnee aleatoire
+    double xTarget; // abscisse aleatoire
+    double yTarget; // ordonnee aleatoire
+    double thetaTarget; // angle d'orientation de la cible
+    double tanThetaTarget;
+    double r; // distance entre le centre de l'arene et la cible
 
 protected:
 

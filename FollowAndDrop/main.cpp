@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <webcamwindow.h>
 #include <QApplication>
 #include <QDesktopWidget>
 int main(int argc, char *argv[])
@@ -17,5 +18,9 @@ int main(int argc, char *argv[])
         window.showMaximized();*/
 
     window.show();
+
+    WebCamWindow w;
+    w.show();
+
     return app.exec();
 }

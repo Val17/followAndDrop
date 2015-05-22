@@ -6,10 +6,21 @@
 #include <QDebug>
 #include <QMouseEvent>
 
+#define PI 3.14159265
+
 Target::Target(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-    xTar = 0;
-    yTar = 5;
+    xTarget = 0;
+    yTarget = -10;
+
+    //thetaTarget = atan(yTarget/(double)xTarget)* 180 / PI;
+
+    tanThetaTarget = yTarget/(double)xTarget;
+    thetaTarget = atan(tanThetaTarget); // angle en radian
+    thetaTarget = thetaTarget * 180 / PI;
+
+    r = sqrt (xTarget*xTarget+yTarget*yTarget);
+
 }
 
 
@@ -36,9 +47,6 @@ void Target::drawTarget()
 
 
     glEnd();
-
-
-
 
 }
 

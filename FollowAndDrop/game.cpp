@@ -5,7 +5,10 @@
 #include <QtOpenGL>
 #include <GL/glu.h>
 #include <GL/gl.h>
+#include "math.h"
 #include<iostream>
+
+#define PI 3.14159265
 
 using namespace std;
 
@@ -18,9 +21,6 @@ Game::Game(QWidget *parent) :
     zRot = 0;
     chrono = 0;
 
-    xTrans=0;
-    yTrans=0;
-    zTrans=0;
 
     /*
      * Au depart, il n'y aucun element graphique
@@ -31,7 +31,11 @@ Game::Game(QWidget *parent) :
     boolArm = true;
     boolTarget = false;
     boolSphere = false;
-    intGluPerspective = 55;
+    boolHole = false;
+
+    intGluPerspective = 80;
+
+    timer = new QTimer(this);
 
 }
 
@@ -123,6 +127,7 @@ void Game::initializeGL()
     glNewList(theArticulateArm, GL_COMPILE);
         myArticulateArm.drawArm();
     glEndList();*/
+
     glDisable(GL_CULL_FACE);
 
 
@@ -138,7 +143,7 @@ void Game::paintGL()
 
     // initalize the coordinate system to correct alignement
 
-    glTranslatef(0.0, -5.0, -27.0);
+    glTranslatef(0.0, 0.0, -30.0);
     glRotatef(70, -1, 0.0, 0.0);
 
     /*glRotatef (90,1,0,0);
@@ -152,9 +157,9 @@ void Game::paintGL()
     glTranslatef(0,0,zRot);*/
 
 
-    glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
-    glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
-    glRotatef(-zRot/16, 1.0, 0.0, 0.0);
+    /*glRotatef(-xRot/16, 0.0, 1.0, 0.0); //theta
+    //glRotatef(-yRot/16, 0.0, 0.0, 1.0); //phi
+    glRotatef(-zRot/16, 1.0, 0.0, 0.0);*/
 
     draw();
 
@@ -199,9 +204,7 @@ void Game::mouseMoveEvent(QMouseEvent *event)
 void Game::draw()
 {
 
-
     glClear(GL_COLOR_BUFFER_BIT);
-
 
     if (boolArm==true)
     {
@@ -210,20 +213,34 @@ void Game::draw()
         glPopMatrix();
 
         glPushMatrix();
-            myArticulateArm.drawArm();
+            myArm.drawArm();
         glPopMatrix();
+    }
+
+    if (boolTarget==true)
+    {
+        glPushMatrix();
+            glTranslatef(myTarget.xTarget, myTarget.yTarget,0);
+            myTarget.drawTarget();
+        glPopMatrix();
+
     }
 
     if (boolSphere==true)
     {
         glPushMatrix();
-            glTranslatef(mySphere.xSphere,mySphere.ySphere,0);
-            mySphere.drawSphere(2, 50, 50);
+            glTranslatef(mySphere.xSphere, mySphere.ySphere,0);
+            mySphere.drawSphere(2,20,20);
         glPopMatrix();
     }
 
-
-
+    if (boolHole==true)
+    {
+        glPushMatrix();
+            glTranslatef(myHole.xHole, myHole.yHole, 0);
+            myHole.drawHole();
+        glPopMatrix();
+    }
 
 
 }
@@ -289,75 +306,105 @@ GLuint Game::loadtgadisplayCDV ( const char* filename )
 
 }
 
-void Game::dropSphere()
-{
-
-    boolDrop = true;
-
-    draw();
-
-}
 
 void Game::appearTarget()
 {
 
+    boolTarget = true;
+    update();
 }
 
-void Game::moveArm()
+void Game::dropSphere()
 {
 
-    if (myArticulateArm.theta<mySphere.theta)
+    double cosAngle1 = (myArm.sA*myArm.sA+myTarget.r*myTarget.r-myArm.sFa*myArm.sFa)/(2*myArm.sA*myTarget.r);
+    double cosAngle2 = (myArm.sA*myArm.sA+myArm.sFa*myArm.sFa-myTarget.r*myTarget.r)/(2*myArm.sA*myArm.sFa);
+
+    double angle1 = acos(cosAngle1); // angle1 en radian
+    double angle2 = acos(cosAngle2); // angle2 en radian
+
+    angle1 = angle1 *180 / PI;
+    angle2 = angle2 * 180 /PI;
+
+    double a = myTarget.thetaTarget;
+    double b = 90 - angle1;
+    double g = 180 - angle2;
+
+    qDebug()<<"alpha;"<<a<<"% beta:"<<b<<"% gamma:"<<g;
+    cout<<"Bras:"<<myArm.alpha<<" % "<<myArm.beta<<" % "<<myArm.gamma<<endl;
+
+    if (a>0 && myArm.alpha<a)
     {
-        myArticulateArm.theta +=1;
+
+        myArm.alpha+=1;
         update();
     }
 
-    if (myArticulateArm.beta<90)
+    else if (a<0 && myArm.alpha>a)
     {
-        myArticulateArm.beta+=1;
+        myArm.alpha-=1;
         update();
     }
 
-    if (myArticulateArm.beta<90)
+    else
     {
-        myArticulateArm.gamma+=1;
-        update();
+        if (myArm.beta<b)
+        {
+            myArm.beta+=1;
+            update();
+        }
+
+        else
+        {
+            if (myArm.gamma<g)
+            {
+                myArm.gamma+=1;
+                update();
+            }
+
+            else if (myArm.boolSphere == false)
+            {
+                myArm.boolSphere = true;
+                update();
+            }
+
+            else if (myArm.delta<55)
+
+            {
+                myArm.delta+=1;
+                update();
+
+
+            }
+
+            else
+            {
+                timer->stop();
+            }
+        }
+
     }
 
-    /*if (myArticulateArm.alpha<30)
-    {
-        myArticulateArm.alpha+=1;
-        update();
-    }*/
 
 }
+
 
 void Game :: startChrono()
 {
-    qDebug()<<"startChrono()";
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(moveArm()));
-
+    connect(timer, SIGNAL(timeout()), this, SLOT(dropSphere()));
     timer->start(1);
+
 }
 
-void Game :: moveX(int x)
+void Game :: appearSphere()
 {
-    glTranslatef(xTrans + x, 0, 0);
+    boolSphere = true;
     update();
 }
 
-void Game :: moveY(int y)
+void Game :: appearHole()
 {
-    glTranslatef(0,yTrans+y,0);
+    boolHole = true;
     update();
 }
-
-void Game :: moveZ(int z)
-{
-    glTranslatef(0,0,zTrans+z);
-    update();
-}
-
-
 
