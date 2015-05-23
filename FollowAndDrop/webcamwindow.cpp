@@ -10,8 +10,8 @@ using namespace cv;
 WebCamWindow::WebCamWindow(QWidget *parent)
     : QWidget(parent)
 {
-    frameWidth_=320;
-    frameHeight_=240;
+    frameWidth_=640;
+    frameHeight_=480;
     templateWidth_=50;
     templateHeight_=50;
 
@@ -70,11 +70,11 @@ void WebCamWindow::aquire()
     {
         if (webcam_->read(image_))
         {
-//            *webcam_ >> imgCam_;
-//            ::resize(imgCam_,image_,Size(),0.5,0.5,CV_INTER_AREA);
-            if (detectCheckBox_->isChecked() && !trackCheckBox_->isChecked()) detectHand();
-            if (trackCheckBox_->isChecked()) trackHand();
-            displayImage();
+            //  *webcam_ >> imgCam_;
+            // ::resize(imgCam_,image_,Size(),0.8,0.8,CV_INTER_AREA);
+              if (detectCheckBox_->isChecked() && !trackCheckBox_->isChecked()) detectHand();
+              if (trackCheckBox_->isChecked()) trackHand();
+             displayImage();
         }
     }
 }
@@ -110,7 +110,7 @@ void WebCamWindow::detectHand()
     Mat roi(image_, rectRoi);
     roi.copyTo(imgRoi_);
     roi.copyTo(imgOrigin_);
-    imshow("roi", imgRoi_);
+    //imshow("roi", imgRoi_);
     waitKey(10);
 
 
@@ -163,7 +163,7 @@ void WebCamWindow::trackHand()
           rectangle( result, matchLoc, Point( matchLoc.x + imgRoi_.cols , matchLoc.y + imgRoi_.rows ), Scalar(0,255,255), 2, 8, 0 );
 
         //  imshow( "image_window", imgRoi_ );
-         imshow( "result_window", result );
+         //imshow( "result_window", result );
 
 
 
