@@ -259,6 +259,7 @@ GLuint Game::loadtgadisplayCDV ( const char* filename )
 
 void Game::moveArm()
 {
+    /// On attrape la sphere
     /*
      * Calcul des angles beta et gamma du bras
      * Methode: Theoreme d'Al-Khashi
@@ -267,75 +268,186 @@ void Game::moveArm()
      * - centre de la sphere/coude du bras
      * - centre de la sphere a attraper*/
 
-    ///Cotes du triangle
+    //Cotes du triangle
 
-    double side1 = myArm.sA+2; // cote 1 du triangle
-    double side2 = myArm.sFa+2; // cote 2 du triangle
-    double side3 = mySphere.r; // cote 3 du triangle
+    double sideA1 = myArm.sA+2; // cote 1 du triangle
+    double sideB1 = myArm.sFa+2; // cote 2 du triangle
+    double sideC1 = mySphere.r; // cote 3 du triangle
 
-    /// Cosinus
+    //Cosinus
 
-    double cosAngle1 = (side1*side1+side3*side3-side3*side3)/(2*side1*side3); // angle beta a atteindre
-    double cosAngle2 = (side1*side1+side2*side2-side3*side3)/(2*side1*side2); // angle gamma a atteindre
+    double cosA1 = (sideA1*sideA1+sideC1*sideC1-sideC1*sideC1)/(2*sideA1*sideC1); // angle beta a atteindre
+    double cosB1 = (sideA1*sideA1+sideB1*sideB1-sideC1*sideC1)/(2*sideA1*sideB1); // angle gamma a atteindre
 
-    ///Angles en degres
+    //Angles en degres
 
-    double angle1 = acos(cosAngle1) * 180 / PI; // angle1 en radian
-    double angle2 = acos(cosAngle2) * 180/ PI; // angle2 en radian
+    double angleA1 = acos(cosA1) * 180 / PI; // angle1 en radian
+    double angleB1 = acos(cosB1) * 180/ PI; // angle2 en radian
 
-    ///Limites
-    double a = mySphere.thetaSphere;
-    double b = 90 - angle1;
-    double g = 180 - angle2;
+    //Limites
+    double a1 = mySphere.thetaSphere;
+    double b1 = 90 - angleA1;
+    double g1 = 180 - angleB1;
 
-    qDebug()<<"Angles a atteindre: "<<a<<" et "<<b<<" et "<<g;
-    cout<<"Angles du bras: "<<myArm.alpha<<" et "<<myArm.beta<<" et "<<myArm.gamma<<endl;
+    /// Parametres de deplacement de  la sphere jusque le trou
+    /*
+     * Calcul des angles beta et gamma du bras
+     * Methode: Theoreme d'Al-Khashi
+     * Modelisation: triangle forme par les sommets:
+     * - centre de la sphere/epaule du bras
+     * - centre de la sphere/coude du bras
+     * - centre du trou*/
 
-    if (a-myArm.alpha>1)
+    //Cotes du triangle
+
+    double sideA2 = myArm.sA+2; // cote 1 du triangle
+    double sideB2 = myArm.sFa+2; // cote 2 du triangle
+    double sideC2 = myHole.r; // cote 3 du triangle
+
+    //Cosinus
+
+    double cosA2 = (sideA2*sideA2+sideC2*sideC2-sideC2*sideC2)/(2*sideA2*sideC2); // angle beta a atteindre
+    double cosB2 = (sideA2*sideA2+sideB2*sideB2-sideC2*sideC2)/(2*sideA2*sideB2); // angle gamma a atteindre
+
+    //Angles en degres
+
+    double angleA2 = acos(cosA2) * 180 / PI; // angleA2 en radian
+    double angleB2 = acos(cosB2) * 180/ PI; // angleB2 en radian
+
+    //Limites
+    double a2 = mySphere.thetaSphere;
+    double b2 = 90 - angleA2;
+    double g2 = 180 - angleB2;
+
+
+
+    if (boolDrop==false)
     {
-        myArm.alpha+=1;
+        qDebug()<<"Angles a atteindre: "<<a1<<" et "<<b1<<" et "<<g1;
+        cout<<"Angles du bras: "<<myArm.alpha<<" et "<<myArm.beta<<" et "<<myArm.gamma<<endl;
+
+        if (a1-myArm.alpha>1)
+        {
+            myArm.alpha+=1;
+            update();
+        }
+
+        else if (myArm.alpha-a1>1)
+        {
+            myArm.alpha-=1;
+            update();
+        }
+
+         // Orientation bonne
+
+        else if (b1-myArm.beta>1)
+        {
+            myArm.beta+=1;
+            update();
+        }
+
+        else if (myArm.beta-b1>1)
+        {
+            myArm.beta-=1;
+            update();
+        }
+
+        // Angle beta bon
+
+        else if (g1-myArm.gamma>1)
+        {
+            myArm.gamma+=1;
+            update();
+        }
+
+        else if (myArm.gamma-g1>1)
+        {
+            myArm.gamma-=1;
+            update();
+        }
+
+        // Angle gamma bon
+
+        else
+        {
+            boolDrop=true;
+        }
+
+    }
+
+    if (boolDrop==true && myArm.delta<55)
+    {
+        myArm.delta+=1;
+        boolSphere=false; // on fait disparaitre la sphere
+        myArm.boolSphere=true; // on fait aparaitre celle dans le bras
         update();
     }
 
-    else if (myArm.alpha-a>1)
+
+    // La sphere est attrapee
+    if (boolDrop==true && myArm.delta>=55)
     {
-        myArm.alpha-=1;
-        update();
+        if (a2-myArm.alpha>1)
+        {
+            myArm.alpha+=1;
+            update();
+        }
+
+        else if (myArm.alpha-a2>1)
+        {
+            myArm.alpha-=1;
+            update();
+        }
+
+         // Orientation bonne
+
+        else if (b2-myArm.beta>1)
+        {
+            myArm.beta+=1;
+            update();
+        }
+
+        else if (myArm.beta-b2>1)
+        {
+            myArm.beta-=1;
+            update();
+        }
+
+        // Angle beta bon
+
+        else if (g2-myArm.gamma>1)
+        {
+            myArm.gamma+=1;
+            update();
+        }
+
+        else if (myArm.gamma-g2>1)
+        {
+            myArm.gamma-=1;
+            update();
+        }
+
+        // Angle gamma bon
+
+        /*else if (myArm.delta<55)
+        {
+            myArm.delta-=1;
+            update();
+        }*/
+
+        else
+        {
+            mySphere.xSphere=myHole.xHole;
+            mySphere.ySphere=myHole.yHole;
+            boolSphere=true; // on fait apparaitre la sphere
+            myArm.boolSphere=false; // on fait disparaitre celle dans le bras
+            timerCatch->stop();
+            update();
+        }
+
     }
 
-     // Orientation bonne
 
-    else if (b-myArm.beta>1)
-    {
-        myArm.beta+=1;
-        update();
-    }
-
-    else if (myArm.beta-b>1)
-    {
-        myArm.beta-=1;
-        update();
-    }
-
-    // Angle beta bon
-
-    else if (g-myArm.gamma>1)
-    {
-        myArm.gamma+=1;
-        update();
-    }
-
-    else if (myArm.gamma-g>1)
-    {
-        myArm.gamma-=1;
-        update();
-    }
-
-    else
-    {
-        qDebug()<<"Cotes du triangle: "<<side1<<" "<<side2<<" "<<side3;
-        timerCatch->stop();
-    }
 }
 
 

@@ -58,6 +58,14 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
         ui->myGame->update();
     }
 
+    else if (e->key()==Qt::Key_R)
+    {
+        ui->myGame->myArm.alpha=0;
+        ui->myGame->myArm.gamma=0;
+        ui->myGame->myArm.gamma=0;
+        ui->myGame->update();
+    }
+
     else
 
     {

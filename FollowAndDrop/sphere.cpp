@@ -37,7 +37,7 @@ void Sphere::drawSphere(double radius, int slices, int stacks)
     else if (xSphere<0 && ySphere<0) // 3eme quart
 
     {
-        tanThetaSphere = ySphere/(double)xSphere;
+        tanThetaSphere = xSphere/(double)ySphere;
         thetaSphere = atan(tanThetaSphere); // angle en radian
         thetaSphere = -90 - thetaSphere * 180 / PI;
     }
