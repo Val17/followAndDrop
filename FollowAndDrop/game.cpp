@@ -1,12 +1,5 @@
 #include "game.h"
-#include <QTimer>
 
-#include <QtWidgets>
-#include <QtOpenGL>
-#include <GL/glu.h>
-#include <GL/gl.h>
-#include "math.h"
-#include<iostream>
 
 #define PI 3.14159265
 
@@ -34,13 +27,14 @@ Game::Game(QWidget *parent) :
     boolHole = false;
 
     intGluPerspective = 80;
+    altitud = 0;
 
-    timer = new QTimer(this);
-
+    timerCatch = new QTimer(this);
 }
 
 Game::~Game()
 {
+    delete timerCatch;
 }
 
 QSize Game::minimumSizeHint() const
@@ -96,42 +90,7 @@ void Game::setZRotation(int angle)
 
 void Game::initializeGL()
 {
-
-    /*theArena = glGenLists(5);
-
-    glNewList(theArena, GL_COMPILE);
-         myArena.drawArena();
-
-    glEndList();
-
-    theSphere = glGenLists(3);
-
-    glNewList(theSphere, GL_COMPILE);
-         mySphere.drawSphere(2,20,20);
-    glEndList();
-
-    theTarget = glGenLists(6);
-
-    glNewList(theTarget, GL_COMPILE);
-        myTarget.drawTarget();
-    glEndList();
-
-    theArm = glGenLists(7);
-
-    glNewList(theArm, GL_COMPILE);
-        myArm.drawArm();
-    glEndList();
-
-    theArticulateArm = glGenLists(1);
-
-    glNewList(theArticulateArm, GL_COMPILE);
-        myArticulateArm.drawArm();
-    glEndList();*/
-
     glDisable(GL_CULL_FACE);
-
-
-
 }
 
 void Game::paintGL()
@@ -140,11 +99,13 @@ void Game::paintGL()
     glColor3f(1,1,1);
     glLoadIdentity();
 
-
     // initalize the coordinate system to correct alignement
 
     glTranslatef(0.0, 0.0, -30.0);
-    glRotatef(70, -1, 0.0, 0.0);
+    //glRotatef(80, -1, 0.0, 0.0);
+    glRotatef(-60, 1.0, 0.0, 0.0);
+
+    //glTranslatef(0,0,altitud);
 
     /*glRotatef (90,1,0,0);
     glRotatef (90,0,0,1);
@@ -162,26 +123,19 @@ void Game::paintGL()
     glRotatef(-zRot/16, 1.0, 0.0, 0.0);*/
 
     draw();
-
-
-
-
 }
 
 void Game::resizeGL(int width, int height)
 {
     int side = qMin(width, height);
-    glViewport((width - side) / 2, (height - side) / 2, side, side);
+    //glViewport((width - side) / 2, (height - side) / 2, side, side);
+
+    glViewport(0,0,width,height); // new version
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(intGluPerspective, ((float)width/(float)height),0.01,1000);
     glMatrixMode(GL_MODELVIEW);
-}
-
-void Game::mousePressEvent(QMouseEvent *event)
-{
-    lastPos = event->pos();
 }
 
 void Game::mouseMoveEvent(QMouseEvent *event)
@@ -217,31 +171,27 @@ void Game::draw()
         glPopMatrix();
     }
 
-    if (boolTarget==true)
+    if (boolSphere == true)
     {
         glPushMatrix();
-            glTranslatef(getRandomCoordinates().x(), getRandomCoordinates().y(),0);
-            myTarget.drawTarget();
-        glPopMatrix();
+            glTranslatef(mySphere.xSphere, mySphere.ySphere,0);
+            mySphere.drawSphere(1, 50, 50);
 
-    }
-
-    if (boolSphere==true)
-    {
-        glPushMatrix();
-            glTranslatef(getRandomCoordinates().x(), getRandomCoordinates().y(),0);
-            mySphere.drawSphere(2,20,20);
+            //qDebug()<<mySphere.xSphere<<"-"<<mySphere.ySphere<<"-"<<mySphere.r;
         glPopMatrix();
     }
 
-    if (boolHole==true)
+    /*if (myHole.xHole == 0 && myHole.yHole==0)
     {
+        myHole.xHole=getRandomCoordinates().x();
+        myHole.yHole=getRandomCoordinates().y();
+    }
+
         glPushMatrix();
-            glTranslatef(getRandomCoordinates().x(), getRandomCoordinates().y(),0);
+            glTranslatef(myHole.xHole, myHole.yHole,0);
             myHole.drawHole();
-        glPopMatrix();
-    }
 
+        glPopMatrix();*/
 
 }
 
@@ -307,117 +257,158 @@ GLuint Game::loadtgadisplayCDV ( const char* filename )
 }
 
 
-void Game::appearTarget()
+void Game::moveArm()
 {
+    /*
+     * Calcul des angles beta et gamma du bras
+     * Methode: Theoreme d'Al-Khashi
+     * Modelisation: triangle forme par les sommets:
+     * - centre de la sphere/epaule du bras
+     * - centre de la sphere/coude du bras
+     * - centre de la sphere a attraper*/
 
-    boolTarget = true;
-    update();
-}
+    ///Cotes du triangle
 
-void Game::dropSphere()
-{
+    double side1 = myArm.sA+2; // cote 1 du triangle
+    double side2 = myArm.sFa+2; // cote 2 du triangle
+    double side3 = mySphere.r; // cote 3 du triangle
 
-    double cosAngle1 = (myArm.sA*myArm.sA+myTarget.r*myTarget.r-myArm.sFa*myArm.sFa)/(2*myArm.sA*myTarget.r);
-    double cosAngle2 = (myArm.sA*myArm.sA+myArm.sFa*myArm.sFa-myTarget.r*myTarget.r)/(2*myArm.sA*myArm.sFa);
+    /// Cosinus
 
-    double angle1 = acos(cosAngle1); // angle1 en radian
-    double angle2 = acos(cosAngle2); // angle2 en radian
+    double cosAngle1 = (side1*side1+side3*side3-side3*side3)/(2*side1*side3); // angle beta a atteindre
+    double cosAngle2 = (side1*side1+side2*side2-side3*side3)/(2*side1*side2); // angle gamma a atteindre
 
-    angle1 = angle1 *180 / PI;
-    angle2 = angle2 * 180 /PI;
+    ///Angles en degres
 
-    double a = myTarget.thetaTarget;
+    double angle1 = acos(cosAngle1) * 180 / PI; // angle1 en radian
+    double angle2 = acos(cosAngle2) * 180/ PI; // angle2 en radian
+
+    ///Limites
+    double a = mySphere.thetaSphere;
     double b = 90 - angle1;
     double g = 180 - angle2;
 
-    qDebug()<<"alpha;"<<a<<"% beta:"<<b<<"% gamma:"<<g;
-    cout<<"Bras:"<<myArm.alpha<<" % "<<myArm.beta<<" % "<<myArm.gamma<<endl;
+    qDebug()<<"Angles a atteindre: "<<a<<" et "<<b<<" et "<<g;
+    cout<<"Angles du bras: "<<myArm.alpha<<" et "<<myArm.beta<<" et "<<myArm.gamma<<endl;
 
-    if (a>0 && myArm.alpha<a)
+    if (a-myArm.alpha>1)
     {
-
         myArm.alpha+=1;
         update();
     }
 
-    else if (a<0 && myArm.alpha>a)
+    else if (myArm.alpha-a>1)
     {
         myArm.alpha-=1;
         update();
     }
 
-    else
+     // Orientation bonne
+
+    else if (b-myArm.beta>1)
     {
-        if (myArm.beta<b)
-        {
-            myArm.beta+=1;
-            update();
-        }
-
-        else
-        {
-            if (myArm.gamma<g)
-            {
-                myArm.gamma+=1;
-                update();
-            }
-
-            else if (myArm.boolSphere == false)
-            {
-                myArm.boolSphere = true;
-                update();
-            }
-
-            else if (myArm.delta<55)
-
-            {
-                myArm.delta+=1;
-                update();
-
-
-            }
-
-            else
-            {
-                timer->stop();
-            }
-        }
-
+        myArm.beta+=1;
+        update();
     }
 
+    else if (myArm.beta-b>1)
+    {
+        myArm.beta-=1;
+        update();
+    }
 
+    // Angle beta bon
+
+    else if (g-myArm.gamma>1)
+    {
+        myArm.gamma+=1;
+        update();
+    }
+
+    else if (myArm.gamma-g>1)
+    {
+        myArm.gamma-=1;
+        update();
+    }
+
+    else
+    {
+        qDebug()<<"Cotes du triangle: "<<side1<<" "<<side2<<" "<<side3;
+        timerCatch->stop();
+    }
 }
 
 
-void Game :: startChrono()
+void Game :: catchSphere()
 {
-    connect(timer, SIGNAL(timeout()), this, SLOT(dropSphere()));
-    timer->start(1);
-
+    connect(timerCatch, SIGNAL(timeout()), this, SLOT(moveArm()));
+    timerCatch->start(1);
 }
 
 void Game :: appearSphere()
 {
-    boolSphere = true;
+
+    boolSphere = true; // il y a une sphere sur le jeu
+    mySphere.xSphere = getRandomCoordinates().x();
+    mySphere.ySphere = getRandomCoordinates().y();
+
+    /*qDebug()<<"Sphere:"<<mySphere.xSphere<<" et "<<mySphere.ySphere;
+    qDebug()<<"Angle sphere:" <<mySphere.thetaSphere;*/
+
     update();
 }
 
 void Game :: appearHole()
 {
-    boolHole = true;
+    boolHole = true; // il y a un trou sur le jeu
+    myHole.xHole = getRandomCoordinates().x();
+    myHole.yHole = getRandomCoordinates().y();
+
+    //qDebug()<<"Hole:"<<myHole.xHole<<" et "<<myHole.yHole;
+
+    update();
+}
+
+void Game::appearTarget()
+{
+
+    boolTarget = true; // il y a un trou sur le jeu
+    myTarget.xTarget = getRandomCoordinates().x();
+    myTarget.yTarget = getRandomCoordinates().y();
+
+    //qDebug()<<"Target:"<<myTarget.xTarget<<" et "<<myTarget.yTarget;
+
     update();
 }
 
 QPoint Game :: getRandomCoordinates ()
 {
+    qDebug()<<"coord";
     int high = myArena.size /2;
     int low = - myArena.size /2;
 
-    QPoint point;
+    QPoint point; // point ou l'on va mettre l'element
+    point.setX(0);
+    point.setY(0);
 
-    point.setX(qrand() % ((high + 1) - low) + low);
-    point.setY(qrand() % ((high + 1) - low) + low);
+    double distance = 0;
+
+    while (distance<2) // on ne doit pas avoir un element trop proche du bras
+    {
+        point.setX(qrand() % ((high + 1) - low) + low);
+        point.setY(qrand() % ((high + 1) - low) + low);
+        distance = sqrt (point.x()*point.x()+point.y()*point.y());
+    }
+
 
     return point;
 }
+
+
+void Game::mousePressEvent(QMouseEvent *event)
+{
+    lastPos = event->pos();
+    qDebug()<<lastPos;
+}
+
 

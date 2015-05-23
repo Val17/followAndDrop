@@ -31,7 +31,7 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
 
     else if (e->key() == Qt::Key_D)
     {
-        ui->myGame->startChrono();
+        ui->myGame->catchSphere();
     }
 
     else if (e->key() == Qt::Key_S)
@@ -44,6 +44,20 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
         ui->myGame->appearHole();
     }
 
+    else if (e->key()==Qt::Key_P)
+    {
+        ui->myGame->myArm.alpha+=1;
+        qDebug()<<ui->myGame->myArm.alpha;
+        ui->myGame->update();
+    }
+
+    else if (e->key()==Qt::Key_M)
+    {
+        ui->myGame->myArm.alpha-=1;
+        qDebug()<<ui->myGame->myArm.alpha;
+        ui->myGame->update();
+    }
+
     else
 
     {
@@ -52,5 +66,6 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
 
 
 }
+
 
 

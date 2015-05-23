@@ -4,33 +4,53 @@
 
 Sphere::Sphere()
 {
-    xSphere=10;
-    ySphere=5;
-
-    thetaSphere = atan(ySphere/(double)xSphere)* 180 / PI;
-
-    if (ySphere==0)
-    {
-        r = xSphere / (double) cos(thetaSphere);
-    }
-
-    else
-
-    {
-        r = ySphere / (double) cos(thetaSphere);
-    }
-
+    r = 0;
+    thetaSphere = 0;
 }
 
 void Sphere::drawSphere(double radius, int slices, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/water.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, radius, slices, stacks);
 
+    r = sqrt (xSphere*xSphere+ySphere*ySphere);
 
+    if (xSphere>0 && ySphere>0) // 1er quart
+    {
+        tanThetaSphere = ySphere/(double)xSphere;
+        thetaSphere = atan(tanThetaSphere); // angle en radian
+        thetaSphere = thetaSphere * 180 / PI;
+
+    }
+
+    else if (xSphere<0 && ySphere>0) // 2eme quart
+
+    {
+        tanThetaSphere = -ySphere/(double)xSphere;
+        thetaSphere = atan(tanThetaSphere); // angle en radian
+        thetaSphere = 90 + thetaSphere * 180 / PI;
+    }
+
+    else if (xSphere<0 && ySphere<0) // 3eme quart
+
+    {
+        tanThetaSphere = ySphere/(double)xSphere;
+        thetaSphere = atan(tanThetaSphere); // angle en radian
+        thetaSphere = -90 - thetaSphere * 180 / PI;
+    }
+
+    else if (xSphere>0 && ySphere<0) // 4eme quart
+
+    {
+        tanThetaSphere = -ySphere/(double)xSphere;
+        thetaSphere = atan(tanThetaSphere); // angle en radian
+        thetaSphere = -thetaSphere * 180 / PI;
+    }
+
+   qDebug()<<"Sphere: "<<xSphere<<ySphere<<thetaSphere;
 }
 
 GLuint Sphere::loadtgadisplayCDV ( const char* filename )
@@ -113,10 +133,6 @@ bool Sphere::isMovable(int x, int y, int s)
     {
         return b;
     }
-
-
 }
-
-
 
 

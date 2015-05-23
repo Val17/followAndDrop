@@ -4,15 +4,18 @@
 
 Hole::Hole()
 {
-    xHole = -4;
-    yHole = -7;
+    xHole = 0;
+    yHole = 0;
+
+    radius = 4;
+    thetaHole = 0;
 }
 
 
 void Hole::drawHole()
 {
     int nb_faces = 100;
-    int rayon = 4;
+    int rayon = radius;
 
     GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/hole1.tga");
 
@@ -28,6 +31,42 @@ void Hole::drawHole()
             glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
 
             glVertex2f(xcos*rayon, ycos*rayon );
+        }
+
+        r = sqrt (xHole*xHole+yHole*yHole);
+
+        if (xHole>0 && yHole>0) // 1er quart
+        {
+            tanThetaHole = yHole/(double)xHole;
+            thetaHole = atan(tanThetaHole); // angle en radian
+            thetaHole = thetaHole * 180 / PI;
+
+        }
+
+        else if (xHole<0 && yHole>0) // 2eme quart
+
+        {
+            tanThetaHole = -yHole/(double)xHole;
+            thetaHole = atan(tanThetaHole); // angle en radian
+            thetaHole = 90 + thetaHole * 180 / PI;
+            qDebug()<<"AngleHole:"<<thetaHole;
+        }
+
+        else if (xHole<0 && yHole<0) // 3eme quart
+
+        {
+            tanThetaHole = yHole/(double)xHole;
+            thetaHole = atan(tanThetaHole); // angle en radian
+            thetaHole = -90 - thetaHole * 180 / PI;
+
+        }
+
+        else if (xHole>0 && yHole<0) // 4eme quart
+
+        {
+            tanThetaHole = -yHole/(double)xHole;
+            thetaHole = atan(tanThetaHole); // angle en radian
+            thetaHole = -thetaHole * 180 / PI;
         }
 
 

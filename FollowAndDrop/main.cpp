@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
 
     window.show();
 
-    WebCamWindow w;
-    w.show();
+    /*WebCamWindow w;
+    w.show();*/
 
     return app.exec();
 }

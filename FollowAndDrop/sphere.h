@@ -14,10 +14,11 @@ class Sphere : public QObject
     Q_OBJECT
 public:
     explicit Sphere();
-    int xSphere; // coordonnee x de la sphere
-    int ySphere; // coordonne y de la sphere
+    double xSphere; // abscisse aleatoire
+    double ySphere; // ordonnee aleatoire
     double thetaSphere; // angle d'orientation de la sphere
-    double r; // distance entre l'origine et le centre de la sphere
+    double tanThetaSphere;
+    double r; // distance entre le centre de l'arene et la sphere
     void drawSphere(double radius, int slices, int stacks);
     bool isMovable(int x, int y, int s);
 signals:

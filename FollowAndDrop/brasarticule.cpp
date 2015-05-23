@@ -14,6 +14,8 @@ ArticulateArm::ArticulateArm(QGLWidget *parent) : QGLWidget(parent)
 
     boolSphere=false;
 
+    altitud = 0;
+
 }
 
 ArticulateArm::~ArticulateArm()
@@ -25,23 +27,24 @@ void ArticulateArm::drawArm()
 {
 
 
-    //socle
+    /*//socle
 
     glPushMatrix();
 
-        glScalef(1,1,.1);
-        drawSphere(3, 50, 50);
+        //glScalef(1,1,.1);
+        drawBase();
 
     glPopMatrix();
 
-    glPushMatrix();
+        //glPushMatrix();
 
-        glTranslatef(0,0,2);
+        //glTranslatef(0,0,2);
 
         glPushMatrix();
 
         // epaule
 
+            glTranslatef(0,0, 0);
             glRotatef(alpha, 0, 0, 1);
             glRotatef(beta, 0, 1, 0);
 
@@ -53,7 +56,7 @@ void ArticulateArm::drawArm()
 
             glPushMatrix();
 
-                glTranslatef(0,0, 1);
+                glTranslatef(0,0,2);
                 glScalef(1,1,1);
                 drawCylinder(1, 3, 20, 1);
 
@@ -144,9 +147,97 @@ void ArticulateArm::drawArm()
 
         glPopMatrix();
 
+    glPopMatrix();*/
+
+
+    // Socle
+
+    glPushMatrix(); // il y a un scalef dans drawBase
+        drawBase();
     glPopMatrix();
 
+    // Epaule
 
+    glPushMatrix();
+        glTranslatef(0,0,1); // altitude = 1
+
+            glRotatef(alpha, 0, 0, 1); // premier angle
+            glRotatef(beta, 0, 1, 0); // deuxieme angle
+
+            glPushMatrix();
+                drawSphere(1 ,50,50);
+            glPopMatrix();
+
+            // Bras
+
+            glPushMatrix();
+                glTranslatef(0,0,1); // altitude = 2
+                drawCylinder(1,sA,20,20);
+            glPopMatrix();
+
+            glPushMatrix();
+                glTranslatef(0,0,2+sA); // altitude = 2 + sA
+
+                glPushMatrix();
+                    // Coude
+                    glRotatef(gamma, 0, 1, 0);
+
+                    glPushMatrix();
+                        drawSphere(1,50,50);
+                    glPopMatrix();
+
+                    // Avant-Bras
+
+                    glPushMatrix();
+                        glTranslatef(0,0,1);
+                        drawCylinder(1, sFa, 20,20);
+                    glPopMatrix();
+
+                    //Main
+
+                    glPushMatrix();
+                        glTranslatef(0,0,5);
+
+                        glPushMatrix();
+                            drawSphere(1,50,50);
+                         glPopMatrix();
+
+                    // Pince 1
+
+                    glPushMatrix();
+                        glTranslatef(0,2,2);
+                        glRotatef(-30, 1, 0, 1);
+                        glRotatef(delta, 1, 0, -1); // quatrieme angle
+                        glScalef(.2,.2,3);
+                        drawCylinder(1,1,30,30);
+                     glPopMatrix();
+
+                     // le bras a attrape la sphere
+                      if (boolSphere == true)
+                      {
+                          glPushMatrix();
+                             glTranslatef(0,0,3.5);
+                             drawSphereGame(1,50,50);
+                          glPopMatrix();
+                      }
+
+                     // Pince 2
+                     glPushMatrix();
+                        glTranslatef(0,-2,2);
+                         glRotatef(30, 1, 0, 1);
+                         glRotatef(delta, -1, 0, 1);
+                         glScalef(.2,.2,3);
+                         drawCylinder(1,1,30,30);
+                      glPopMatrix();
+
+                    glPopMatrix();
+                glPopMatrix();
+            glPopMatrix();
+        glPopMatrix();
+
+    glPopMatrix();
+
+      // l'altitude est de sA + sFa + 6
 
 }
 
@@ -154,7 +245,7 @@ void ArticulateArm::drawSphere(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/herbe.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/mars.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
 
@@ -165,20 +256,34 @@ void ArticulateArm::drawSphereGame(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/ball.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/mars.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
 }
 
-void ArticulateArm::drawCylinder(double r,int height, int lats, int longs)
+void ArticulateArm::drawCylinder(double radius,int height, int slices, int stacks)
+{
+
+    GLUquadric* quadric;
+    quadric = gluNewQuadric();
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/mars.tga"));
+    gluQuadricTexture(quadric, GL_TRUE);
+    gluCylinder(quadric, radius, radius, height, slices, stacks);
+}
+
+void ArticulateArm::drawBase()
 {
 
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/herbe.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/mars.tga"));
     gluQuadricTexture(param, GL_TRUE);
-    gluCylinder(param, r, r, height, lats, longs);
+
+    glScalef(2,2,.1);
+    gluSphere(param, 1, 50, 50);
+
 }
+
 
 GLuint ArticulateArm::loadtgadisplayCDV ( const char* filename )
 {

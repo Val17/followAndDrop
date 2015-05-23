@@ -16,6 +16,10 @@ public:
     Hole();
     double xHole;
     double yHole;
+    int radius; /// rayon du trou
+    double thetaHole; // angle d'orientation du trou
+    double tanThetaHole; // tangente de cet angle
+    double r; // distance du centre du trou par rapport  au trou
 
     void drawHole();
 

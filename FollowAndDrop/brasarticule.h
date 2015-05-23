@@ -29,8 +29,10 @@ public:
     double sA; // taille du bras (arm)
     double sFa; // taille de l'avant bras (forearm)
     bool boolSphere;
+    int altitud;
 
     void catchSphere(double t);
+    void drawBase();
 public slots:
 
 signals:

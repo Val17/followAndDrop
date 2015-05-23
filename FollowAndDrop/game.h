@@ -3,13 +3,18 @@
 
 #include <QWidget>
 #include <QGLWidget>
+#include <QTimer>
+#include <QtWidgets>
+#include <QtOpenGL>
+#include <GL/glu.h>
+#include <GL/gl.h>
+#include "math.h"
 #include <arena.h>
 #include <sphere.h>
 #include <target.h>
 #include <hole.h>
 #include <brasarticule.h>
-
-
+#include<iostream>
 
 class Game : public QGLWidget
 {
@@ -41,33 +46,28 @@ public:
     bool boolArm;
     bool boolSphere;
     bool boolHole;
-
+    int altitud; // altitude de translation
     Sphere mySphere;
     Target myTarget;
     ArticulateArm myArm;
     Hole myHole;
-
     int intGluPerspective;
-
-
-    void startChrono();
+    void catchSphere(); // attrape la sphere
     void moveY(int y);
     void moveZ(int z);
     void moveX(int x);
     void appearSphere();
     QPoint getRandomCoordinates();
-protected:
 
+protected:
     void initializeGL();
     void paintGL();
     void draw();
     void resizeGL(int width, int height);
-
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-
 
 public slots:
     // slots for xyz-rotation slider
@@ -75,8 +75,9 @@ public slots:
     void setYRotation(int angle);
     void setZRotation(int angle);
     void appearTarget();
-    void dropSphere();
+    void moveArm(); // methode permettant de baisser le bras
     void appearHole();
+
 signals:
     // signaling rotation from mouse movement
     void xRotationChanged(int angle);
@@ -90,9 +91,7 @@ private:
     int xRandom;
     int yRandom;
     int zRandom;
-    QTimer *timer;
-
-
+    QTimer *timerCatch;
     GLuint loadtgadisplayCDV(const char *filename);
 
 };

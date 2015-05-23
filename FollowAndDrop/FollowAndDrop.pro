@@ -9,7 +9,6 @@ INCLUDEPATH += .
 # Input
 HEADERS += mainwindow.h \
     arena.h \
-    myglwidget.h \
     target.h \
     game.h \
     sphere.h \
@@ -21,7 +20,6 @@ FORMS += mainwindow.ui \
     gamewidget.ui
 SOURCES += main.cpp mainwindow.cpp \
     arena.cpp \
-    myglwidget.cpp \
     target.cpp \
     game.cpp \
     sphere.cpp \
