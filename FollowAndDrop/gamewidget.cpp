@@ -31,7 +31,7 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
 
     else if (e->key() == Qt::Key_D)
     {
-        ui->myGame->catchSphere();
+        ui->myGame->removeSphere(1);
     }
 
     else if (e->key() == Qt::Key_S)

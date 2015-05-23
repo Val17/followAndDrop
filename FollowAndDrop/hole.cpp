@@ -17,7 +17,7 @@ void Hole::drawHole()
     int nb_faces = 100;
     int rayon = radius;
 
-    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/hole1.tga");
+    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/ground.tga");
 
 
     glBegin(GL_POLYGON);
@@ -33,11 +33,14 @@ void Hole::drawHole()
             glVertex2f(xcos*rayon, ycos*rayon );
         }
 
+    glEnd();
+
+
         r = sqrt (xHole*xHole+yHole*yHole);
 
         if (xHole>0 && yHole>0) // 1er quart
         {
-            tanThetaHole = yHole/(double)xHole;
+            tanThetaHole = xHole/(double)yHole;
             thetaHole = atan(tanThetaHole); // angle en radian
             thetaHole = thetaHole * 180 / PI;
 
@@ -70,7 +73,7 @@ void Hole::drawHole()
         }
 
 
-    glEnd();
+
 }
 
 GLuint Hole::loadtgadisplayCDV ( const char* filename )

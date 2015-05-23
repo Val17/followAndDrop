@@ -39,13 +39,9 @@ Arena::~Arena()
 
 void Arena::drawArena()
 {
-
-
     int nb_faces = 100;
 
-
     GLtextureArena[0]= loadtgadisplayCDV(texture);
-
 
     glBegin(GL_POLYGON);
 
@@ -62,6 +58,14 @@ void Arena::drawArena()
         }
 
      glEnd();
+
+
+     GLUquadric* quadric;
+     quadric = gluNewQuadric();
+     glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga"));
+     gluQuadricTexture(quadric, GL_TRUE);
+     gluCylinder(quadric, 20,20,4,50,50);
+
 
 
 }

@@ -256,7 +256,7 @@ void ArticulateArm::drawSphereGame(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/mars.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
 }

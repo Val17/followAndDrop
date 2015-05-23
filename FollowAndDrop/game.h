@@ -40,19 +40,23 @@ public:
      * si il y a l'Arene qui est a l'ecran.
      * */
 
-    bool boolDrop;
     bool boolTarget;
     bool boolArena;
     bool boolArm;
     bool boolSphere;
     bool boolHole;
+    bool boolDrop; // booleen pour savoir si le bras a la sphere
+
+    //int step; // entier representatn l'etape ou est attrapee la sphere
+
+
     int altitud; // altitude de translation
     Sphere mySphere;
     Target myTarget;
     ArticulateArm myArm;
     Hole myHole;
     int intGluPerspective;
-    void catchSphere(); // attrape la sphere
+    void removeSphere(int step); // attrape la sphere
     void moveY(int y);
     void moveZ(int z);
     void moveX(int x);
@@ -75,7 +79,9 @@ public slots:
     void setYRotation(int angle);
     void setZRotation(int angle);
     void appearTarget();
-    void moveArm(); // methode permettant de baisser le bras
+    void catchSphere(); // methode permettant d'attraper la sphere
+    void reinitializeArm(); // slot permettant de mettre le bras a sa position initiale
+    void dropSphere(); // slot permettant d'amener la sphere dans le trou
     void appearHole();
 
 signals:
@@ -92,7 +98,10 @@ private:
     int yRandom;
     int zRandom;
     QTimer *timerCatch;
+    QTimer *timerMoveArm; // timer utilise pour le deplacement du bras a son etat initial
+    QTimer *timerDrop; // timer utilise pour que le bras lache la sphere
     GLuint loadtgadisplayCDV(const char *filename);
+
 
 };
 

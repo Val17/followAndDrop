@@ -14,27 +14,35 @@ Game::Game(QWidget *parent) :
     zRot = 0;
     chrono = 0;
 
+    //step =0;
+
 
     /*
      * Au depart, il n'y aucun element graphique
      * */
 
-    boolDrop = false;
+
     boolArena = false;
     boolArm = true;
     boolTarget = false;
     boolSphere = false;
     boolHole = false;
+    boolDrop = false;
+
 
     intGluPerspective = 80;
     altitud = 0;
 
     timerCatch = new QTimer(this);
+    timerMoveArm = new QTimer(this);
+    timerDrop = new QTimer(this);
 }
 
 Game::~Game()
 {
     delete timerCatch;
+    delete timerMoveArm;
+    delete timerDrop;
 }
 
 QSize Game::minimumSizeHint() const
@@ -160,16 +168,14 @@ void Game::draw()
 
     glClear(GL_COLOR_BUFFER_BIT);
 
-    if (boolArm==true)
-    {
-        glPushMatrix();
-            myArena.drawArena();
-        glPopMatrix();
+    glPushMatrix();
+        myArena.drawArena();
+    glPopMatrix();
 
-        glPushMatrix();
-            myArm.drawArm();
-        glPopMatrix();
-    }
+    glPushMatrix();
+        myArm.drawArm();
+    glPopMatrix();
+
 
     if (boolSphere == true)
     {
@@ -181,7 +187,7 @@ void Game::draw()
         glPopMatrix();
     }
 
-    /*if (myHole.xHole == 0 && myHole.yHole==0)
+    if (myHole.xHole == 0 && myHole.yHole==0)
     {
         myHole.xHole=getRandomCoordinates().x();
         myHole.yHole=getRandomCoordinates().y();
@@ -190,8 +196,7 @@ void Game::draw()
         glPushMatrix();
             glTranslatef(myHole.xHole, myHole.yHole,0);
             myHole.drawHole();
-
-        glPopMatrix();*/
+        glPopMatrix();
 
 }
 
@@ -257,8 +262,9 @@ GLuint Game::loadtgadisplayCDV ( const char* filename )
 }
 
 
-void Game::moveArm()
+void Game::catchSphere()
 {
+    qDebug()<<"catch";
     /// On attrape la sphere
     /*
      * Calcul des angles beta et gamma du bras
@@ -289,6 +295,168 @@ void Game::moveArm()
     double b1 = 90 - angleA1;
     double g1 = 180 - angleB1;
 
+   qDebug()<<"Angles du bras: "<<myArm.alpha<<" et "<<myArm.beta<<" et "<<myArm.gamma<<" et "<<myArm.delta;
+
+
+    qDebug()<<"Angles a atteindre: "<<a1<<" et "<<b1<<" et "<<g1;
+
+
+    if (a1-myArm.alpha>10)
+    {
+        myArm.alpha+=10;
+        update();
+    }
+
+    else if (myArm.alpha-a1>10)
+    {
+        myArm.alpha-=10;
+        update();
+    }
+
+     // Orientation bonne
+
+    else if (b1-myArm.beta>10)
+    {
+        myArm.beta+=10;
+        update();
+    }
+
+    else if (myArm.beta-b1>10)
+    {
+        myArm.beta-=10;
+        update();
+    }
+
+    // Angle beta bon
+
+    else if (g1-myArm.gamma>10)
+    {
+        myArm.gamma+=10;
+        update();
+    }
+
+    else if (myArm.gamma-g1>10)
+    {
+        myArm.gamma-=10;
+        update();
+    }
+
+    // Angle gamma bon
+
+    else if (myArm.delta<60)
+    {
+        myArm.delta+=10;
+    }
+
+    //Pince sert la sphere
+
+    else if (boolSphere==true)
+    {
+        boolSphere=false; // on fait disparaitre la sphere
+        myArm.boolSphere=true; // on fait aparaitre celle dans le bras
+        update();
+    }
+
+    else
+    {
+        timerCatch->stop();
+        boolDrop = true;
+        removeSphere(2);
+    }
+
+}
+
+
+void Game :: removeSphere(int step)
+{
+    if (step==1)
+    {
+        connect(timerCatch, SIGNAL(timeout()), this, SLOT(catchSphere()));
+        timerCatch->start(10);
+    }
+
+    else if (step==2)
+    {
+        qDebug()<<"bras a reini 1";
+        connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
+        timerMoveArm->start(10);
+    }
+
+    else if (step==3)
+    {
+        qDebug()<<"bras va la mettre dans le trou";
+        connect(timerDrop, SIGNAL(timeout()),this,SLOT(dropSphere()));
+        timerDrop->start(10);
+    }
+
+    else if (step==4)
+    {
+        qDebug()<<"bras a reini 2";
+        connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
+        timerMoveArm->start(10);
+    }
+
+}
+
+void Game::reinitializeArm()
+{
+    qDebug()<<"bras revient";
+    // La sphere est attrapee; on ramene le bras a sa position initiale
+
+    if (myArm.alpha>5)
+    {
+        myArm.alpha-=5;
+        update();
+    }
+
+    else if (myArm.alpha<0)
+    {
+        myArm.alpha+=5;
+        update();
+    }
+
+    if (myArm.beta>5)
+    {
+        myArm.beta-=5;
+        update();
+    }
+
+    else if (myArm.beta<0)
+    {
+        myArm.beta+=5;
+        update();
+    }
+
+    if (myArm.gamma>5)
+    {
+        myArm.gamma-=5;
+        update();
+    }
+
+    else if (myArm.gamma<0)
+    {
+        myArm.gamma+=5;
+        update();
+    }
+
+    // Le bras est en position initiale et a la sphere
+    else if (boolDrop==true)
+    {
+        timerMoveArm->stop();
+
+        removeSphere(3);
+    }
+
+    else if (boolDrop==false)
+    {
+        timerMoveArm->stop();
+        qDebug()<<"bras a fini";
+    }
+
+}
+
+void Game::dropSphere()
+{
     /// Parametres de deplacement de  la sphere jusque le trou
     /*
      * Calcul des angles beta et gamma du bras
@@ -315,146 +483,72 @@ void Game::moveArm()
     double angleB2 = acos(cosB2) * 180/ PI; // angleB2 en radian
 
     //Limites
-    double a2 = mySphere.thetaSphere;
+    double a2 = myHole.thetaHole;
     double b2 = 90 - angleA2;
     double g2 = 180 - angleB2;
+    // La sphere est prete a aller dans le trou
 
-
-
-    if (boolDrop==false)
-    {
-        qDebug()<<"Angles a atteindre: "<<a1<<" et "<<b1<<" et "<<g1;
-        cout<<"Angles du bras: "<<myArm.alpha<<" et "<<myArm.beta<<" et "<<myArm.gamma<<endl;
-
-        if (a1-myArm.alpha>1)
+        if (a2-myArm.alpha>10)
         {
-            myArm.alpha+=1;
+            myArm.alpha+=10;
             update();
         }
 
-        else if (myArm.alpha-a1>1)
+        else if (myArm.alpha-a2>10)
         {
-            myArm.alpha-=1;
+            myArm.alpha-=10;
             update();
         }
 
          // Orientation bonne
 
-        else if (b1-myArm.beta>1)
+        else if (b2-myArm.beta>10)
         {
-            myArm.beta+=1;
+            myArm.beta+=10;
             update();
         }
 
-        else if (myArm.beta-b1>1)
+        else if (myArm.beta-b2>10)
         {
-            myArm.beta-=1;
-            update();
-        }
-
-        // Angle beta bon
-
-        else if (g1-myArm.gamma>1)
-        {
-            myArm.gamma+=1;
-            update();
-        }
-
-        else if (myArm.gamma-g1>1)
-        {
-            myArm.gamma-=1;
-            update();
-        }
-
-        // Angle gamma bon
-
-        else
-        {
-            boolDrop=true;
-        }
-
-    }
-
-    if (boolDrop==true && myArm.delta<55)
-    {
-        myArm.delta+=1;
-        boolSphere=false; // on fait disparaitre la sphere
-        myArm.boolSphere=true; // on fait aparaitre celle dans le bras
-        update();
-    }
-
-
-    // La sphere est attrapee
-    if (boolDrop==true && myArm.delta>=55)
-    {
-        if (a2-myArm.alpha>1)
-        {
-            myArm.alpha+=1;
-            update();
-        }
-
-        else if (myArm.alpha-a2>1)
-        {
-            myArm.alpha-=1;
-            update();
-        }
-
-         // Orientation bonne
-
-        else if (b2-myArm.beta>1)
-        {
-            myArm.beta+=1;
-            update();
-        }
-
-        else if (myArm.beta-b2>1)
-        {
-            myArm.beta-=1;
+            myArm.beta-=10;
             update();
         }
 
         // Angle beta bon
 
-        else if (g2-myArm.gamma>1)
+        else if (g2-myArm.gamma>10)
         {
-            myArm.gamma+=1;
+            myArm.gamma+=10;
             update();
         }
 
-        else if (myArm.gamma-g2>1)
+        else if (myArm.gamma-g2>10)
         {
-            myArm.gamma-=1;
+            myArm.gamma-=10;
             update();
         }
 
         // Angle gamma bon
 
-        /*else if (myArm.delta<55)
+        else if (myArm.delta>=30)
         {
-            myArm.delta-=1;
+            myArm.delta-=10;
             update();
-        }*/
+        }
 
         else
         {
+            timerDrop->stop();
+            boolDrop=false; // le bras ne tient plus la sphere
+
             mySphere.xSphere=myHole.xHole;
             mySphere.ySphere=myHole.yHole;
-            boolSphere=true; // on fait apparaitre la sphere
-            myArm.boolSphere=false; // on fait disparaitre celle dans le bras
-            timerCatch->stop();
-            update();
+
+            boolSphere=true; // la sphere est sur l'arene
+
+            myArm.boolSphere=false;
+            removeSphere(4);
         }
-
-    }
-
-
-}
-
-
-void Game :: catchSphere()
-{
-    connect(timerCatch, SIGNAL(timeout()), this, SLOT(moveArm()));
-    timerCatch->start(1);
 }
 
 void Game :: appearSphere()
