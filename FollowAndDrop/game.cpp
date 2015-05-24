@@ -185,14 +185,14 @@ void Game::draw()
 
         // On fait apparaitre un trou
 
-    if (myHole.xHole_ == 0 && myHole.yHole_==0)
+    if (myHole.getX() == 0 && myHole.getY()==0)
     {
-        myHole.xHole_=getRandomCoordinates().x();
-        myHole.yHole_=getRandomCoordinates().y();
+        myHole.setX(getRandomCoordinates().x());
+        myHole.setY(getRandomCoordinates().y());
     }
 
         glPushMatrix();
-            glTranslatef(myHole.xHole_, myHole.yHole_,0);
+            glTranslatef(myHole.getX(), myHole.getY(),0);
             myHole.drawHole();
         glPopMatrix();
 
@@ -496,9 +496,9 @@ void Game::dropSphere()
     double angleB2 = acos(cosB2) * 180/ PI; // angleB2 en radian
 
     //Limites
-    double a2 = myHole.thetaHole;
-    double b2 = 90 - angleA2;
-    double g2 = 180 - angleB2;
+    float a2 = myHole.getTheta();
+    float b2 = 90 - angleA2;
+    float g2 = 180 - angleB2;
     // La sphere est prete a aller dans le trou
 
         if (a2-myArm.alpha>10)
@@ -554,8 +554,8 @@ void Game::dropSphere()
             timerDrop->stop();
             boolDrop=false; // le bras ne tient plus la sphere
 
-            mySphere.setX(myHole.xHole_);
-            mySphere.setY(myHole.yHole_);
+            mySphere.setX(myHole.getX());
+            mySphere.setY(myHole.getY());
 
             boolSphere=true; // la sphere est sur l'arene
 
@@ -580,11 +580,11 @@ void Game :: appearSphere()
 void Game :: appearHole()
 {
     boolHole = true; // il y a un trou sur le jeu
-    myHole.xHole_ = getRandomCoordinates().x();
-    myHole.yHole_ = getRandomCoordinates().y();
+    myHole.setX(getRandomCoordinates().x());
+    myHole.setY(getRandomCoordinates().y());
     //myHole.setRadius(getRandomRadius());
 
-    qDebug()<<"Hole:"<<myHole.xHole_<<" et "<<myHole.yHole_;
+    qDebug()<<"Hole:"<<myHole.getX()<<" et "<<myHole.getY();
 
     update();
 }
@@ -593,8 +593,8 @@ void Game::appearTarget()
 {
     boolTarget = true; // il y a un trou sur le jeu
 
-    int xLimitLow = myHole.xHole_ + myHole.getRadius();
-    int yLimitLow = myHole.yHole_ + myHole.getRadius();
+    int xLimitLow = myHole.getX() + myHole.getRadius();
+    int yLimitLow = myHole.getY() + myHole.getRadius();
 
     myTarget.setX(getRandomCoordinates().x());
     myTarget.setY(getRandomCoordinates().y());

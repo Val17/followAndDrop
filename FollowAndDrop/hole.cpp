@@ -12,7 +12,7 @@ Hole::Hole()
     yHole_ = 0;
 
     radius_ = 3;
-    thetaHole = 0;
+    thetaHole_ = 0;
 }
 
 
@@ -42,43 +42,43 @@ void Hole::drawHole()
 
         if (xHole_>0 && yHole_>0) // 1er quart
         {
-            tanThetaHole = xHole_/(double)yHole_;
-            thetaHole = atan(tanThetaHole); // angle en radian
-            thetaHole = thetaHole * 180 / PI;
+            tanThetaHole_ = xHole_/(double)yHole_;
+            thetaHole_ = atan(tanThetaHole_); // angle en radian
+            thetaHole_ = thetaHole_ * 180 / PI;
 
         }
 
         else if (xHole_<0 && yHole_>0) // 2eme quart
 
         {
-            tanThetaHole = -yHole_/(double)xHole_;
-            thetaHole = atan(tanThetaHole); // angle en radian
-            thetaHole = 90 + thetaHole * 180 / PI;
-            qDebug()<<"AngleHole:"<<thetaHole;
+            tanThetaHole_ = -yHole_/(double)xHole_;
+            thetaHole_ = atan(tanThetaHole_); // angle en radian
+            thetaHole_ = 90 + thetaHole_ * 180 / PI;
+            qDebug()<<"AngleHole:"<<thetaHole_;
         }
 
         else if (xHole_<0 && yHole_<0) // 3eme quart
 
         {
-            tanThetaHole = yHole_/(double)xHole_;
-            thetaHole = atan(tanThetaHole); // angle en radian
-            thetaHole = -90 - thetaHole * 180 / PI;
+            tanThetaHole_ = yHole_/(double)xHole_;
+            thetaHole_ = atan(tanThetaHole_); // angle en radian
+            thetaHole_ = -90 - thetaHole_ * 180 / PI;
 
         }
 
         else if (xHole_>0 && yHole_<0) // 4eme quart
 
         {
-            tanThetaHole = -yHole_/(double)xHole_;
-            thetaHole = atan(tanThetaHole); // angle en radian
-            thetaHole = -thetaHole * 180 / PI;
+            tanThetaHole_ = -yHole_/(double)xHole_;
+            thetaHole_ = atan(tanThetaHole_); // angle en radian
+            thetaHole_ = -thetaHole_ * 180 / PI;
         }
 
 
 
 }
 
-GLuint Hole::loadtgadisplayCDV ( const char* filename )
+GLuint Hole::loadTexture ( const char* filename )
 {
     FILE* fp;
     char magic[12];
