@@ -23,9 +23,10 @@ public:
     int getDistance() {return r_;}
     double getX() {return xSphere_;}
     double getY() {return ySphere_;}
-
+    double getZ() {return zSphere_;}
     void setX(int x) { xSphere_=x;}
     void setY(int y) { ySphere_=y;}
+    void setZ(float z) { zSphere_=z;}
 signals:
 
 public slots:
@@ -34,8 +35,9 @@ protected:
     GLuint loadtgadisplayCDV(const char *filename);
 private:
     double r_; // distance entre le centre de l'arene et la sphere
-    double xSphere_; // abscisse aleatoire
-    double ySphere_; // ordonnee aleatoire
+    double xSphere_; // abscisse
+    double ySphere_; // ordonnee
+    float zSphere_; // hauteur
 
     GLuint GLtexture[1];
 

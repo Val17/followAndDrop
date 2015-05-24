@@ -10,6 +10,7 @@ Sphere::Sphere()
 {
     r_ = 0;
     thetaSphere = 0;
+    //setZ(0);
 }
 
 void Sphere::drawSphere(double radius, int slices, int stacks)

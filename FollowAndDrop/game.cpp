@@ -34,14 +34,14 @@ Game::Game(QWidget *parent) :
     intGluPerspective = 80;
 
     timerCatch = new QTimer(this);
-    timerMoveArm = new QTimer(this);
+    timerEndLevel_ = new QTimer(this);
     timerDrop = new QTimer(this);
 }
 
 Game::~Game()
 {
     delete timerCatch;
-    delete timerMoveArm;
+    delete timerEndLevel_;
     delete timerDrop;
 }
 
@@ -203,7 +203,7 @@ void Game::draw()
     if (boolSphere == true)
     {
         glPushMatrix();
-            glTranslatef(mySphere.getX(), mySphere.getY(),0);
+            glTranslatef(mySphere.getX(), mySphere.getY(),mySphere.getZ());
             mySphere.drawSphere(1, 50, 50);
         glPopMatrix();
     }
@@ -326,8 +326,8 @@ void Game :: removeSphere(int step)
 
     else if (step==2)
     {
-        connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
-        timerMoveArm->start(10);
+        connect(timerEndLevel_, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
+        timerEndLevel_->start(10);
     }
 
     else if (step==3)
@@ -338,8 +338,10 @@ void Game :: removeSphere(int step)
 
     else if (step==4)
     {
-        connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
-        timerMoveArm->start(10);
+        connect(timerEndLevel_, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
+        connect(timerEndLevel_, SIGNAL(timeout()), this, SLOT(setEndLevel()));
+        timerEndLevel_->start(10);
+
     }
 
 }
@@ -387,15 +389,32 @@ void Game::reinitializeArm()
     // Le bras est en position initiale et a la sphere
     else if (boolDrop==true)
     {
-        timerMoveArm->stop();
+        timerEndLevel_->stop();
 
         removeSphere(3);
     }
 
-    else if (boolDrop==false)
+    /*else if (boolDrop==false)
     {
-        timerMoveArm->stop();
+        timerEndLevel_->stop();
+    }*/
+
+}
+
+void Game::setEndLevel()
+{
+    if (mySphere.getZ()>-10)
+    {
+        mySphere.setZ(mySphere.getZ()-.5);
+        update();
     }
+
+    else
+    {
+        qDebug()<<"FIN";
+        timerEndLevel_->stop();
+    }
+
 
 }
 
