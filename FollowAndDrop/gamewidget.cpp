@@ -18,29 +18,33 @@ GameWidget::~GameWidget()
 void GameWidget::moveSphere(cv::Point handPoint)
 {
 
-     qDebug()<<"moveSphere "<<endl;
-     qDebug() << pointRef.x << endl;
-     qDebug() << pointRef.y << endl;
+
 
      if(handPoint.x > pointRef.x)
              {
                  if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
                            {
                               ui->myGame->mySphere.xSphere-=1;
-                              qDebug() << ui->myGame->mySphere.xSphere << endl;
                               ui->myGame->update();
                           }
+                 else
+                 {
+                     ui->myGame->mySphere.xSphere+=1;
+                 }
              }
 
              if(handPoint.x < pointRef.x)
              {
-                 qDebug()<< "Move Sphere "<< handPoint.x;
+
                  if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
                            {
                               ui->myGame->mySphere.xSphere+=1;
-                              qDebug() << ui->myGame->mySphere.xSphere << endl;
                               ui->myGame->update();
                           }
+                 else
+                 {
+                     ui->myGame->mySphere.xSphere-=1;
+                 }
              }
 
              if(handPoint.y > pointRef.y)
@@ -48,9 +52,12 @@ void GameWidget::moveSphere(cv::Point handPoint)
                          if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
                                    {
                                       ui->myGame->mySphere.ySphere-=1;
-                                      qDebug() << ui->myGame->mySphere.xSphere << endl;
                                       ui->myGame->update();
                                   }
+                         else
+                         {
+                             ui->myGame->mySphere.ySphere+=1;
+                         }
                      }
 
              if(handPoint.y < pointRef.y)
@@ -58,9 +65,12 @@ void GameWidget::moveSphere(cv::Point handPoint)
                          if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
                                    {
                                       ui->myGame->mySphere.ySphere+=1;
-                                      qDebug() << ui->myGame->mySphere.xSphere << endl;
                                       ui->myGame->update();
                                   }
+                         else
+                         {
+                             ui->myGame->mySphere.ySphere-=1;
+                         }
                      }
 
      pointRef= handPoint;
