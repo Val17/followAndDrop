@@ -10,16 +10,21 @@ Sphere::Sphere()
 {
     r_ = 0;
     thetaSphere = 0;
-    //setZ(0);
+    setZ(2);
+    radius_=2;
 }
 
-void Sphere::drawSphere(double radius, int slices, int stacks)
+void Sphere::drawSphere()
 {
+    int stacks = 50;
+    int slices = 50;
+
+
     GLUquadric* param;
     param = gluNewQuadric();
     glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga"));
     gluQuadricTexture(param, GL_TRUE);
-    gluSphere(param, radius, slices, stacks);
+    gluSphere(param, radius_, slices, stacks);
 
     r_ = sqrt (xSphere_*xSphere_+ySphere_*ySphere_);
 

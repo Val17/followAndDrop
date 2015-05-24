@@ -39,6 +39,5 @@ LIBS += -L$$(OPENCV_DIR)\lib \
     -lopencv_objdetect \
     -lGLU #-lglut \
 
-RESOURCES += \
-    followanddrop.qrc
+RESOURCES +=
 

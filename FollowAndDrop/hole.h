@@ -14,7 +14,7 @@ class Hole
 {
 public:
     Hole();
-    void drawHole();
+    void drawHole(double r);
     void setRadius(int r) {radius_ = r;}
     void setX(float x) {xHole_=x;}
     void setY(float y) {yHole_=y;}

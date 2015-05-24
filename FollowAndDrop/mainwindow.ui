@@ -12,7 +12,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
+    <width>500</width>
     <height>500</height>
    </rect>
   </property>
@@ -24,8 +24,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>164</width>
-    <height>500</height>
+    <width>50</width>
+    <height>50</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -44,11 +44,11 @@
      <height>500</height>
     </size>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>170</y>
+      <x>10</x>
+      <y>10</y>
       <width>93</width>
       <height>60</height>
      </rect>

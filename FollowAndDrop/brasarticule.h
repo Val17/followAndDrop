@@ -28,7 +28,7 @@ public:
     double theta;
     double sA; // taille du bras (arm)
     double sFa; // taille de l'avant bras (forearm)
-    bool boolSphere;
+    bool boolSphereArm;
     int altitud;
 
     void catchSphere(double t);

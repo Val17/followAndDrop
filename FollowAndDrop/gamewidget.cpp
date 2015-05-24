@@ -3,6 +3,7 @@
 /// Binome: DAVY/DENIZET
 
 #include "gamewidget.h"
+#include "ui_gamewidget.h"
 
 
 GameWidget::GameWidget(QWidget *parent) :
@@ -12,6 +13,15 @@ GameWidget::GameWidget(QWidget *parent) :
     ui->setupUi(this);
     pointRef = cv::Point((ui->webcamWidget->getFrameWidth()-ui->webcamWidget->getTemplateWidth())/2,(ui->webcamWidget->getFrameHeight()-ui->webcamWidget->getTemplateHeight())/2);
     connect(ui->webcamWidget,SIGNAL(emitPoint(cv::Point)),this,SLOT(moveSphere(cv::Point)));
+
+    // Parametres du chronometre
+
+    QTime time;
+    time.start();
+
+    // millisecondes contient le nombre de millisecondes entre l'appel à la fonction start()
+    // et l'appel 0 la fonction elapsed()
+    int millisecondes = time.elapsed();
 }
 
 GameWidget::~GameWidget()

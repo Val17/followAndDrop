@@ -43,9 +43,9 @@ public:
     bool boolTarget;
     bool boolArena;
     bool boolArm;
-    bool boolSphere; // booleen pour savoir s'il y a affichage de la sphere
+    bool boolSphereArena; // booleen pour savoir s'il y a affichage de la sphere
     bool boolHole; // booleen pour afficher un trou
-    bool boolDrop; // booleen pour savoir si le bras a la sphere
+    bool boolSphereArm; // booleen pour savoir si le bras a la sphere
     bool boolInHole; // booleen pour savoir si la sphere est dans le trou
     Sphere mySphere;
     Target myTarget;
@@ -80,7 +80,7 @@ public slots:
     void reinitializeArm(); // slot permettant de mettre le bras a sa position initiale
     void dropSphere(); // slot permettant d'amener la sphere dans le trou
     void appearHole();
-    void setEndLevel(); // la sphere tombe dans le trou
+    void putSphereOut(); // la sphere tombe dans le trou
 
 signals:
     // signaling rotation from mouse movement
@@ -95,9 +95,9 @@ private:
     int xRandom;
     int yRandom;
     int zRandom;
-    QTimer *timerCatch;
-    QTimer *timerEndLevel_; // timer utilise pour le deplacement du bras a son etat initial
-    QTimer *timerDrop; // timer utilise pour que le bras lache la sphere
+    QTimer *timerToCatch;
+    QTimer *timerMoveArm; // timer utilise pour le deplacement du bras a son etat initial
+    QTimer *timerToDrop; // timer utilise pour que le bras lache la sphere
 
     int getRandomRadius();
 

@@ -27,22 +27,22 @@ Game::Game(QWidget *parent) :
     boolArena = false;
     boolArm = true;
     boolTarget = false;
-    boolSphere = false;
+    boolSphereArena = false;
     boolHole = false;
-    boolDrop = false;
+    boolSphereArm = false;
 
     intGluPerspective = 80;
 
-    timerCatch = new QTimer(this);
-    timerEndLevel_ = new QTimer(this);
-    timerDrop = new QTimer(this);
+    timerToCatch = new QTimer(this);
+    timerMoveArm = new QTimer(this);
+    timerToDrop = new QTimer(this);
 }
 
 Game::~Game()
 {
-    delete timerCatch;
-    delete timerEndLevel_;
-    delete timerDrop;
+    delete timerToCatch;
+    delete timerMoveArm;
+    delete timerToDrop;
 }
 
 QSize Game::minimumSizeHint() const
@@ -99,6 +99,17 @@ void Game::setZRotation(int angle)
 void Game::initializeGL()
 {
     glDisable(GL_CULL_FACE);
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
+    glDisable(GL_CULL_FACE);
+    //glEnable ( GL_NORMALIZE );
+    glDepthMask ( GL_TRUE );
+    //glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+    glEnable(GL_COLOR_MATERIAL);
+    glDisable( GL_CULL_FACE );
+    glDisable( GL_LIGHTING );
+    //glEnable(GL_LIGHTING);
 }
 
 void Game::paintGL()
@@ -167,53 +178,61 @@ void Game::draw()
     glClear(GL_COLOR_BUFFER_BIT);
 
     /// Elements qui ne disparaisse jamais
-
-    glPushMatrix();
-        myArena.drawArena();
-    glPopMatrix();
-
     glPushMatrix();
         myArm.drawArm();
     glPopMatrix();
 
-    /// Elements qui apparaissent a des endroits differents
+    // On fait apparaitre un trou
 
-        // On fait apparaitre un trou
 
-    if (boolHole == true)
-    {
-        glPushMatrix();
-            glTranslatef(myHole.getX(), myHole.getY(),0);
-            myHole.drawHole();
-        glPopMatrix();
-    }
 
     // On fait apparaitre une cible
 
     if (boolTarget == true)
     {
         glPushMatrix();
-            glTranslatef(myTarget.getX(), myTarget.getY(),0);
+            glTranslatef(myTarget.getX(), myTarget.getY(),0.1);
             myTarget.drawTarget();
         glPopMatrix();
     }
 
     // On fait apparaitre une sphere
 
-    if (boolSphere == true)
+    if (boolSphereArena == true)
     {
         glPushMatrix();
             glTranslatef(mySphere.getX(), mySphere.getY(),mySphere.getZ());
-            mySphere.drawSphere(1, 50, 50);
+            mySphere.drawSphere();
         glPopMatrix();
     }
+
+        glPushMatrix();
+            QPoint p;
+            p.setX(myHole.getX());
+            p.setY(myHole.getY());
+            myArena.drawArena();
+        glPopMatrix();
+
+        if (boolHole == true)
+        {
+            glPushMatrix();
+                glColor3f(0,0,0);
+                glTranslatef(myHole.getX(), myHole.getY(),.1);
+                myHole.drawHole(mySphere.getRadius());
+            glPopMatrix();
+        }
+
+
+
+    /// Elements qui apparaissent a des endroits differents
+
+
 
 }
 
 
 void Game::catchSphere()
 {
-    qDebug()<<"catch";
     /// On attrape la sphere
     /*
      * Calcul des angles beta et gamma du bras
@@ -299,17 +318,17 @@ void Game::catchSphere()
 
     //Pince sert la sphere
 
-    else if (boolSphere==true)
+    else if (boolSphereArena==true)
     {
-        boolSphere=false; // on fait disparaitre la sphere
-        myArm.boolSphere=true; // on fait aparaitre celle dans le bras
+        boolSphereArena=false; // on fait disparaitre la sphere
+        myArm.boolSphereArm=true; // on fait aparaitre celle dans le bras
         update();
     }
 
     else
     {
-        timerCatch->stop();
-        boolDrop = true;
+        timerToCatch->stop();
+        boolSphereArm = true;
         removeSphere(2);
     }
 
@@ -320,27 +339,27 @@ void Game :: removeSphere(int step)
 {
     if (step==1)
     {
-        connect(timerCatch, SIGNAL(timeout()), this, SLOT(catchSphere()));
-        timerCatch->start(10);
+        connect(timerToCatch, SIGNAL(timeout()), this, SLOT(catchSphere()));
+        timerToCatch->start(1);
     }
 
     else if (step==2)
     {
-        connect(timerEndLevel_, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
-        timerEndLevel_->start(10);
+        connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
+        timerMoveArm->start(.1);
     }
 
     else if (step==3)
     {
-        connect(timerDrop, SIGNAL(timeout()),this,SLOT(dropSphere()));
-        timerDrop->start(10);
+        connect(timerToDrop, SIGNAL(timeout()),this,SLOT(dropSphere()));
+        timerToDrop->start(10);
     }
 
     else if (step==4)
     {
-        connect(timerEndLevel_, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
-        connect(timerEndLevel_, SIGNAL(timeout()), this, SLOT(setEndLevel()));
-        timerEndLevel_->start(10);
+        connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
+        connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(putSphereOut()));
+        timerMoveArm->start(10);
 
     }
 
@@ -350,60 +369,65 @@ void Game::reinitializeArm()
 {
     // La sphere est attrapee; on ramene le bras a sa position initiale
 
-    if (myArm.alpha>5)
+    if (myArm.alpha>0)
     {
-        myArm.alpha-=5;
+        myArm.alpha-=1;
         update();
     }
 
     else if (myArm.alpha<0)
     {
-        myArm.alpha+=5;
+        myArm.alpha+=1;
         update();
     }
 
-    if (myArm.beta>5)
+    if (myArm.beta>1)
     {
-        myArm.beta-=5;
+        myArm.beta-=1;
         update();
     }
 
     else if (myArm.beta<0)
     {
-        myArm.beta+=5;
+        myArm.beta+=1;
         update();
     }
 
-    if (myArm.gamma>5)
+    if (myArm.gamma>0)
     {
-        myArm.gamma-=5;
+        myArm.gamma-=1;
         update();
     }
 
     else if (myArm.gamma<0)
     {
-        myArm.gamma+=5;
+        myArm.gamma+=1;
         update();
     }
 
     // Le bras est en position initiale et a la sphere
-    else if (boolDrop==true)
+    else if (boolSphereArm==true)
     {
-        timerEndLevel_->stop();
-
+        timerMoveArm->stop();
         removeSphere(3);
     }
 
-    /*else if (boolDrop==false)
-    {
-        timerEndLevel_->stop();
-    }*/
+    else if (mySphere.getZ()==-3)
+        {
+            qDebug()<<"FIN";
+            timerMoveArm->stop(); // la sphere est tombee dans le trou
+        }
 
 }
 
-void Game::setEndLevel()
+/**
+ * @brief Game::setSphereOut
+ * Methode appelee lorsque la sphere est au bord du trou et doit tomber
+ */
+
+void Game::putSphereOut()
 {
-    if (mySphere.getZ()>-10)
+    if (mySphere.getZ()>-3)
     {
         mySphere.setZ(mySphere.getZ()-.5);
         update();
@@ -411,10 +435,11 @@ void Game::setEndLevel()
 
     else
     {
-        qDebug()<<"FIN";
-        timerEndLevel_->stop();
-    }
 
+        boolSphereArena=false; // la sphere n'est plus sur l'arene
+        mySphere.setZ(2); // la prochaine sphere reviendra au dessus de l'arene
+
+    }
 
 }
 
@@ -501,15 +526,15 @@ void Game::dropSphere()
 
         else
         {
-            timerDrop->stop();
-            boolDrop=false; // le bras ne tient plus la sphere
+            timerToDrop->stop();
+            boolSphereArm=false; // le bras ne tient plus la sphere
 
             mySphere.setX(myHole.getX());
             mySphere.setY(myHole.getY());
 
-            boolSphere=true; // la sphere est sur l'arene
+            boolSphereArena=true; // la sphere est sur l'arene
 
-            myArm.boolSphere=false;
+            myArm.boolSphereArm=false;
             removeSphere(4);
         }
 }
@@ -517,7 +542,7 @@ void Game::dropSphere()
 void Game :: appearSphere()
 {
 
-    boolSphere = true; // il y a une sphere sur le jeu
+    boolSphereArena = true; // il y a une sphere sur le jeu
     mySphere.setX(getRandomCoordinates().x());
     mySphere.setY(getRandomCoordinates().y());
 

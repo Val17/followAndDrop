@@ -61,11 +61,24 @@ void Arena::drawArena()
      glEnd();
 
 
-     GLUquadric* quadric;
-     quadric = gluNewQuadric();
-     glBindTexture(GL_TEXTURE_2D, loadTexture("../FollowAndDrop/Images/eau.tga"));
-     gluQuadricTexture(quadric, GL_TRUE);
-     gluCylinder(quadric, 20,20,4,50,50);
+     glPushMatrix();
+
+        GLUquadric* quadric;
+        quadric = gluNewQuadric();
+        glEnable( GL_BLEND );
+        glDepthMask (GL_FALSE);
+         glColor4f(0.6,0,0.9,0.7);
+         gluCylinder(quadric, 20,20,4,100,100);
+         glDepthMask (GL_TRUE);
+
+     glPopMatrix();
+
+    /*glDepthMask (GL_FALSE);
+    glColor4f(0.9,0.6,0.6,0.5);
+
+    glColor4f(0.6,0.6,0.9,0.5);
+
+    glDepthMask (GL_TRUE);*/
 
 
 
@@ -137,4 +150,6 @@ GLuint Arena::loadTexture ( const char* filename )
 
     return textureId;
 }
+
+
 

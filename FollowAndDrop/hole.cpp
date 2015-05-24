@@ -16,7 +16,7 @@ Hole::Hole()
 }
 
 
-void Hole::drawHole()
+void Hole::drawHole(double r)
 {
     int nb_faces = 100;
 
@@ -32,7 +32,7 @@ void Hole::drawHole()
 
             glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
 
-            glVertex2f(xcos*radius_, ycos*radius_ );
+            glVertex2f(xcos*(r + 0.1), ycos*(r + 0.1) ); // pour que la taille du trou soit un peu plus grand que celle de la sphere
         }
 
     glEnd();

@@ -16,7 +16,7 @@ ArticulateArm::ArticulateArm(QGLWidget *parent) : QGLWidget(parent)
     sA=6;
     sFa=6;
 
-    boolSphere=false;
+    boolSphereArm=false;
 
     altitud = 0;
 
@@ -217,11 +217,11 @@ void ArticulateArm::drawArm()
                      glPopMatrix();
 
                      // le bras a attrape la sphere
-                      if (boolSphere == true)
+                      if (boolSphereArm == true)
                       {
                           glPushMatrix();
                              glTranslatef(0,0,3.5);
-                             drawSphereGame(1,50,50);
+                             drawSphereGame(2,50,50);
                           glPopMatrix();
                       }
 
