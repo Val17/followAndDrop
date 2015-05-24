@@ -18,11 +18,18 @@ public:
     void displayImage();
     void detectHand();
     void trackHand();
+    int getFrameWidth() { return frameWidth_;}
+    int getFrameHeight() { return frameHeight_;}
+    int getTemplateWidth() { return templateWidth_;}
+    int getTemplateHeight() { return templateHeight_;}
+
 
 private slots:
     void aquire();
     void startWebCam();
 
+signals:
+    void emitPoint(cv::Point handPoint);
 
 private:
     int frameWidth_;
@@ -39,6 +46,7 @@ private:
     cv::Mat imgRoi_;
     cv::Mat imgOrigin_;
     cv::VideoCapture *webcam_;
+    cv::Point matchLoc;
     };
 
 #endif // WEBCAMWINDOW_H

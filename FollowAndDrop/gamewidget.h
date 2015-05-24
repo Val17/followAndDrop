@@ -2,6 +2,7 @@
 #define GAMEWIDGET_H
 
 #include <QWidget>
+#include <webcamwindow.h>
 
 namespace Ui {
 class GameWidget;
@@ -17,9 +18,11 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *e);
 private slots:
+    void moveSphere(cv::Point handPoint);
 
 private:
     Ui::GameWidget *ui;
+    cv::Point pointRef;
 };
 
 #endif // GAMEWIDGET_H

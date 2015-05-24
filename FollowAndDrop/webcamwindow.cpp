@@ -156,7 +156,7 @@ void WebCamWindow::trackHand()
         Mat roi(image_, rectRoi);
         roi.copyTo(imgRoi_);
 
-
+        emit emitPoint(matchLoc);
 
       /// Show me what you got
           rectangle( image_, matchLoc, Point( matchLoc.x + imgRoi_.cols , matchLoc.y + imgRoi_.rows ), Scalar(0, 255, 255), 2, 8, 0 );

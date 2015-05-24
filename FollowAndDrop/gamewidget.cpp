@@ -6,6 +6,8 @@ GameWidget::GameWidget(QWidget *parent) :
     ui(new Ui::GameWidget)
 {
     ui->setupUi(this);
+    pointRef = cv::Point((ui->webcamWidget->getFrameWidth()-ui->webcamWidget->getTemplateWidth())/2,(ui->webcamWidget->getFrameHeight()-ui->webcamWidget->getTemplateHeight())/2);
+    connect(ui->webcamWidget,SIGNAL(emitPoint(cv::Point)),this,SLOT(moveSphere(cv::Point)));
 }
 
 GameWidget::~GameWidget()
@@ -13,7 +15,60 @@ GameWidget::~GameWidget()
     delete ui;
 }
 
+void GameWidget::moveSphere(cv::Point handPoint)
+{
 
+     qDebug()<<"moveSphere "<<endl;
+     qDebug() << pointRef.x << endl;
+     qDebug() << pointRef.y << endl;
+
+     if(handPoint.x > pointRef.x)
+             {
+                 if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
+                           {
+                              ui->myGame->mySphere.xSphere-=1;
+                              qDebug() << ui->myGame->mySphere.xSphere << endl;
+                              ui->myGame->update();
+                          }
+             }
+
+             if(handPoint.x < pointRef.x)
+             {
+                 qDebug()<< "Move Sphere "<< handPoint.x;
+                 if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
+                           {
+                              ui->myGame->mySphere.xSphere+=1;
+                              qDebug() << ui->myGame->mySphere.xSphere << endl;
+                              ui->myGame->update();
+                          }
+             }
+
+             if(handPoint.y > pointRef.y)
+                     {
+                         if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
+                                   {
+                                      ui->myGame->mySphere.ySphere-=1;
+                                      qDebug() << ui->myGame->mySphere.xSphere << endl;
+                                      ui->myGame->update();
+                                  }
+                     }
+
+             if(handPoint.y < pointRef.y)
+                     {
+                         if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
+                                   {
+                                      ui->myGame->mySphere.ySphere+=1;
+                                      qDebug() << ui->myGame->mySphere.xSphere << endl;
+                                      ui->myGame->update();
+                                  }
+                     }
+
+     pointRef= handPoint;
+
+     qDebug() << "Point après la comp : " << pointRef.x << endl;
+     qDebug() << "Point après la comp : " << pointRef.y << endl;
+
+}
 
 void GameWidget::keyPressEvent(QKeyEvent *e)
 {
