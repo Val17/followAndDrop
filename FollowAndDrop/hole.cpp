@@ -1,3 +1,7 @@
+///fichier hole.cpp
+/// Createur: Valentin DAVY
+/// Binome: DAVY/DENIZET
+
 #include "hole.h"
 
 #define PI 3.14159265

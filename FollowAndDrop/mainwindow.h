@@ -5,6 +5,8 @@
 #include <gamewidget.h>
 #include <qgraphicsscene.h>
 #include <qgraphicsview.h>
+#include "ui_mainwindow.h"
+#include <QtWidgets>
 
 
 namespace Ui {

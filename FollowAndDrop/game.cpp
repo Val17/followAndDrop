@@ -1,8 +1,17 @@
+///fichier game.cpp
+/// Createur: Valentin DAVY
+/// Binome: DAVY/DENIZET
+
 #include "game.h"
 #define PI 3.14159265
 
 using namespace std;
 
+/**
+ * Constructeur de la classe Game
+ * @brief Game::Game
+ * @param parent
+ */
 Game::Game(QWidget *parent) :
     QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
@@ -606,8 +615,8 @@ void Game::appearTarget()
 
 QPoint Game :: getRandomCoordinates ()
 {
-    int high = myArena.size /2;
-    int low = - myArena.size /2;
+    int high = myArena.getSize() /(float)2;
+    int low = - myArena.getSize() /(float)2;
 
     QPoint point; // point ou l'on va mettre l'element
     point.setX(0);
@@ -621,8 +630,6 @@ QPoint Game :: getRandomCoordinates ()
         point.setY(qrand() % ((high + 1) - low) + low);
         distance = sqrt (point.x()*point.x()+point.y()*point.y());
     }
-
-
     return point;
 }
 

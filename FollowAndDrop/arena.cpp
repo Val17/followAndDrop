@@ -1,5 +1,6 @@
-﻿// Fichier de declaration de la classe Arena
-// Davy/Denizet
+﻿///fichier arena.cpp
+/// Createur: Arnaud DENIZET
+/// Binome: DAVY/DENIZET
 
 #include "arena.h"
 
@@ -12,12 +13,12 @@
 Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
 
-    GLtextureArena[0];
-    texture = "../FollowAndDrop/Images/ground1.tga";
-    size = 20;
+    glTexture_[0];
+    texture_ = "../FollowAndDrop/Images/ground1.tga";
+    size_ = 20;
 
-    xLimit = size;
-    yLimit = size;
+    xLimit_ = size_;
+    yLimit_ = size_;
 
 }
 
@@ -41,7 +42,7 @@ void Arena::drawArena()
 {
     int nb_faces = 100;
 
-    GLtextureArena[0]= loadtgadisplayCDV(texture);
+    glTexture_[0]= loadTexture(texture_);
 
     glBegin(GL_POLYGON);
 
@@ -53,7 +54,7 @@ void Arena::drawArena()
 
             glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
 
-            glVertex2f(xcos*size, ycos*size );
+            glVertex2f(xcos*size_, ycos*size_ );
 
         }
 
@@ -62,7 +63,7 @@ void Arena::drawArena()
 
      GLUquadric* quadric;
      quadric = gluNewQuadric();
-     glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga"));
+     glBindTexture(GL_TEXTURE_2D, loadTexture("../FollowAndDrop/Images/eau.tga"));
      gluQuadricTexture(quadric, GL_TRUE);
      gluCylinder(quadric, 20,20,4,50,50);
 
@@ -77,7 +78,7 @@ void Arena::drawArena()
  * @param filename
  * @return
  */
-GLuint Arena::loadtgadisplayCDV ( const char* filename )
+GLuint Arena::loadTexture ( const char* filename )
 {
     FILE* fp;
     char magic[12];

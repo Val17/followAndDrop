@@ -1,5 +1,9 @@
+///fichier arm.cpp
+/// Createur: Arnaud DENIZET
+/// Binome: DAVY/DENIZET
+
 #include "brasarticule.h"
-#include <iostream>
+
 
 using namespace std;
 

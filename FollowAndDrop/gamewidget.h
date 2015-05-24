@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <webcamwindow.h>
+#include "ui_gamewidget.h"
 
 namespace Ui {
 class GameWidget;

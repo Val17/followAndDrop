@@ -21,29 +21,26 @@ class Arena : public QGLWidget
 public:
 
     explicit Arena(QWidget *parent = 0); // constructeur de la classe
-    GLuint loadtgadisplayCDV ( const char* filename ); // charge la texture
     ~Arena(); // destructeur de la classe
     void drawArena(); // dessiner l'arene
-    GLuint GLtextureArena[1]; // texture de l'arene
-    char* texture; // texture utilisee pour l'arene
-    int getSize(){return size;}
-
-    int xLimit; // abscisse limite
-    int yLimit; // ordonnee limite
-    int size; // taille de l'arene
-
-
+    int getSize(){return size_;} // retourne la taille de l'arene
+    int getX() {return xLimit_;} // retourne l'abscisse maximale
+    int getY() { return yLimit_;} // retourne l'ordonnee maximale
 
 public slots:
 
-
 protected:
-
-
 
 signals:
 
 private:
+
+    int xLimit_; // abscisse limite
+    int yLimit_; // ordonnee limite
+    int size_; // taille de l'arene
+    char* texture_; // texture utilisee pour l'arene
+    GLuint glTexture_[1]; // texture de l'arene
+    GLuint loadTexture ( const char* filename ); // methode permettant de charge la texture
 
 };
 

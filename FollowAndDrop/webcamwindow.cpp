@@ -1,8 +1,8 @@
-#include <QtWidgets>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/objdetect/objdetect.hpp>
+///fichier webcamwindow.cpp
+/// Createur: Arnaud DENIZET
+/// Binome: DAVY/DENIZET
+
+
 #include "webcamwindow.h"
 
 using namespace cv;

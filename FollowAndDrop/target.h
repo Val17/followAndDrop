@@ -3,6 +3,12 @@
 
 #include <QWidget>
 #include <QGLWidget>
+#include <GL/glu.h>
+#include "math.h"
+#include <stdio.h>
+#include<iostream>
+#include <QDebug>
+#include <QMouseEvent>
 #include <arena.h>
 #include <sphere.h>
 

@@ -1,5 +1,9 @@
+///fichier gamewidget.cpp
+/// Createurs: Valentin DAVY et Arnaud DENIZET
+/// Binome: DAVY/DENIZET
+
 #include "gamewidget.h"
-#include "ui_gamewidget.h"
+
 
 GameWidget::GameWidget(QWidget *parent) :
     QWidget(parent),

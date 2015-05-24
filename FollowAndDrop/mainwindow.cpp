@@ -1,6 +1,9 @@
+///fichier mainwindow.cpp
+/// Createur: Valentin DAVY
+/// Binome: DAVY/DENIZET
+
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include <QtWidgets>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

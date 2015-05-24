@@ -1,10 +1,9 @@
+///fichier target.cpp
+/// Createur: Valentin DAVY
+/// Binome: DAVY/DENIZET
+
 #include "target.h"
-#include <GL/glu.h>
-#include "math.h"
-#include <stdio.h>
-#include<iostream>
-#include <QDebug>
-#include <QMouseEvent>
+
 
 #define PI 3.14159265
 

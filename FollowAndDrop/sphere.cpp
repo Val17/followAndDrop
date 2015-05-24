@@ -1,3 +1,7 @@
+///fichier sphere.cpp
+/// Createur: Valentin DAVY
+/// Binome: DAVY/DENIZET
+
 #include "sphere.h"
 
 #define PI 3.14159265
