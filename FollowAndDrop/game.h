@@ -97,8 +97,6 @@ private:
     QTimer *timerCatch;
     QTimer *timerMoveArm; // timer utilise pour le deplacement du bras a son etat initial
     QTimer *timerDrop; // timer utilise pour que le bras lache la sphere
-    GLuint loadtgadisplayCDV(const char *filename);
-
 
     int getRandomRadius();
 };

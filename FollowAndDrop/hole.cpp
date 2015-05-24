@@ -20,7 +20,7 @@ void Hole::drawHole()
 {
     int nb_faces = 100;
 
-    //GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/ground.tga");
+    glTexture[0]= loadTexture("../FollowAndDrop/Images/ground.tga");
 
     glBegin(GL_POLYGON);
 
