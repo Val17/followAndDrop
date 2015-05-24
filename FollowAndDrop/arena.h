@@ -26,7 +26,7 @@ public:
     void drawArena(); // dessiner l'arene
     GLuint GLtextureArena[1]; // texture de l'arene
     char* texture; // texture utilisee pour l'arene
-    int getSize(){qDebug()<<"lalal"<<size;return size;}
+    int getSize(){return size;}
 
     int xLimit; // abscisse limite
     int yLimit; // ordonnee limite

@@ -1,10 +1,7 @@
 #include "game.h"
-
-
 #define PI 3.14159265
 
 using namespace std;
-
 
 Game::Game(QWidget *parent) :
     QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
@@ -14,13 +11,9 @@ Game::Game(QWidget *parent) :
     zRot = 0;
     chrono = 0;
 
-    //step =0;
-
-
     /*
      * Au depart, il n'y aucun element graphique
      * */
-
 
     boolArena = false;
     boolArm = true;
@@ -29,9 +22,7 @@ Game::Game(QWidget *parent) :
     boolHole = false;
     boolDrop = false;
 
-
     intGluPerspective = 80;
-    altitud = 0;
 
     timerCatch = new QTimer(this);
     timerMoveArm = new QTimer(this);
@@ -136,8 +127,6 @@ void Game::paintGL()
 void Game::resizeGL(int width, int height)
 {
     int side = qMin(width, height);
-    //glViewport((width - side) / 2, (height - side) / 2, side, side);
-
     glViewport(0,0,width,height); // new version
 
     glMatrixMode(GL_PROJECTION);
@@ -180,23 +169,45 @@ void Game::draw()
     if (boolSphere == true)
     {
         glPushMatrix();
-            glTranslatef(mySphere.xSphere, mySphere.ySphere,0);
+            glTranslatef(mySphere.getX(), mySphere.getY(),0);
             mySphere.drawSphere(1, 50, 50);
-
-            //qDebug()<<mySphere.xSphere<<"-"<<mySphere.ySphere<<"-"<<mySphere.r;
         glPopMatrix();
     }
 
-    if (myHole.xHole == 0 && myHole.yHole==0)
+        // On fait apparaitre un trou
+
+    if (myHole.xHole_ == 0 && myHole.yHole_==0)
     {
-        myHole.xHole=getRandomCoordinates().x();
-        myHole.yHole=getRandomCoordinates().y();
+        myHole.xHole_=getRandomCoordinates().x();
+        myHole.yHole_=getRandomCoordinates().y();
+        myHole.setRadius(getRandomRadius());
     }
 
         glPushMatrix();
-            glTranslatef(myHole.xHole, myHole.yHole,0);
+            glTranslatef(myHole.xHole_, myHole.yHole_,0);
             myHole.drawHole();
         glPopMatrix();
+
+        // On fait apparaitre un trou
+
+        if (myTarget.getX() == 0 && myTarget.getY()==0)
+        {
+            myTarget.setX(getRandomCoordinates().x());
+            myTarget.setY(getRandomCoordinates().y());
+            myTarget.setRadius(getRandomRadius());
+            //qDebug()<<myTarget.getX()<<"-"<<myTarget.getY()<<"-"<<myTarget.getDistance();
+        }
+
+        if (boolTarget == true)
+        {
+            glPushMatrix();
+                glTranslatef(myTarget.getX(), myTarget.getY(),0);
+                //qDebug()<<myTarget.getX()<<"-"<<myTarget.getY()<<"-"<<myTarget.getDistance();
+                myTarget.drawTarget();
+            glPopMatrix();
+
+        }
+
 
 }
 
@@ -278,7 +289,7 @@ void Game::catchSphere()
 
     double sideA1 = myArm.sA+2; // cote 1 du triangle
     double sideB1 = myArm.sFa+2; // cote 2 du triangle
-    double sideC1 = mySphere.r; // cote 3 du triangle
+    double sideC1 = mySphere.getDistance(); // cote 3 du triangle
 
     //Cosinus
 
@@ -295,10 +306,10 @@ void Game::catchSphere()
     double b1 = 90 - angleA1;
     double g1 = 180 - angleB1;
 
-   qDebug()<<"Angles du bras: "<<myArm.alpha<<" et "<<myArm.beta<<" et "<<myArm.gamma<<" et "<<myArm.delta;
+   //qDebug()<<"Angles du bras: "<<myArm.alpha<<" et "<<myArm.beta<<" et "<<myArm.gamma<<" et "<<myArm.delta;
 
 
-    qDebug()<<"Angles a atteindre: "<<a1<<" et "<<b1<<" et "<<g1;
+   // qDebug()<<"Angles a atteindre: "<<a1<<" et "<<b1<<" et "<<g1;
 
 
     if (a1-myArm.alpha>10)
@@ -377,21 +388,18 @@ void Game :: removeSphere(int step)
 
     else if (step==2)
     {
-        qDebug()<<"bras a reini 1";
         connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
         timerMoveArm->start(10);
     }
 
     else if (step==3)
     {
-        qDebug()<<"bras va la mettre dans le trou";
         connect(timerDrop, SIGNAL(timeout()),this,SLOT(dropSphere()));
         timerDrop->start(10);
     }
 
     else if (step==4)
     {
-        qDebug()<<"bras a reini 2";
         connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
         timerMoveArm->start(10);
     }
@@ -400,7 +408,6 @@ void Game :: removeSphere(int step)
 
 void Game::reinitializeArm()
 {
-    qDebug()<<"bras revient";
     // La sphere est attrapee; on ramene le bras a sa position initiale
 
     if (myArm.alpha>5)
@@ -450,7 +457,6 @@ void Game::reinitializeArm()
     else if (boolDrop==false)
     {
         timerMoveArm->stop();
-        qDebug()<<"bras a fini";
     }
 
 }
@@ -470,7 +476,7 @@ void Game::dropSphere()
 
     double sideA2 = myArm.sA+2; // cote 1 du triangle
     double sideB2 = myArm.sFa+2; // cote 2 du triangle
-    double sideC2 = myHole.r; // cote 3 du triangle
+    double sideC2 = myHole.getDistance(); // cote 3 du triangle
 
     //Cosinus
 
@@ -541,8 +547,8 @@ void Game::dropSphere()
             timerDrop->stop();
             boolDrop=false; // le bras ne tient plus la sphere
 
-            mySphere.xSphere=myHole.xHole;
-            mySphere.ySphere=myHole.yHole;
+            mySphere.setX(myHole.xHole_);
+            mySphere.setY(myHole.yHole_);
 
             boolSphere=true; // la sphere est sur l'arene
 
@@ -555,11 +561,11 @@ void Game :: appearSphere()
 {
 
     boolSphere = true; // il y a une sphere sur le jeu
-    mySphere.xSphere = getRandomCoordinates().x();
-    mySphere.ySphere = getRandomCoordinates().y();
+    mySphere.setX(getRandomCoordinates().x());
+    mySphere.setY(getRandomCoordinates().y());
 
-    /*qDebug()<<"Sphere:"<<mySphere.xSphere<<" et "<<mySphere.ySphere;
-    qDebug()<<"Angle sphere:" <<mySphere.thetaSphere;*/
+    qDebug()<<"Sphere:"<<mySphere.getX()<<" et "<<mySphere.getY();
+    qDebug()<<"Angle sphere:" <<mySphere.thetaSphere;
 
     update();
 }
@@ -567,29 +573,40 @@ void Game :: appearSphere()
 void Game :: appearHole()
 {
     boolHole = true; // il y a un trou sur le jeu
-    myHole.xHole = getRandomCoordinates().x();
-    myHole.yHole = getRandomCoordinates().y();
+    myHole.xHole_ = getRandomCoordinates().x();
+    myHole.yHole_ = getRandomCoordinates().y();
+    myHole.setRadius(getRandomRadius());
 
-    //qDebug()<<"Hole:"<<myHole.xHole<<" et "<<myHole.yHole;
+    qDebug()<<"Hole:"<<myHole.xHole_<<" et "<<myHole.yHole_;
 
     update();
 }
 
 void Game::appearTarget()
 {
-
     boolTarget = true; // il y a un trou sur le jeu
-    myTarget.xTarget = getRandomCoordinates().x();
-    myTarget.yTarget = getRandomCoordinates().y();
 
-    //qDebug()<<"Target:"<<myTarget.xTarget<<" et "<<myTarget.yTarget;
+    int xLimitLow = myHole.xHole_ + myHole.getRadius();
+    int yLimitLow = myHole.yHole_ + myHole.getRadius();
 
+    myTarget.setX(getRandomCoordinates().x());
+    myTarget.setY(getRandomCoordinates().y());
+
+    myTarget.setRadius(getRandomRadius()); // rayon aleatoire
+
+    while (myTarget.getX()>xLimitLow && myTarget.getY()>yLimitLow) // on s'assure de ne pas plaer la cible sur le trou
+    {
+        qDebug()<<"Boucle target";
+        myTarget.setX(getRandomCoordinates().x());
+        myTarget.setY(getRandomCoordinates().y());
+    }
+
+    qDebug()<<"Target:"<<myTarget.getX()<<" et "<<myTarget.getY();
     update();
 }
 
 QPoint Game :: getRandomCoordinates ()
 {
-    qDebug()<<"coord";
     int high = myArena.size /2;
     int low = - myArena.size /2;
 
@@ -614,7 +631,32 @@ QPoint Game :: getRandomCoordinates ()
 void Game::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
-    qDebug()<<lastPos;
 }
 
+int Game::getRandomRadius()
+{
+    int high = 5;
+    int low = - 1;
 
+    int radius = 0;
+
+    while (radius<1) // on ne doit pas avoir un element trop proche du bras
+    {
+        radius=(qrand() % ((high + 1) - low) + low);
+    }
+
+    return  radius;
+}
+
+bool Game::detectVictory()
+{
+    if (mySphere.getX()==myTarget.getX() && mySphere.getY()==mySphere.getY())
+    {
+        return true;
+    }
+
+    else
+    {
+        return false;
+    }
+}

@@ -10,16 +10,11 @@
 
 Target::Target(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-    xTarget = 0;
-    yTarget = -10;
+    tanThetaTarget_ = yTarget_/(double)xTarget_;
+    thetaTarget_ = atan(tanThetaTarget_); // angle en radian
+    thetaTarget_ = thetaTarget_ * 180 / PI;
 
-    //thetaTarget = atan(yTarget/(double)xTarget)* 180 / PI;
-
-    tanThetaTarget = yTarget/(double)xTarget;
-    thetaTarget = atan(tanThetaTarget); // angle en radian
-    thetaTarget = thetaTarget * 180 / PI;
-
-    r = sqrt (xTarget*xTarget+yTarget*yTarget);
+    r_ = sqrt (xTarget_*xTarget_+yTarget_*yTarget_);
 
 }
 
@@ -28,7 +23,6 @@ void Target::drawTarget()
 {
 
     int nb_faces = 100;
-    int rayon = 3;
 
     GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/cible.tga");
 
@@ -42,7 +36,7 @@ void Target::drawTarget()
 
             glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
 
-            glVertex2f(xcos*rayon, ycos*rayon );
+            glVertex2f(xcos*radius_, ycos*radius_ );
         }
 
 

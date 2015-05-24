@@ -4,7 +4,7 @@
 
 Sphere::Sphere()
 {
-    r = 0;
+    r_ = 0;
     thetaSphere = 0;
 }
 
@@ -13,44 +13,44 @@ void Sphere::drawSphere(double radius, int slices, int stacks)
     GLUquadric* param;
     param = gluNewQuadric();
     glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FollowAndDrop/Images/eau.tga"));
-    gluQuadricTexture(param, GL_TRUE);
+    //gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, radius, slices, stacks);
 
-    r = sqrt (xSphere*xSphere+ySphere*ySphere);
+    r_ = sqrt (xSphere_*xSphere_+ySphere_*ySphere_);
 
-    if (xSphere>0 && ySphere>0) // 1er quart
+    if (xSphere_>0 && ySphere_>0) // 1er quart
     {
-        tanThetaSphere = ySphere/(double)xSphere;
+        tanThetaSphere = ySphere_/(double)xSphere_;
         thetaSphere = atan(tanThetaSphere); // angle en radian
         thetaSphere = thetaSphere * 180 / PI;
 
     }
 
-    else if (xSphere<0 && ySphere>0) // 2eme quart
+    else if (xSphere_<0 && ySphere_>0) // 2eme quart
 
     {
-        tanThetaSphere = -ySphere/(double)xSphere;
+        tanThetaSphere = -ySphere_/(double)xSphere_;
         thetaSphere = atan(tanThetaSphere); // angle en radian
         thetaSphere = 90 + thetaSphere * 180 / PI;
     }
 
-    else if (xSphere<0 && ySphere<0) // 3eme quart
+    else if (xSphere_<0 && ySphere_<0) // 3eme quart
 
     {
-        tanThetaSphere = xSphere/(double)ySphere;
+        tanThetaSphere = xSphere_/(double)ySphere_;
         thetaSphere = atan(tanThetaSphere); // angle en radian
         thetaSphere = -90 - thetaSphere * 180 / PI;
     }
 
-    else if (xSphere>0 && ySphere<0) // 4eme quart
+    else if (xSphere_>0 && ySphere_<0) // 4eme quart
 
     {
-        tanThetaSphere = -ySphere/(double)xSphere;
+        tanThetaSphere = -ySphere_/(double)xSphere_;
         thetaSphere = atan(tanThetaSphere); // angle en radian
         thetaSphere = -thetaSphere * 180 / PI;
     }
 
-   qDebug()<<"Sphere: "<<xSphere<<ySphere<<thetaSphere;
+   qDebug()<<"Sphere: "<<xSphere_<<ySphere_<<thetaSphere;
 }
 
 GLuint Sphere::loadtgadisplayCDV ( const char* filename )
@@ -123,7 +123,7 @@ bool Sphere::isMovable(int x, int y, int s)
 {
     bool b = true;
 
-    if (sqrt((xSphere+x)*(xSphere+x)+(ySphere+y)*(ySphere+y))>=s)
+    if (sqrt((xSphere_+x)*(xSphere_+x)+(ySphere_+y)*(ySphere_+y))>=s)
     {
         b = false;
         return b;

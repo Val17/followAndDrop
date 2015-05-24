@@ -14,11 +14,21 @@ public:
     GLuint loadtgadisplayCDV(const char *filename);
     void drawTarget();
     GLuint GLtexture[1];
-    double xTarget; // abscisse aleatoire
-    double yTarget; // ordonnee aleatoire
-    double thetaTarget; // angle d'orientation de la cible
-    double tanThetaTarget;
-    double r; // distance entre le centre de l'arene et la cible
+
+    double thetaTarget_; // angle d'orientation de la cible
+    double tanThetaTarget_;
+
+
+    void setRadius(int r) {radius_ = r;}
+    int getRadius() {return radius_;}
+    int getDistance() {return r_;}
+
+    double getX() {return xTarget_;}
+    double getY() {return yTarget_;}
+
+    void setX(int x) { xTarget_=x;}
+    void setY(int y) { yTarget_=y;}
+
 
 protected:
 
@@ -28,6 +38,10 @@ public slots:
 
 private:
 
+    double radius_; // rayon de la cible
+    double r_; // distance entre le centre de l'arene et la cible
+    double xTarget_; // abscisse
+    double yTarget_; // ordonnee
 
 };
 

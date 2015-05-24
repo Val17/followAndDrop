@@ -14,13 +14,18 @@ class Sphere : public QObject
     Q_OBJECT
 public:
     explicit Sphere();
-    double xSphere; // abscisse aleatoire
-    double ySphere; // ordonnee aleatoire
+
     double thetaSphere; // angle d'orientation de la sphere
     double tanThetaSphere;
-    double r; // distance entre le centre de l'arene et la sphere
+
     void drawSphere(double radius, int slices, int stacks);
     bool isMovable(int x, int y, int s);
+    int getDistance() {return r_;}
+    double getX() {return xSphere_;}
+    double getY() {return ySphere_;}
+
+    void setX(int x) { xSphere_=x;}
+    void setY(int y) { ySphere_=y;}
 signals:
 
 public slots:
@@ -28,6 +33,9 @@ public slots:
 protected:
     GLuint loadtgadisplayCDV(const char *filename);
 private:
+    double r_; // distance entre le centre de l'arene et la sphere
+    double xSphere_; // abscisse aleatoire
+    double ySphere_; // ordonnee aleatoire
 
     GLuint GLtexture[1];
 

@@ -124,8 +124,8 @@ void WebCamWindow::trackHand()
      int result_cols =  image_.cols - imgRoi_.cols + 1;
      int result_rows = image_.rows - imgRoi_.rows + 1;
 
-     qDebug()<<"WebCamWindow - trackHand(): " << result_cols<<endl;
-     qDebug()<<"WebCamWindow - trackHand(): "<< result_rows<<endl;
+     //qDebug()<<"WebCamWindow - trackHand(): " << result_cols<<endl;
+     //qDebug()<<"WebCamWindow - trackHand(): "<< result_rows<<endl;
 
      result.create( result_rows, result_cols, CV_32FC1 );
 
@@ -145,8 +145,8 @@ void WebCamWindow::trackHand()
       /// For SQDIFF and SQDIFF_NORMED, the best matches are lower values. For all the other methods, the higher the better
 
         matchLoc = maxLoc;
-        qDebug()<<"WebCamWindow - trackHand(): "<< matchLoc.x <<endl;
-        qDebug()<<"WebCamWindow - trackHand(): "<< matchLoc.y <<endl;
+        //qDebug()<<"WebCamWindow - trackHand(): "<< matchLoc.x <<endl;
+        //qDebug()<<"WebCamWindow - trackHand(): "<< matchLoc.y <<endl;
 
 
        /// Mise à jour de la photo d'origine

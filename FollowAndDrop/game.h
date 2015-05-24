@@ -47,10 +47,6 @@ public:
     bool boolHole;
     bool boolDrop; // booleen pour savoir si le bras a la sphere
 
-    //int step; // entier representatn l'etape ou est attrapee la sphere
-
-
-    int altitud; // altitude de translation
     Sphere mySphere;
     Target myTarget;
     ArticulateArm myArm;
@@ -63,6 +59,7 @@ public:
     void appearSphere();
     QPoint getRandomCoordinates();
 
+    bool detectVictory();
 protected:
     void initializeGL();
     void paintGL();
@@ -103,6 +100,7 @@ private:
     GLuint loadtgadisplayCDV(const char *filename);
 
 
+    int getRandomRadius();
 };
 
 #endif // GAME_H

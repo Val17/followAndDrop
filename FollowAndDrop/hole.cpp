@@ -4,10 +4,10 @@
 
 Hole::Hole()
 {
-    xHole = 0;
-    yHole = 0;
+    xHole_ = 0;
+    yHole_ = 0;
 
-    radius = 4;
+    radius_ = 4;
     thetaHole = 0;
 }
 
@@ -15,9 +15,8 @@ Hole::Hole()
 void Hole::drawHole()
 {
     int nb_faces = 100;
-    int rayon = radius;
 
-    GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/ground.tga");
+    //GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/ground.tga");
 
 
     glBegin(GL_POLYGON);
@@ -30,44 +29,44 @@ void Hole::drawHole()
 
             glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
 
-            glVertex2f(xcos*rayon, ycos*rayon );
+            glVertex2f(xcos*radius_, ycos*radius_ );
         }
 
     glEnd();
 
 
-        r = sqrt (xHole*xHole+yHole*yHole);
+        r_ = sqrt (xHole_*xHole_+yHole_*yHole_);
 
-        if (xHole>0 && yHole>0) // 1er quart
+        if (xHole_>0 && yHole_>0) // 1er quart
         {
-            tanThetaHole = xHole/(double)yHole;
+            tanThetaHole = xHole_/(double)yHole_;
             thetaHole = atan(tanThetaHole); // angle en radian
             thetaHole = thetaHole * 180 / PI;
 
         }
 
-        else if (xHole<0 && yHole>0) // 2eme quart
+        else if (xHole_<0 && yHole_>0) // 2eme quart
 
         {
-            tanThetaHole = -yHole/(double)xHole;
+            tanThetaHole = -yHole_/(double)xHole_;
             thetaHole = atan(tanThetaHole); // angle en radian
             thetaHole = 90 + thetaHole * 180 / PI;
             qDebug()<<"AngleHole:"<<thetaHole;
         }
 
-        else if (xHole<0 && yHole<0) // 3eme quart
+        else if (xHole_<0 && yHole_<0) // 3eme quart
 
         {
-            tanThetaHole = yHole/(double)xHole;
+            tanThetaHole = yHole_/(double)xHole_;
             thetaHole = atan(tanThetaHole); // angle en radian
             thetaHole = -90 - thetaHole * 180 / PI;
 
         }
 
-        else if (xHole>0 && yHole<0) // 4eme quart
+        else if (xHole_>0 && yHole_<0) // 4eme quart
 
         {
-            tanThetaHole = -yHole/(double)xHole;
+            tanThetaHole = -yHole_/(double)xHole_;
             thetaHole = atan(tanThetaHole); // angle en radian
             thetaHole = -thetaHole * 180 / PI;
         }

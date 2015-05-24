@@ -14,14 +14,16 @@ class Hole
 {
 public:
     Hole();
-    double xHole;
-    double yHole;
-    int radius; /// rayon du trou
+    double xHole_;
+    double yHole_;
     double thetaHole; // angle d'orientation du trou
     double tanThetaHole; // tangente de cet angle
-    double r; // distance du centre du trou par rapport  au trou
+
 
     void drawHole();
+    void setRadius(int r) {radius_ = r;}
+    int getRadius() {return radius_;}
+    int getDistance() {return r_;}
 
 protected:
     GLuint loadtgadisplayCDV(const char *filename);
@@ -29,6 +31,8 @@ protected:
 private:
 
     GLuint GLtexture[1];
+    int radius_; /// rayon du trou
+    double r_; // distance du centre du trou par rapport  au trou
 };
 
 #endif // HOLE_H
