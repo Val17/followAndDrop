@@ -19,8 +19,8 @@ public:
     double tanThetaTarget_;
 
 
-    void setRadius(int r) {radius_ = r;}
-    int getRadius() {return radius_;}
+    void setRadius(float r) {radius_ = r;}
+    float getRadius() {return radius_;}
     int getDistance() {return r_;}
 
     double getX() {return xTarget_;}
@@ -38,10 +38,10 @@ public slots:
 
 private:
 
-    double radius_; // rayon de la cible
-    double r_; // distance entre le centre de l'arene et la cible
-    double xTarget_; // abscisse
-    double yTarget_; // ordonnee
+    float radius_; // rayon de la cible
+    float r_; // distance entre le centre de l'arene et la cible
+    float xTarget_; // abscisse
+    float yTarget_; // ordonnee
 
 };
 

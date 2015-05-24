@@ -16,6 +16,8 @@ Target::Target(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), paren
 
     r_ = sqrt (xTarget_*xTarget_+yTarget_*yTarget_);
 
+    radius_ = 5; // rayon de la cible au debut du jeu
+
 }
 
 

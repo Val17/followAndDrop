@@ -7,7 +7,7 @@ Hole::Hole()
     xHole_ = 0;
     yHole_ = 0;
 
-    radius_ = 4;
+    radius_ = 3;
     thetaHole = 0;
 }
 
@@ -17,7 +17,6 @@ void Hole::drawHole()
     int nb_faces = 100;
 
     //GLtexture[0]= loadtgadisplayCDV("../FollowAndDrop/Images/ground.tga");
-
 
     glBegin(GL_POLYGON);
 
