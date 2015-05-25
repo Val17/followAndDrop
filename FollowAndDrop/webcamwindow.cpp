@@ -2,7 +2,6 @@
 /// Createur: Arnaud DENIZET
 /// Binome: DAVY/DENIZET
 
-
 #include "webcamwindow.h"
 
 using namespace cv;

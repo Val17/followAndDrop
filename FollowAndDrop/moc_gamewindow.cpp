@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'sphere.h'
+** Meta object code from reading C++ file 'gamewindow.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../FollowAndDrop/sphere.h"
+#include "../FollowAndDrop/gamewindow.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'sphere.h' doesn't include <QObject>."
+#error "The header file 'gamewindow.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.4.1. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -18,25 +18,25 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-struct qt_meta_stringdata_Sphere_t {
+struct qt_meta_stringdata_GameWindow_t {
     QByteArrayData data[1];
-    char stringdata[7];
+    char stringdata[11];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_Sphere_t, stringdata) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_GameWindow_t, stringdata) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_Sphere_t qt_meta_stringdata_Sphere = {
+static const qt_meta_stringdata_GameWindow_t qt_meta_stringdata_GameWindow = {
     {
-QT_MOC_LITERAL(0, 0, 6) // "Sphere"
+QT_MOC_LITERAL(0, 0, 10) // "GameWindow"
 
     },
-    "Sphere"
+    "GameWindow"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_Sphere[] = {
+static const uint qt_meta_data_GameWindow[] = {
 
  // content:
        7,       // revision
@@ -52,7 +52,7 @@ static const uint qt_meta_data_Sphere[] = {
        0        // eod
 };
 
-void Sphere::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void GameWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -60,28 +60,28 @@ void Sphere::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
     Q_UNUSED(_a);
 }
 
-const QMetaObject Sphere::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_Sphere.data,
-      qt_meta_data_Sphere,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
+const QMetaObject GameWindow::staticMetaObject = {
+    { &QMainWindow::staticMetaObject, qt_meta_stringdata_GameWindow.data,
+      qt_meta_data_GameWindow,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
 
-const QMetaObject *Sphere::metaObject() const
+const QMetaObject *GameWindow::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Sphere::qt_metacast(const char *_clname)
+void *GameWindow::qt_metacast(const char *_clname)
 {
     if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_Sphere.stringdata))
-        return static_cast<void*>(const_cast< Sphere*>(this));
-    return QObject::qt_metacast(_clname);
+    if (!strcmp(_clname, qt_meta_stringdata_GameWindow.stringdata))
+        return static_cast<void*>(const_cast< GameWindow*>(this));
+    return QMainWindow::qt_metacast(_clname);
 }
 
-int Sphere::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int GameWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QObject::qt_metacall(_c, _id, _a);
+    _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     return _id;

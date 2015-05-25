@@ -12,10 +12,10 @@ HEADERS += mainwindow.h \
     target.h \
     game.h \
     sphere.h \
-    brasarticule.h \
     gamewidget.h \
     webcamwindow.h \
-    hole.h
+    hole.h \
+    arm.h
 FORMS += mainwindow.ui \
     gamewidget.ui
 SOURCES += main.cpp mainwindow.cpp \
@@ -23,10 +23,10 @@ SOURCES += main.cpp mainwindow.cpp \
     target.cpp \
     game.cpp \
     sphere.cpp \
-    brasarticule.cpp \
     gamewidget.cpp \
     webcamwindow.cpp \
-    hole.cpp
+    hole.cpp \
+    arm.cpp
 QT += core gui opengl
 
 LIBS += -L$$(OPENCV_DIR)\lib \

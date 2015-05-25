@@ -16,6 +16,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -27,14 +28,14 @@ QT_BEGIN_NAMESPACE
 class Ui_GameWidget
 {
 public:
-    QWidget *widget;
+    QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
-    QHBoxLayout *horizontalLayout_8;
+    QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer_2;
     QLabel *label;
+    QLineEdit *chronoTime;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_2;
-    QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer_8;
     Game *myGame;
     QSpacerItem *horizontalSpacer_7;
@@ -45,53 +46,54 @@ public:
         if (GameWidget->objectName().isEmpty())
             GameWidget->setObjectName(QStringLiteral("GameWidget"));
         GameWidget->resize(1216, 578);
-        widget = new QWidget(GameWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 1204, 541));
-        verticalLayout = new QVBoxLayout(widget);
+        verticalLayout_2 = new QVBoxLayout(GameWidget);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout_8 = new QHBoxLayout();
-        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_8->addItem(horizontalSpacer_2);
+        horizontalLayout->addItem(horizontalSpacer_2);
 
-        label = new QLabel(widget);
+        label = new QLabel(GameWidget);
         label->setObjectName(QStringLiteral("label"));
 
-        horizontalLayout_8->addWidget(label);
+        horizontalLayout->addWidget(label);
+
+        chronoTime = new QLineEdit(GameWidget);
+        chronoTime->setObjectName(QStringLiteral("chronoTime"));
+        chronoTime->setEnabled(false);
+        chronoTime->setMinimumSize(QSize(50, 30));
+        chronoTime->setReadOnly(false);
+
+        horizontalLayout->addWidget(chronoTime);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_8->addItem(horizontalSpacer);
+        horizontalLayout->addItem(horizontalSpacer);
 
 
-        verticalLayout->addLayout(horizontalLayout_8);
+        verticalLayout->addLayout(horizontalLayout);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addItem(horizontalSpacer_8);
+        horizontalLayout_2->addItem(horizontalSpacer_8);
 
-        myGame = new Game(widget);
+        myGame = new Game(GameWidget);
         myGame->setObjectName(QStringLiteral("myGame"));
         myGame->setMinimumSize(QSize(500, 300));
         myGame->setMaximumSize(QSize(700, 700));
 
-        horizontalLayout->addWidget(myGame);
+        horizontalLayout_2->addWidget(myGame);
 
         horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addItem(horizontalSpacer_7);
+        horizontalLayout_2->addItem(horizontalSpacer_7);
 
-
-        horizontalLayout_2->addLayout(horizontalLayout);
-
-        webcamWidget = new WebCamWindow(widget);
+        webcamWidget = new WebCamWindow(GameWidget);
         webcamWidget->setObjectName(QStringLiteral("webcamWidget"));
         webcamWidget->setMinimumSize(QSize(600, 500));
 
@@ -100,7 +102,9 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_2);
 
-        webcamWidget->raise();
+
+        verticalLayout_2->addLayout(verticalLayout);
+
 
         retranslateUi(GameWidget);
 
@@ -110,7 +114,8 @@ public:
     void retranslateUi(QWidget *GameWidget)
     {
         GameWidget->setWindowTitle(QApplication::translate("GameWidget", "Game", 0));
-        label->setText(QApplication::translate("GameWidget", "Follow and Drop", 0));
+        label->setText(QApplication::translate("GameWidget", "Follow And Drop", 0));
+        chronoTime->setText(QString());
     } // retranslateUi
 
 };

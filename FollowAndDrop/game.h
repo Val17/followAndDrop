@@ -13,7 +13,7 @@
 #include <sphere.h>
 #include <target.h>
 #include <hole.h>
-#include <brasarticule.h>
+#include <arm.h>
 #include<iostream>
 
 class Game : public QGLWidget
@@ -49,7 +49,7 @@ public:
     bool boolInHole; // booleen pour savoir si la sphere est dans le trou
     Sphere mySphere;
     Target myTarget;
-    ArticulateArm myArm;
+    Arm myArm;
     Hole myHole;
     int intGluPerspective;
     void removeSphere(int step); // attrape la sphere

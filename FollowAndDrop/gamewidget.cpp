@@ -14,19 +14,14 @@ GameWidget::GameWidget(QWidget *parent) :
     pointRef = cv::Point((ui->webcamWidget->getFrameWidth()-ui->webcamWidget->getTemplateWidth())/2,(ui->webcamWidget->getFrameHeight()-ui->webcamWidget->getTemplateHeight())/2);
     connect(ui->webcamWidget,SIGNAL(emitPoint(cv::Point)),this,SLOT(moveSphere(cv::Point)));
 
-    // Parametres du chronometre
+    timerChrono_ = new QTimer(this);
 
-    QTime time;
-    time.start();
-
-    // millisecondes contient le nombre de millisecondes entre l'appel à la fonction start()
-    // et l'appel 0 la fonction elapsed()
-    int millisecondes = time.elapsed();
 }
 
 GameWidget::~GameWidget()
 {
     delete ui;
+    delete timerChrono_;
 }
 
 void GameWidget::moveSphere(cv::Point handPoint)
@@ -152,14 +147,33 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
         ui->myGame->update();
     }
 
+    else if (e->key()==Qt::Key_C)
+    {
+        startChrono();
+    }
+
     else
 
     {
         QWidget::keyPressEvent(e);
     }
 
-
 }
+
+void GameWidget::startChrono()
+{
+    connect(timerChrono_, SIGNAL(startPlay()), this, SLOT(incrementChrono()));
+    timerChrono_->start(10);
+}
+
+void GameWidget::incrementChrono()
+{
+    time_+=1;
+    ui->chronoTime->setText((QString)time_);
+    //update();
+}
+
+
 
 
 

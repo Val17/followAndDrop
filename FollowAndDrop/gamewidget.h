@@ -15,6 +15,8 @@ class GameWidget : public QWidget
 public:
     explicit GameWidget(QWidget *parent = 0);
     ~GameWidget();
+public slots:
+    void incrementChrono();
 protected:
     void keyPressEvent(QKeyEvent *e);
 private slots:
@@ -23,6 +25,12 @@ private slots:
 private:
     Ui::GameWidget *ui;
     cv::Point pointRef;
+    int time_;
+    QTimer *timerChrono_;
+
+    void startChrono();
+signals:
+    void startPlay();
 };
 
 #endif // GAMEWIDGET_H
