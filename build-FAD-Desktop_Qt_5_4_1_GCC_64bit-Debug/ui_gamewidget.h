@@ -124,7 +124,7 @@ public:
 
     void retranslateUi(QWidget *GameWidget)
     {
-        GameWidget->setWindowTitle(QApplication::translate("GameWidget", "Game", 0));
+        GameWidget->setWindowTitle(QApplication::translate("GameWidget", "Follow And Drop - Jeu", 0));
         label->setText(QApplication::translate("GameWidget", "Follow And Drop", 0));
         labelTime->setText(QApplication::translate("GameWidget", "Time:", 0));
         chronoTime->setText(QString());
