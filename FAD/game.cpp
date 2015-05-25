@@ -314,6 +314,7 @@ void Game::catchSphere()
     else
     {
         timerToCatch->stop();
+        timerToCatch->disconnect(timerToCatch, SIGNAL(timeout()), this, SLOT(catchSphere()));
         boolSphereArm = true;
         removeSphere(2);
     }
@@ -331,7 +332,7 @@ void Game :: removeSphere(int step)
 
     else if (step==2)
     {
-        connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
+        connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(moveArm()));
         timerMoveArm->start(10);
     }
 
@@ -351,17 +352,65 @@ void Game :: removeSphere(int step)
 
 }
 
-void Game::reinitializeArm()
+void Game::moveArm()
 {
     // La sphere est attrapee; on ramene le bras a sa position initiale
 
-    if (myArm.alpha>0)
+    if (myArm.alpha>5)
+    {
+        myArm.alpha-=5;
+        update();
+    }
+
+    else if (myArm.alpha<-5)
+    {
+        myArm.alpha+=5;
+        update();
+    }
+
+    if (myArm.beta>5)
+    {
+        myArm.beta-=5;
+        update();
+    }
+
+    else if (myArm.beta<-5)
+    {
+        myArm.beta+=5;
+        update();
+    }
+
+    if (myArm.gamma>5)
+    {
+        myArm.gamma-=5;
+        update();
+    }
+
+    else if (myArm.gamma<-5)
+    {
+        myArm.gamma+=5;
+        update();
+    }
+
+    // Le bras est en position quasi initiale et a la sphere
+    else
+    {
+        timerMoveArm->stop();
+        timerMoveArm->disconnect(timerMoveArm, SIGNAL(timeout()), this, SLOT(moveArm()));
+        removeSphere(3);
+    }
+
+}
+
+void Game::reinitializeArm()
+{
+    if (myArm.alpha>1)
     {
         myArm.alpha-=1;
         update();
     }
 
-    else if (myArm.alpha<0)
+    else if (myArm.alpha<-1)
     {
         myArm.alpha+=1;
         update();
@@ -373,36 +422,32 @@ void Game::reinitializeArm()
         update();
     }
 
-    else if (myArm.beta<0)
+    else if (myArm.beta<-1)
     {
         myArm.beta+=1;
         update();
     }
 
-    if (myArm.gamma>0)
+    if (myArm.gamma>1)
     {
         myArm.gamma-=1;
         update();
     }
 
-    else if (myArm.gamma<0)
+    else if (myArm.gamma<-1)
     {
         myArm.gamma+=1;
         update();
     }
 
-    // Le bras est en position initiale et a la sphere
-    else if (boolSphereArm==true)
-    {
-        timerMoveArm->stop();
-        removeSphere(3);
-    }
-
-    else if (mySphere.getZ()==-3)
+    else if (boolSphereArena==false)
         {
+            qDebug()<<"fin bras; alt S:"<<mySphere.getZ();
+            setNextLevel(); // on passe au niveau suivant
             timerMoveArm->stop(); // la sphere est tombee dans le trou
+            timerMoveArm->disconnect(timerMoveArm, SIGNAL(timeout()), this, SLOT(putSphereOut()));
+            timerMoveArm->disconnect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
         }
-
 }
 
 /**
@@ -412,7 +457,7 @@ void Game::reinitializeArm()
 
 void Game::putSphereOut()
 {
-    if (mySphere.getZ()>-3)
+    if (mySphere.getZ()>-1 && boolSphereArena==true) // la sphere est en train de tomber
     {
         mySphere.setZ(mySphere.getZ()-.5);
         update();
@@ -420,10 +465,8 @@ void Game::putSphereOut()
 
     else
     {
-
         boolSphereArena=false; // la sphere n'est plus sur l'arene
         mySphere.setZ(2); // la prochaine sphere reviendra au dessus de l'arene
-
     }
 
 }
@@ -512,6 +555,7 @@ void Game::dropSphere()
         else
         {
             timerToDrop->stop();
+            timerToDrop->disconnect(timerToDrop, SIGNAL(timeout()), this, SLOT(dropSphere()));
             boolSphereArm=false; // le bras ne tient plus la sphere
 
             mySphere.setX(myHole.getX());
@@ -528,49 +572,43 @@ void Game :: appearSphere()
 {
 
     boolSphereArena = true; // il y a une sphere sur le jeu
-    mySphere.setX(getRandomCoordinates().x());
-    mySphere.setY(getRandomCoordinates().y());
+    mySphere.setX(getRandomCoordinates(mySphere.getRadius()).x());
+    mySphere.setY(getRandomCoordinates(mySphere.getRadius()).y());
 
     qDebug()<<"Sphere:"<<mySphere.getX()<<" et "<<mySphere.getY();
 
     update();
 }
 
-void Game :: appearHole()
-{
-    boolHole = true; // il y a un trou sur le jeu
-    myHole.setX(getRandomCoordinates().x());
-    myHole.setY(getRandomCoordinates().y());
-
-    qDebug()<<"Trou:"<<myHole.getX()<<" et "<<myHole.getY()<<" - angle:"<<myHole.getTheta();
-
-    update();
-}
 
 void Game::appearTarget()
 {
     boolTarget = true; // il y a un trou sur le jeu
 
-    float xLimitLow = myHole.getX() + myHole.getRadius();
-    float yLimitLow = myHole.getY() + myHole.getRadius();
+    float xLimitLow = myHole.getX() - myHole.getRadius()-1;
+    float yLimitLow = myHole.getY() - myHole.getRadius()+1;
+    float xLimitHigh = myHole.getX() + myHole.getRadius()+1;
+    float yLimitHigh = myHole.getY() + myHole.getRadius()+1;
 
-    myTarget.setX(getRandomCoordinates().x());
-    myTarget.setY(getRandomCoordinates().y());
+    myTarget.setX(getRandomCoordinates(myTarget.getRadius()).x());
+    myTarget.setY(getRandomCoordinates(myTarget.getRadius()).y());
 
-    myTarget.setRadius(myTarget.getRadius()-.5);
+    //myTarget.setRadius(myTarget.getRadius()-.5);
 
-    while (myTarget.getX()>xLimitLow && myTarget.getY()>yLimitLow) // on s'assure de ne pas plaer la cible sur le trou
+    // on s'assure de ne pas placer la cible sur le trou
+
+    while (myTarget.getX()<xLimitHigh && myTarget.getX()>xLimitLow && myTarget.getY()<yLimitHigh && myTarget.getY()>yLimitLow )
     {
         qDebug()<<"Boucle target";
-        myTarget.setX(getRandomCoordinates().x());
-        myTarget.setY(getRandomCoordinates().y());
+        myTarget.setX(getRandomCoordinates(myTarget.getRadius()).x());
+        myTarget.setY(getRandomCoordinates(myTarget.getRadius()).y());
     }
 
     qDebug()<<"Target:"<<myTarget.getX()<<" et "<<myTarget.getY();
     update();
 }
 
-QPointF Game :: getRandomCoordinates ()
+QPointF Game :: getRandomCoordinates (double d)
 {
     float high = myArena.getSize() /(float)2;
     float low = - myArena.getSize() /(float)2;
@@ -581,9 +619,9 @@ QPointF Game :: getRandomCoordinates ()
 
     double distance = 0;
 
-    while (distance<2 || distance>18) // on ne doit pas avoir un element trop proche du bras
+    while (distance<d || distance>18) // on ne doit pas avoir un element trop proche du bras
     {
-
+         qDebug()<<"Boucle coordonnees";
         /*point.setX(qrand() % ((high + 1) - low) + low);
         point.setY(qrand() % ((high + 1) - low) + low);*/
 
@@ -596,6 +634,7 @@ QPointF Game :: getRandomCoordinates ()
         point.setX(random*range+low);
         random = ((float) rand()) / (float) RAND_MAX;
         point.setY(random*range+low);
+        qDebug()<<"Coord trouvees: "<<point.x()<<" - "<<point.y();
         distance = sqrt (point.x()*point.x()+point.y()*point.y());
     }
     return point;
@@ -607,20 +646,7 @@ void Game::mousePressEvent(QMouseEvent *event)
     lastPos = event->pos();
 }
 
-int Game::getRandomRadius()
-{
-    int high = 5;
-    int low = - 1;
 
-    int radius = 0;
-
-    while (radius<1) // on ne doit pas avoir un element trop proche du bras
-    {
-        radius=(qrand() % ((high + 1) - low) + low);
-    }
-
-    return  radius;
-}
 
 bool Game::detectVictory()
 {
@@ -647,4 +673,10 @@ bool Game::detectVictory()
     {
         return false;
     }
+}
+
+void Game::setNextLevel()
+{
+    appearTarget();
+    appearSphere();
 }

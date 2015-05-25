@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Game_t {
     QByteArrayData data[15];
-    char stringdata[178];
+    char stringdata[175];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,17 +40,17 @@ QT_MOC_LITERAL(7, 76, 12), // "setYRotation"
 QT_MOC_LITERAL(8, 89, 12), // "setZRotation"
 QT_MOC_LITERAL(9, 102, 12), // "appearTarget"
 QT_MOC_LITERAL(10, 115, 11), // "catchSphere"
-QT_MOC_LITERAL(11, 127, 15), // "reinitializeArm"
-QT_MOC_LITERAL(12, 143, 10), // "dropSphere"
-QT_MOC_LITERAL(13, 154, 10), // "appearHole"
-QT_MOC_LITERAL(14, 165, 12) // "putSphereOut"
+QT_MOC_LITERAL(11, 127, 7), // "moveArm"
+QT_MOC_LITERAL(12, 135, 10), // "dropSphere"
+QT_MOC_LITERAL(13, 146, 12), // "putSphereOut"
+QT_MOC_LITERAL(14, 159, 15) // "reinitializeArm"
 
     },
     "Game\0xRotationChanged\0\0angle\0"
     "yRotationChanged\0zRotationChanged\0"
     "setXRotation\0setYRotation\0setZRotation\0"
-    "appearTarget\0catchSphere\0reinitializeArm\0"
-    "dropSphere\0appearHole\0putSphereOut"
+    "appearTarget\0catchSphere\0moveArm\0"
+    "dropSphere\0putSphereOut\0reinitializeArm"
 };
 #undef QT_MOC_LITERAL
 
@@ -115,10 +115,10 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 5: _t->setZRotation((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 6: _t->appearTarget(); break;
         case 7: _t->catchSphere(); break;
-        case 8: _t->reinitializeArm(); break;
+        case 8: _t->moveArm(); break;
         case 9: _t->dropSphere(); break;
-        case 10: _t->appearHole(); break;
-        case 11: _t->putSphereOut(); break;
+        case 10: _t->putSphereOut(); break;
+        case 11: _t->reinitializeArm(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

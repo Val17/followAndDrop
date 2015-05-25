@@ -57,9 +57,10 @@ public:
     void moveZ(int z);
     void moveX(int x);
     void appearSphere();
-    QPointF getRandomCoordinates();
+    QPointF getRandomCoordinates(double d);
 
     bool detectVictory();
+    void setNextLevel();
 protected:
     void initializeGL();
     void paintGL();
@@ -77,11 +78,11 @@ public slots:
     void setZRotation(int angle);
     void appearTarget();
     void catchSphere(); // methode permettant d'attraper la sphere
-    void reinitializeArm(); // slot permettant de mettre le bras a sa position initiale
+    void moveArm(); // slot permettant de mettre le bras a sa position initiale
     void dropSphere(); // slot permettant d'amener la sphere dans le trou
-    void appearHole();
     void putSphereOut(); // la sphere tombe dans le trou
 
+    void reinitializeArm();
 signals:
     // signaling rotation from mouse movement
     void xRotationChanged(int angle);
@@ -92,14 +93,9 @@ signals:
 private:
 
     int chrono;
-    int xRandom;
-    int yRandom;
-    int zRandom;
     QTimer *timerToCatch;
     QTimer *timerMoveArm; // timer utilise pour le deplacement du bras a son etat initial
     QTimer *timerToDrop; // timer utilise pour que le bras lache la sphere
-
-    int getRandomRadius();
 
 };
 

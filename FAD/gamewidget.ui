@@ -52,6 +52,36 @@
         </spacer>
        </item>
        <item>
+        <widget class="QLabel" name="labelLevel">
+         <property name="text">
+          <string>Niveau: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="level">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="labelTime">
          <property name="text">
           <string>Time:</string>
@@ -67,7 +97,7 @@
           </size>
          </property>
          <property name="text">
-          <string>                    </string>
+          <string/>
          </property>
         </widget>
        </item>

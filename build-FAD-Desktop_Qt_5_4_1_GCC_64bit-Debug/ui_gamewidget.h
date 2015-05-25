@@ -34,6 +34,9 @@ public:
     QSpacerItem *horizontalSpacer_2;
     QLabel *label;
     QSpacerItem *horizontalSpacer_3;
+    QLabel *labelLevel;
+    QLabel *level;
+    QSpacerItem *horizontalSpacer_5;
     QLabel *labelTime;
     QLabel *time;
     QSpacerItem *horizontalSpacer_4;
@@ -68,6 +71,21 @@ public:
         horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer_3);
+
+        labelLevel = new QLabel(GameWidget);
+        labelLevel->setObjectName(QStringLiteral("labelLevel"));
+
+        horizontalLayout->addWidget(labelLevel);
+
+        level = new QLabel(GameWidget);
+        level->setObjectName(QStringLiteral("level"));
+        level->setEnabled(false);
+
+        horizontalLayout->addWidget(level);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_5);
 
         labelTime = new QLabel(GameWidget);
         labelTime->setObjectName(QStringLiteral("labelTime"));
@@ -135,6 +153,8 @@ public:
     {
         GameWidget->setWindowTitle(QApplication::translate("GameWidget", "Follow And Drop - Jeu", 0));
         label->setText(QApplication::translate("GameWidget", "Follow And Drop", 0));
+        labelLevel->setText(QApplication::translate("GameWidget", "Niveau: ", 0));
+        level->setText(QString());
         labelTime->setText(QApplication::translate("GameWidget", "Time:", 0));
         time->setText(QString());
         buttonStart->setText(QApplication::translate("GameWidget", "Start", 0));

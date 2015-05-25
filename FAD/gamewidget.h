@@ -31,6 +31,7 @@ private:
     cv::Point pointRef;
     QTime time_;
     QTimer *timerChrono_;
+    int level_; // niveau de jeu
 
     void startChrono();
     QString namePlayer_; // nom du joueur

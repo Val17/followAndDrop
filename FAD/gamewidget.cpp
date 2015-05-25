@@ -19,6 +19,9 @@ GameWidget::GameWidget(QWidget *parent) :
   //ui->label->setText(namePlayer_);
     qDebug()<<"gameWidget:"<<getNamePlayer();
 
+    level_=1;
+    ui->level->setText(QString::number(level_));
+
 }
 
 GameWidget::~GameWidget()
@@ -116,16 +119,14 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
     else if (e->key() == Qt::Key_D)
     {
         ui->myGame->removeSphere(1);
+        level_+=1; // on incremente le niveau de jeu
+        ui->level->setText(QString::number(level_));
+
     }
 
     else if (e->key() == Qt::Key_S)
     {
         ui->myGame->appearSphere();
-    }
-
-    else if (e->key() == Qt::Key_H)
-    {
-        ui->myGame->appearHole();
     }
 
     else if (e->key()==Qt::Key_P)
