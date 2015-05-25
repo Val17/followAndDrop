@@ -16,7 +16,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -35,7 +35,9 @@ public:
     QLabel *label;
     QSpacerItem *horizontalSpacer_3;
     QLabel *labelTime;
-    QLineEdit *chronoTime;
+    QLabel *time;
+    QSpacerItem *horizontalSpacer_4;
+    QPushButton *buttonStart;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_8;
@@ -72,13 +74,20 @@ public:
 
         horizontalLayout->addWidget(labelTime);
 
-        chronoTime = new QLineEdit(GameWidget);
-        chronoTime->setObjectName(QStringLiteral("chronoTime"));
-        chronoTime->setEnabled(false);
-        chronoTime->setMinimumSize(QSize(50, 30));
-        chronoTime->setReadOnly(false);
+        time = new QLabel(GameWidget);
+        time->setObjectName(QStringLiteral("time"));
+        time->setMinimumSize(QSize(10, 10));
 
-        horizontalLayout->addWidget(chronoTime);
+        horizontalLayout->addWidget(time);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_4);
+
+        buttonStart = new QPushButton(GameWidget);
+        buttonStart->setObjectName(QStringLiteral("buttonStart"));
+
+        horizontalLayout->addWidget(buttonStart);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -127,7 +136,8 @@ public:
         GameWidget->setWindowTitle(QApplication::translate("GameWidget", "Follow And Drop - Jeu", 0));
         label->setText(QApplication::translate("GameWidget", "Follow And Drop", 0));
         labelTime->setText(QApplication::translate("GameWidget", "Time:", 0));
-        chronoTime->setText(QString());
+        time->setText(QString());
+        buttonStart->setText(QApplication::translate("GameWidget", "Start", 0));
     } // retranslateUi
 
 };

@@ -165,16 +165,23 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
 
 void GameWidget::startChrono()
 {
-    connect(timerChrono_, SIGNAL(startPlay()), this, SLOT(incrementChrono()));
-    timerChrono_->start(10);
+    time_.start();
+    incrementChrono();
+    connect(timerChrono_, SIGNAL(timeout()), this, SLOT(incrementChrono()));
+    timerChrono_->start(500); // twice per second
+
 }
 
 void GameWidget::incrementChrono()
 {
-    /*int s=0;
-    time_+=1;
-    ui->chronoTime->setText(time_.toString("ss:ms"));*/
-    //update();
+    int secs = time_.elapsed() / 1000;
+    int mins = (secs / 60) % 60;
+    secs = secs % 60;
+    ui->time->setText(QString("%1:%2").arg(mins, 2, 10, QLatin1Char('0')).arg(secs, 2, 10, QLatin1Char('0')));
+
 }
 
-
+void GameWidget::on_buttonStart_clicked()
+{
+    startChrono();
+}

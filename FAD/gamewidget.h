@@ -24,6 +24,8 @@ protected:
 private slots:
     void moveSphere(cv::Point handPoint);
 
+    void on_buttonStart_clicked();
+
 private:
     Ui::GameWidget *ui;
     cv::Point pointRef;
