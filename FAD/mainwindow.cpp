@@ -39,6 +39,7 @@ void MainWindow::on_namePlayer_textEdited(const QString &arg1)
 
 void MainWindow::on_buttonGame_clicked()
 {
-    myGameWidget.setNamePlayer((QString)ui->namePlayer->text());
+    myGameWidget.setNamePlayer(ui->namePlayer->text());
+    qDebug()<<"dans mainwindow: "<<myGameWidget.getNamePlayer();
     myGameWidget.show();
 }

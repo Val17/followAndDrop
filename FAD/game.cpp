@@ -216,12 +216,6 @@ void Game::draw()
             glPopMatrix();
         }
 
-
-
-    /// Elements qui apparaissent a des endroits differents
-
-
-
 }
 
 
@@ -329,13 +323,13 @@ void Game :: removeSphere(int step)
     if (step==1)
     {
         connect(timerToCatch, SIGNAL(timeout()), this, SLOT(catchSphere()));
-        timerToCatch->start(1);
+        timerToCatch->start(10);
     }
 
     else if (step==2)
     {
         connect(timerMoveArm, SIGNAL(timeout()), this, SLOT(reinitializeArm()));
-        timerMoveArm->start(.1);
+        timerMoveArm->start(10);
     }
 
     else if (step==3)

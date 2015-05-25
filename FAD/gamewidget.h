@@ -16,6 +16,7 @@ public:
     explicit GameWidget(QWidget *parent = 0);
     ~GameWidget();
     void setNamePlayer(QString n) {namePlayer_=n;}
+    QString getNamePlayer() {return namePlayer_;}
 public slots:
     void incrementChrono();
 protected:
@@ -26,7 +27,7 @@ private slots:
 private:
     Ui::GameWidget *ui;
     cv::Point pointRef;
-    int time_;
+    QTime time_;
     QTimer *timerChrono_;
 
     void startChrono();
