@@ -21,12 +21,9 @@ public:
     void drawTarget();
     GLuint GLtexture[1];
 
-    double thetaTarget_; // angle d'orientation de la cible
-    double tanThetaTarget_;
-
-
     void setRadius(float r) {radius_ = r;}
     float getRadius() {return radius_;}
+    double getTheta() {return thetaTarget_;}
     int getDistance() {return r_;}
 
     double getX() {return xTarget_;}
@@ -48,6 +45,8 @@ private:
     float r_; // distance entre le centre de l'arene et la cible
     float xTarget_; // abscisse
     float yTarget_; // ordonnee
+    double thetaTarget_; // angle d'orientation de la cible
+    double tanThetaTarget_;
 
 };
 

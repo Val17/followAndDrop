@@ -90,7 +90,7 @@ void GameWidget::moveSphere(cv::Point handPoint)
 
      if (ui->myGame->detectVictory()==true)
      {
-         ui->myGame->boolArm=false;
+         ui->myGame->removeSphere(1);
      }
 
      else if (ui->myGame->detectVictory()==false)
@@ -153,6 +153,39 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
     else if (e->key()==Qt::Key_C)
     {
         startChrono();
+    }
+
+    else if (e->key() == Qt::Key_6)
+    {
+        ui->myGame->mySphere.setX(ui->myGame->mySphere.getX()+1);
+        ui->myGame->update();
+        qDebug()<<"x: "<<ui->myGame->mySphere.getX() <<" -- "<<ui->myGame->myTarget.getX();
+        qDebug()<<"y: "<<ui->myGame->mySphere.getY() <<" -- "<< ui->myGame->myTarget.getY();
+    }
+
+    else if (e->key() == Qt::Key_8)
+    {
+        ui->myGame->mySphere.setY(ui->myGame->mySphere.getY()+1);
+        ui->myGame->update();
+        qDebug()<<"x: "<<ui->myGame->mySphere.getX() <<" -- "<<ui->myGame->myTarget.getX();
+        qDebug()<<"y: "<<ui->myGame->mySphere.getY() <<" -- "<< ui->myGame->myTarget.getY();
+
+    }
+
+    else if (e->key() == Qt::Key_4)
+    {
+        ui->myGame->mySphere.setX(ui->myGame->mySphere.getX()-1);
+        ui->myGame->update();
+        qDebug()<<"x: "<<ui->myGame->mySphere.getX() <<" -- "<<ui->myGame->myTarget.getX();
+        qDebug()<<"y: "<<ui->myGame->mySphere.getY() <<" -- "<< ui->myGame->myTarget.getY();
+    }
+
+    else if (e->key() == Qt::Key_2)
+    {
+        ui->myGame->mySphere.setY(ui->myGame->mySphere.getY()-1);
+        ui->myGame->update();
+        qDebug()<<"x: "<<ui->myGame->mySphere.getX() <<" -- "<<ui->myGame->myTarget.getX();
+        qDebug()<<"y: "<<ui->myGame->mySphere.getY() <<" -- "<< ui->myGame->myTarget.getY();
     }
 
     else

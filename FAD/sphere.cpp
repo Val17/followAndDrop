@@ -9,7 +9,7 @@
 Sphere::Sphere()
 {
     r_ = 0;
-    thetaSphere = 0;
+    thetaSphere_ = 0;
     setZ(2);
     radius_=2;
 }
@@ -30,33 +30,33 @@ void Sphere::drawSphere()
 
     if (xSphere_>0 && ySphere_>0) // 1er quart
     {
-        tanThetaSphere = ySphere_/(double)xSphere_;
-        thetaSphere = atan(tanThetaSphere); // angle en radian
-        thetaSphere = thetaSphere * 180 / PI;
+        tanThetaSphere_ = ySphere_/(double)xSphere_;
+        thetaSphere_ = atan(tanThetaSphere_); // angle en radian
+        thetaSphere_ = thetaSphere_ * 180 / PI;
     }
 
     else if (xSphere_<0 && ySphere_>0) // 2eme quart
 
     {
-        tanThetaSphere = -ySphere_/(double)xSphere_;
-        thetaSphere = atan(tanThetaSphere); // angle en radian
-        thetaSphere = 90 + thetaSphere * 180 / PI;
+        tanThetaSphere_ = -ySphere_/(double)xSphere_;
+        thetaSphere_ = atan(tanThetaSphere_); // angle en radian
+        thetaSphere_ = 90 + thetaSphere_ * 180 / PI;
     }
 
     else if (xSphere_<0 && ySphere_<0) // 3eme quart
 
     {
-        tanThetaSphere = xSphere_/(double)ySphere_;
-        thetaSphere = atan(tanThetaSphere); // angle en radian
-        thetaSphere = -90 - thetaSphere * 180 / PI;
+        tanThetaSphere_ = xSphere_/(double)ySphere_;
+        thetaSphere_ = atan(tanThetaSphere_); // angle en radian
+        thetaSphere_ = -90 - thetaSphere_ * 180 / PI;
     }
 
     else if (xSphere_>0 && ySphere_<0) // 4eme quart
 
     {
-        tanThetaSphere = -ySphere_/(double)xSphere_;
-        thetaSphere = atan(tanThetaSphere); // angle en radian
-        thetaSphere = -thetaSphere * 180 / PI;
+        tanThetaSphere_ = -ySphere_/(double)xSphere_;
+        thetaSphere_ = atan(tanThetaSphere_); // angle en radian
+        thetaSphere_ = -thetaSphere_ * 180 / PI;
     }
 
 

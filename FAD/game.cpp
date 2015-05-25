@@ -36,6 +36,8 @@ Game::Game(QWidget *parent) :
     timerToCatch = new QTimer(this);
     timerMoveArm = new QTimer(this);
     timerToDrop = new QTimer(this);
+
+    srand (static_cast <unsigned> (time(0))); // pour les coordonnees aleatoires
 }
 
 Game::~Game()
@@ -207,14 +209,15 @@ void Game::draw()
             myArena.drawArena();
         glPopMatrix();
 
-        if (boolHole == true)
-        {
-            glPushMatrix();
-                glColor3f(0,0,0);
-                glTranslatef(myHole.getX(), myHole.getY(),.1);
-                myHole.drawHole(mySphere.getRadius());
-            glPopMatrix();
-        }
+
+        glPushMatrix();
+            glColor3f(0,0,0);
+            myHole.setX(15);
+            myHole.setY(-1);
+            glTranslatef(myHole.getX(),myHole.getY(),.1);
+            myHole.drawHole(mySphere.getRadius());
+        glPopMatrix();
+
 
 }
 
@@ -247,7 +250,7 @@ void Game::catchSphere()
     double angleB1 = acos(cosB1) * 180/ PI; // angle2 en radian
 
     //Limites
-    double a1 = mySphere.thetaSphere;
+    double a1 = mySphere.getTheta();
     double b1 = 90 - angleA1;
     double g1 = 180 - angleB1;
 
@@ -528,7 +531,7 @@ void Game :: appearSphere()
     mySphere.setX(getRandomCoordinates().x());
     mySphere.setY(getRandomCoordinates().y());
 
-    qDebug()<<"Sphere:"<<mySphere.getX()<<" et "<<mySphere.getY()<<" - angle:"<<mySphere.thetaSphere;
+    qDebug()<<"Sphere:"<<mySphere.getX()<<" et "<<mySphere.getY();
 
     update();
 }
@@ -548,8 +551,8 @@ void Game::appearTarget()
 {
     boolTarget = true; // il y a un trou sur le jeu
 
-    int xLimitLow = myHole.getX() + myHole.getRadius();
-    int yLimitLow = myHole.getY() + myHole.getRadius();
+    float xLimitLow = myHole.getX() + myHole.getRadius();
+    float yLimitLow = myHole.getY() + myHole.getRadius();
 
     myTarget.setX(getRandomCoordinates().x());
     myTarget.setY(getRandomCoordinates().y());
@@ -563,25 +566,36 @@ void Game::appearTarget()
         myTarget.setY(getRandomCoordinates().y());
     }
 
-    qDebug()<<"Target:"<<myTarget.getX()<<" et "<<myTarget.getY()<<" - angle: "<<myTarget.thetaTarget_;
+    qDebug()<<"Target:"<<myTarget.getX()<<" et "<<myTarget.getY();
     update();
 }
 
-QPoint Game :: getRandomCoordinates ()
+QPointF Game :: getRandomCoordinates ()
 {
-    int high = myArena.getSize() /(float)2;
-    int low = - myArena.getSize() /(float)2;
+    float high = myArena.getSize() /(float)2;
+    float low = - myArena.getSize() /(float)2;
 
-    QPoint point; // point ou l'on va mettre l'element
+    QPointF point; // point ou l'on va mettre l'element
     point.setX(0);
     point.setY(0);
 
     double distance = 0;
 
-    while (distance<2) // on ne doit pas avoir un element trop proche du bras
+    while (distance<2 || distance>18) // on ne doit pas avoir un element trop proche du bras
     {
-        point.setX(qrand() % ((high + 1) - low) + low);
-        point.setY(qrand() % ((high + 1) - low) + low);
+
+        /*point.setX(qrand() % ((high + 1) - low) + low);
+        point.setY(qrand() % ((high + 1) - low) + low);*/
+
+        float random = ((float) rand()) / (float) RAND_MAX;
+
+        // generate (in your case) a float between 0 and (4.5-.78)
+        // then add .78, giving you a float between .78 and 4.5
+        float range = high-low;
+
+        point.setX(random*range+low);
+        random = ((float) rand()) / (float) RAND_MAX;
+        point.setY(random*range+low);
         distance = sqrt (point.x()*point.x()+point.y()*point.y());
     }
     return point;
@@ -610,9 +624,23 @@ int Game::getRandomRadius()
 
 bool Game::detectVictory()
 {
-    if (mySphere.getX()==myTarget.getX() && mySphere.getY()==mySphere.getY())
+
+
+    if (mySphere.getRadius() +mySphere.getX() - myTarget.getX()+myTarget.getRadius() <1)
     {
-        return true;
+        if (mySphere.getRadius() +mySphere.getY() - myTarget.getY()+myTarget.getRadius() <1)
+        {
+            return true;
+        }
+
+    }
+
+    else if (myTarget.getX()+myTarget.getRadius() - mySphere.getRadius() +mySphere.getX() <1)
+    {
+        if (myTarget.getY()+myTarget.getRadius()-mySphere.getRadius() +mySphere.getY() <1)
+        {
+            return true;
+        }
     }
 
     else

@@ -57,7 +57,7 @@ public:
     void moveZ(int z);
     void moveX(int x);
     void appearSphere();
-    QPoint getRandomCoordinates();
+    QPointF getRandomCoordinates();
 
     bool detectVictory();
 protected:

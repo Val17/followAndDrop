@@ -29,6 +29,12 @@ Arm::~Arm()
 
 void Arm::drawArm()
 {
+    // Socle
+
+    glPushMatrix(); // il y a un scalef dans drawBase
+        drawBase();
+    glPopMatrix();
+
     // Epaule
 
     glPushMatrix();
@@ -139,7 +145,7 @@ void Arm::drawCylinder(double radius,int height, int slices, int stacks)
 
     GLUquadric* quadric;
     quadric = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/tse.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/telecom2.tga"));
     gluQuadricTexture(quadric, GL_TRUE);
     gluCylinder(quadric, radius, radius, height, slices, stacks);
 }
