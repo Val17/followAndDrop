@@ -38,7 +38,6 @@ private:
     int xLimit_; // abscisse limite
     int yLimit_; // ordonnee limite
     int size_; // taille de l'arene
-    char* texture_; // texture utilisee pour l'arene
     GLuint glTexture_[1]; // texture de l'arene
     GLuint loadTexture ( const char* filename ); // methode permettant de charge la texture
 

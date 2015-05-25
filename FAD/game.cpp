@@ -98,6 +98,7 @@ void Game::setZRotation(int angle)
 
 void Game::initializeGL()
 {
+    //glDisable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
     glDisable(GL_CULL_FACE);

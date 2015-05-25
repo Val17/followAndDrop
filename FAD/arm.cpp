@@ -29,137 +29,6 @@ Arm::~Arm()
 
 void Arm::drawArm()
 {
-
-
-    /*//socle
-
-    glPushMatrix();
-
-        //glScalef(1,1,.1);
-        drawBase();
-
-    glPopMatrix();
-
-        //glPushMatrix();
-
-        //glTranslatef(0,0,2);
-
-        glPushMatrix();
-
-        // epaule
-
-            glTranslatef(0,0, 0);
-            glRotatef(alpha, 0, 0, 1);
-            glRotatef(beta, 0, 1, 0);
-
-            glPushMatrix();
-
-                drawSphere(1 ,50,50);
-
-            glPopMatrix();
-
-            glPushMatrix();
-
-                glTranslatef(0,0,2);
-                glScalef(1,1,1);
-                drawCylinder(1, 3, 20, 1);
-
-            glPopMatrix();
-
-            glPushMatrix();
-
-                glTranslatef(0,0,5);
-
-                glPushMatrix();
-
-                    //coude
-
-                    glRotatef(gamma, 0, 1, 0);
-
-
-                    glPushMatrix();
-
-                        drawSphere(1, 50, 50);
-
-                    glPopMatrix();
-
-                    //avant-bras
-
-                    glPushMatrix();
-
-                        glTranslatef(0,0,1);
-                        drawCylinder(1,3,20,1);
-
-                    glPopMatrix();
-
-                    glPushMatrix();
-
-                        glTranslatef(0,0,5);
-
-                        // poignet
-
-                        //glRotatef(delta, 0, 1, 0);
-
-                        glPushMatrix();
-
-                            drawSphere(1, 50, 50);
-
-                        glPopMatrix();
-
-                        // pince 1
-
-                        glPushMatrix();
-
-                            glTranslatef(0, 2, 1);
-                            glRotatef(-30, 1, 0, 1);
-                            glRotatef(delta, 1, 0, -1);
-                            glScalef(.5,.5,2);
-                            drawCylinder(.5,1,20,1);
-
-                         glPopMatrix();
-
-                         // le bras a attrape la sphere
-
-                         if (boolSphere == true)
-                         {
-                             glPushMatrix();
-
-                                glTranslatef(0,0,1.5);
-                                drawSphereGame(1,50,50);
-
-                             glPopMatrix();
-                         }
-
-
-                         // pince 2
-
-                         glPushMatrix();
-
-                             glTranslatef(0, -2, 1);
-                             glRotatef(30, 1, 0, 1);
-                             glRotatef(delta, -1, 0, 1);
-                             glScalef(.5,.5,2);
-                             drawCylinder(.5,1,20,1);
-
-                          glPopMatrix();
-
-                     glPopMatrix();
-
-                 glPopMatrix();
-
-             glPopMatrix();
-
-        glPopMatrix();
-
-    glPopMatrix();*/
-
-
-    // Socle
-
-    glPushMatrix(); // il y a un scalef dans drawBase
-        drawBase();
-    glPopMatrix();
-
     // Epaule
 
     glPushMatrix();
@@ -249,7 +118,7 @@ void Arm::drawSphere(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/mars.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/robot.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
 
@@ -270,7 +139,7 @@ void Arm::drawCylinder(double radius,int height, int slices, int stacks)
 
     GLUquadric* quadric;
     quadric = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/mars.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/tse.tga"));
     gluQuadricTexture(quadric, GL_TRUE);
     gluCylinder(quadric, radius, radius, height, slices, stacks);
 }
@@ -280,7 +149,7 @@ void Arm::drawBase()
 
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/mars.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/robot.tga"));
     gluQuadricTexture(param, GL_TRUE);
 
     glScalef(2,2,.1);

@@ -15,6 +15,7 @@ class GameWidget : public QWidget
 public:
     explicit GameWidget(QWidget *parent = 0);
     ~GameWidget();
+    void setNamePlayer(QString n) {namePlayer_=n;}
 public slots:
     void incrementChrono();
 protected:
@@ -29,6 +30,7 @@ private:
     QTimer *timerChrono_;
 
     void startChrono();
+    QString namePlayer_; // nom du joueur
 signals:
     void startPlay();
 };

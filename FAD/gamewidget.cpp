@@ -16,6 +16,8 @@ GameWidget::GameWidget(QWidget *parent) :
 
     timerChrono_ = new QTimer(this);
 
+    ui->label->setText(namePlayer_);
+
 }
 
 GameWidget::~GameWidget()
@@ -172,8 +174,5 @@ void GameWidget::incrementChrono()
     ui->chronoTime->setText((QString)time_);
     //update();
 }
-
-
-
 
 

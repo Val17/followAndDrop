@@ -14,7 +14,6 @@ Arena::Arena(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
 
     glTexture_[0];
-    texture_ = "..followAndDrop/FAD/Images/bois.tga";
     size_ = 20;
 
     xLimit_ = size_;
@@ -42,22 +41,28 @@ void Arena::drawArena()
 {
     int nb_faces = 100;
 
-    glTexture_[0]= loadTexture(texture_);
+    glPushMatrix();
+        glEnable(GL_TEXTURE);
+        glTexture_[0]= loadTexture("../FAD/Images/bois.tga");
 
-    glBegin(GL_POLYGON);
+        glBegin(GL_POLYGON);
 
-        for(int i=0; i<nb_faces; i++)
-        {
-            double angle = 2*M_PI*i/nb_faces;
-            double xcos = cos(angle);
-            double ycos = sin(angle);
+            for(int i=0; i<nb_faces; i++)
+            {
+                double angle = 2*M_PI*i/nb_faces;
+                double xcos = cos(angle);
+                double ycos = sin(angle);
 
-            glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
-            glVertex2f(xcos*size_, ycos*size_ );
+                glTexCoord2f(xcos *0.5 + 0.5, ycos * 0.5 + 0.5);
+                glVertex2f(xcos*size_, ycos*size_ );
 
-        }
+            }
 
-     glEnd();
+         glEnd();
+
+         glDisable(GL_TEXTURE);
+
+     glPopMatrix();
 
     glPushMatrix();
         glDepthMask (GL_FALSE);
