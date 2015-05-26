@@ -15,10 +15,6 @@ GameWidget::GameWidget(QWidget *parent) :
     connect(ui->webcamWidget,SIGNAL(emitPoint(cv::Point)),this,SLOT(moveSphere(cv::Point)));
 
     timerChrono_ = new QTimer(this);
-
-  //ui->label->setText(namePlayer_);
-    qDebug()<<"gameWidget:"<<getNamePlayer();
-
     level_=1;
     ui->level->setText(QString::number(level_));
 
@@ -218,4 +214,11 @@ void GameWidget::incrementChrono()
 void GameWidget::on_buttonStart_clicked()
 {
     startChrono();
+}
+
+void GameWidget::show(QString n)
+{
+    setNamePlayer(n);
+    ui->label->setText(getNamePlayer());
+    QWidget::show();
 }

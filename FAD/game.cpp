@@ -504,43 +504,43 @@ void Game::dropSphere()
     float g2 = 180 - angleB2;
     // La sphere est prete a aller dans le trou
 
-        if (a2-myArm.alpha>10)
+        if (a2-myArm.alpha>5)
         {
-            myArm.alpha+=10;
+            myArm.alpha+=5;
             update();
         }
 
-        else if (myArm.alpha-a2>10)
+        else if (myArm.alpha-a2>5)
         {
-            myArm.alpha-=10;
+            myArm.alpha-=5;
             update();
         }
 
          // Orientation bonne
 
-        else if (b2-myArm.beta>10)
+        else if (b2-myArm.beta>5)
         {
-            myArm.beta+=10;
+            myArm.beta+=5;
             update();
         }
 
-        else if (myArm.beta-b2>10)
+        else if (myArm.beta-b2>5)
         {
-            myArm.beta-=10;
+            myArm.beta-=5;
             update();
         }
 
         // Angle beta bon
 
-        else if (g2-myArm.gamma>10)
+        else if (g2-myArm.gamma>5)
         {
-            myArm.gamma+=10;
+            myArm.gamma+=5;
             update();
         }
 
-        else if (myArm.gamma-g2>10)
+        else if (myArm.gamma-g2>5)
         {
-            myArm.gamma-=10;
+            myArm.gamma-=5;
             update();
         }
 

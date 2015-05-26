@@ -17,6 +17,7 @@ public:
     ~GameWidget();
     void setNamePlayer(QString n) {namePlayer_=n;}
     QString getNamePlayer() {return namePlayer_;}
+    void show(QString n);
 public slots:
     void incrementChrono();
 protected:
