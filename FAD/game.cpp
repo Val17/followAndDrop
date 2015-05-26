@@ -187,13 +187,7 @@ void Game::draw()
 
     // On fait apparaitre une cible
 
-    if (boolTarget == true)
-    {
-        glPushMatrix();
-            glTranslatef(myTarget.getX(), myTarget.getY(),0.1);
-            myTarget.drawTarget();
-        glPopMatrix();
-    }
+
 
     // On fait apparaitre une sphere
 
@@ -218,6 +212,17 @@ void Game::draw()
             myHole.drawHole(mySphere.getRadius());
         glPopMatrix();
 
+        if (boolTarget == true)
+        {
+            glPushMatrix();
+
+                glTranslatef(myTarget.getX(), myTarget.getY(),0.1);
+
+                myTarget.drawTarget();
+
+            glPopMatrix();
+        }
+
 
 }
 
@@ -235,8 +240,8 @@ void Game::catchSphere()
 
     //Cotes du triangle
 
-    double sideA1 = myArm.sA+2; // cote 1 du triangle
-    double sideB1 = myArm.sFa+2; // cote 2 du triangle
+    double sideA1 = myArm.sA_+2; // cote 1 du triangle
+    double sideB1 = myArm.sFa_+2; // cote 2 du triangle
     double sideC1 = mySphere.getDistance(); // cote 3 du triangle
 
     //Cosinus
@@ -255,51 +260,51 @@ void Game::catchSphere()
     double g1 = 180 - angleB1;
 
 
-    if (a1-myArm.alpha>10)
+    if (a1-myArm.alpha_>10)
     {
-        myArm.alpha+=10;
+        myArm.alpha_+=10;
         update();
     }
 
-    else if (myArm.alpha-a1>10)
+    else if (myArm.alpha_-a1>10)
     {
-        myArm.alpha-=10;
+        myArm.alpha_-=10;
         update();
     }
 
      // Orientation bonne
 
-    else if (b1-myArm.beta>10)
+    else if (b1-myArm.beta_>10)
     {
-        myArm.beta+=10;
+        myArm.beta_+=10;
         update();
     }
 
-    else if (myArm.beta-b1>10)
+    else if (myArm.beta_-b1>10)
     {
-        myArm.beta-=10;
+        myArm.beta_-=10;
         update();
     }
 
     // Angle beta bon
 
-    else if (g1-myArm.gamma>10)
+    else if (g1-myArm.gamma_>10)
     {
-        myArm.gamma+=10;
+        myArm.gamma_+=10;
         update();
     }
 
-    else if (myArm.gamma-g1>10)
+    else if (myArm.gamma_-g1>10)
     {
-        myArm.gamma-=10;
+        myArm.gamma_-=10;
         update();
     }
 
     // Angle gamma bon
 
-    else if (myArm.delta<60)
+    else if (myArm.delta_<60)
     {
-        myArm.delta+=10;
+        myArm.delta_+=10;
     }
 
     //Pince sert la sphere
@@ -307,7 +312,7 @@ void Game::catchSphere()
     else if (boolSphereArena==true)
     {
         boolSphereArena=false; // on fait disparaitre la sphere
-        myArm.boolSphereArm=true; // on fait aparaitre celle dans le bras
+        myArm.boolSphereArm_=true; // on fait aparaitre celle dans le bras
         update();
     }
 
@@ -356,39 +361,39 @@ void Game::moveArm()
 {
     // La sphere est attrapee; on ramene le bras a sa position initiale
 
-    if (myArm.alpha>5)
+    if (myArm.alpha_>5)
     {
-        myArm.alpha-=5;
+        myArm.alpha_-=5;
         update();
     }
 
-    else if (myArm.alpha<-5)
+    else if (myArm.alpha_<-5)
     {
-        myArm.alpha+=5;
+        myArm.alpha_+=5;
         update();
     }
 
-    if (myArm.beta>5)
+    if (myArm.beta_>5)
     {
-        myArm.beta-=5;
+        myArm.beta_-=5;
         update();
     }
 
-    else if (myArm.beta<-5)
+    else if (myArm.beta_<-5)
     {
-        myArm.beta+=5;
+        myArm.beta_+=5;
         update();
     }
 
-    if (myArm.gamma>5)
+    if (myArm.gamma_>5)
     {
-        myArm.gamma-=5;
+        myArm.gamma_-=5;
         update();
     }
 
-    else if (myArm.gamma<-5)
+    else if (myArm.gamma_<-5)
     {
-        myArm.gamma+=5;
+        myArm.gamma_+=5;
         update();
     }
 
@@ -404,39 +409,39 @@ void Game::moveArm()
 
 void Game::reinitializeArm()
 {
-    if (myArm.alpha>1)
+    if (myArm.alpha_>1)
     {
-        myArm.alpha-=1;
+        myArm.alpha_-=1;
         update();
     }
 
-    else if (myArm.alpha<-1)
+    else if (myArm.alpha_<-1)
     {
-        myArm.alpha+=1;
+        myArm.alpha_+=1;
         update();
     }
 
-    if (myArm.beta>1)
+    if (myArm.beta_>1)
     {
-        myArm.beta-=1;
+        myArm.beta_-=1;
         update();
     }
 
-    else if (myArm.beta<-1)
+    else if (myArm.beta_<-1)
     {
-        myArm.beta+=1;
+        myArm.beta_+=1;
         update();
     }
 
-    if (myArm.gamma>1)
+    if (myArm.gamma_>1)
     {
-        myArm.gamma-=1;
+        myArm.gamma_-=1;
         update();
     }
 
-    else if (myArm.gamma<-1)
+    else if (myArm.gamma_<-1)
     {
-        myArm.gamma+=1;
+        myArm.gamma_+=1;
         update();
     }
 
@@ -484,8 +489,8 @@ void Game::dropSphere()
 
     //Cotes du triangle
 
-    double sideA2 = myArm.sA+2; // cote 1 du triangle
-    double sideB2 = myArm.sFa+2; // cote 2 du triangle
+    double sideA2 = myArm.sA_+2; // cote 1 du triangle
+    double sideB2 = myArm.sFa_+2; // cote 2 du triangle
     double sideC2 = myHole.getDistance(); // cote 3 du triangle
 
     //Cosinus
@@ -504,51 +509,51 @@ void Game::dropSphere()
     float g2 = 180 - angleB2;
     // La sphere est prete a aller dans le trou
 
-        if (a2-myArm.alpha>5)
+        if (a2-myArm.alpha_>5)
         {
-            myArm.alpha+=5;
+            myArm.alpha_+=5;
             update();
         }
 
-        else if (myArm.alpha-a2>5)
+        else if (myArm.alpha_-a2>5)
         {
-            myArm.alpha-=5;
+            myArm.alpha_-=5;
             update();
         }
 
          // Orientation bonne
 
-        else if (b2-myArm.beta>5)
+        else if (b2-myArm.beta_>5)
         {
-            myArm.beta+=5;
+            myArm.beta_+=5;
             update();
         }
 
-        else if (myArm.beta-b2>5)
+        else if (myArm.beta_-b2>5)
         {
-            myArm.beta-=5;
+            myArm.beta_-=5;
             update();
         }
 
         // Angle beta bon
 
-        else if (g2-myArm.gamma>5)
+        else if (g2-myArm.gamma_>5)
         {
-            myArm.gamma+=5;
+            myArm.gamma_+=5;
             update();
         }
 
-        else if (myArm.gamma-g2>5)
+        else if (myArm.gamma_-g2>5)
         {
-            myArm.gamma-=5;
+            myArm.gamma_-=5;
             update();
         }
 
         // Angle gamma bon
 
-        else if (myArm.delta>=30)
+        else if (myArm.delta_>=30)
         {
-            myArm.delta-=10;
+            myArm.delta_-=10;
             update();
         }
 
@@ -563,7 +568,7 @@ void Game::dropSphere()
 
             boolSphereArena=true; // la sphere est sur l'arene
 
-            myArm.boolSphereArm=false;
+            myArm.boolSphereArm_=false;
             removeSphere(4);
         }
 }

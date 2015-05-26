@@ -65,12 +65,13 @@ void Arena::drawArena()
      glPopMatrix();
 
     glPushMatrix();
-        glDepthMask (GL_FALSE);
-        glColor4f(.9,.9,.9,0.6);
+        glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+        glEnable( GL_BLEND );
+        glColor4f(1,1,1,0.6);
         GLUquadric* quadric;
         quadric = gluNewQuadric();
         gluCylinder(quadric, 20,20,4,100,100);
-        glDepthMask (GL_TRUE);
+        glDisable(GL_BLEND);
     glPopMatrix();
 
 }

@@ -9,17 +9,12 @@ using namespace std;
 
 Arm::Arm(QGLWidget *parent) : QGLWidget(parent)
 {
-    alpha=0;
-    beta=0;
-    gamma=0;
-
-    sA=6;
-    sFa=6;
-
-    boolSphereArm=false;
-
-    altitud = 0;
-
+    alpha_=0; // angle alpha; rotation de la base
+    beta_=0; // angle beta; rotation de l'epaule
+    gamma_=0; // angle gamma; rotation du coude
+    sA_=6; // taille du bras
+    sFa_=6; // taille de l'avant bras
+    boolSphereArm_=false; // au depart, la sphere n'est pas dans la main du robot
 }
 
 Arm::~Arm()
@@ -40,8 +35,8 @@ void Arm::drawArm()
     glPushMatrix();
         glTranslatef(0,0,1); // altitude = 1
 
-            glRotatef(alpha, 0, 0, 1); // premier angle
-            glRotatef(beta, 0, 1, 0); // deuxieme angle
+            glRotatef(alpha_, 0, 0, 1); // premier angle
+            glRotatef(beta_, 0, 1, 0); // deuxieme angle
 
             glPushMatrix();
                 drawSphere(1 ,50,50);
@@ -51,15 +46,15 @@ void Arm::drawArm()
 
             glPushMatrix();
                 glTranslatef(0,0,1); // altitude = 2
-                drawCylinder(1,sA,20,20);
+                drawCylinder(1,sA_,20,20);
             glPopMatrix();
 
             glPushMatrix();
-                glTranslatef(0,0,2+sA); // altitude = 2 + sA
+                glTranslatef(0,0,2+sA_); // altitude = 2 + sA
 
                 glPushMatrix();
                     // Coude
-                    glRotatef(gamma, 0, 1, 0);
+                    glRotatef(gamma_, 0, 1, 0);
 
                     glPushMatrix();
                         drawSphere(1,50,50);
@@ -69,7 +64,7 @@ void Arm::drawArm()
 
                     glPushMatrix();
                         glTranslatef(0,0,1);
-                        drawCylinder(1, sFa, 20,20);
+                        drawCylinder(1, sFa_, 20,20);
                     glPopMatrix();
 
                     //Main
@@ -86,13 +81,13 @@ void Arm::drawArm()
                     glPushMatrix();
                         glTranslatef(0,2,2);
                         glRotatef(-30, 1, 0, 1);
-                        glRotatef(delta, 1, 0, -1); // quatrieme angle
+                        glRotatef(delta_, 1, 0, -1); // quatrieme angle
                         glScalef(.2,.2,3);
                         drawCylinder(1,1,30,30);
                      glPopMatrix();
 
                      // le bras a attrape la sphere
-                      if (boolSphereArm == true)
+                      if (boolSphereArm_ == true)
                       {
                           glPushMatrix();
                              glTranslatef(0,0,3.5);
@@ -104,7 +99,7 @@ void Arm::drawArm()
                      glPushMatrix();
                         glTranslatef(0,-2,2);
                          glRotatef(30, 1, 0, 1);
-                         glRotatef(delta, -1, 0, 1);
+                         glRotatef(delta_, -1, 0, 1);
                          glScalef(.2,.2,3);
                          drawCylinder(1,1,30,30);
                       glPopMatrix();

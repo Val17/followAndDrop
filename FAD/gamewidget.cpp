@@ -127,23 +127,23 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
 
     else if (e->key()==Qt::Key_P)
     {
-        ui->myGame->myArm.alpha+=1;
-        qDebug()<<ui->myGame->myArm.alpha;
+        ui->myGame->myArm.alpha_+=1;
+        qDebug()<<ui->myGame->myArm.alpha_;
         ui->myGame->update();
     }
 
     else if (e->key()==Qt::Key_M)
     {
-        ui->myGame->myArm.alpha-=1;
-        qDebug()<<ui->myGame->myArm.alpha;
+        ui->myGame->myArm.alpha_-=1;
+        qDebug()<<ui->myGame->myArm.alpha_;
         ui->myGame->update();
     }
 
     else if (e->key()==Qt::Key_R)
     {
-        ui->myGame->myArm.alpha=0;
-        ui->myGame->myArm.gamma=0;
-        ui->myGame->myArm.gamma=0;
+        ui->myGame->myArm.alpha_=0;
+        ui->myGame->myArm.gamma_=0;
+        ui->myGame->myArm.gamma_=0;
         ui->myGame->update();
     }
 

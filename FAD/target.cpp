@@ -24,8 +24,11 @@ void Target::drawTarget()
 {
 
     int nb_faces = 100;
-
+    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+    glEnable( GL_BLEND );
+    glColor4f(1,1,1,.5);
     GLtexture[0]= loadtgadisplayCDV("../FAD/Images/cible.tga");
+
 
     glBegin(GL_POLYGON);
 
@@ -42,6 +45,7 @@ void Target::drawTarget()
 
 
     glEnd();
+    glDisable(GL_BLEND);
 
 }
 
