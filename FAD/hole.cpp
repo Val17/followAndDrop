@@ -9,7 +9,7 @@
 Hole::Hole()
 {
     xHole_ = 15; // abscisse du trou qui ne change pas
-    yHole_ = -1; // ordonnee du trou qui ne change pas
+    yHole_ = 0; // ordonnee du trou qui ne change pas
 
     radius_ = 3; // rayon du trou qui ne change pas
     thetaHole_ = 0;

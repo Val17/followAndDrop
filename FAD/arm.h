@@ -21,11 +21,11 @@ public:
     void drawArm();
     void drawSphere(double r, int lats, int longs);
     void drawCylinder(double r,int height, int lats, int stacks);
-    double alpha_;
-    double beta_;
-    double gamma_;
-    double delta_;
-    double theta_;
+    float alpha_;
+    float beta_;
+    float gamma_;
+    float delta_;
+    float theta_;
     double sA_; // taille du bras (arm)
     double sFa_; // taille de l'avant bras (forearm)
     bool boolSphereArm_;

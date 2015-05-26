@@ -44,7 +44,7 @@ void Target::drawTarget()
     glEnd();
     glDisable(GL_BLEND);
 
-    qDebug()<<"Target - draw:"<<getX()<<" et "<<getY()<<" distance: "<<r_;
+
 
 }
 

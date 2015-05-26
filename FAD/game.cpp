@@ -125,7 +125,6 @@ void Game::paintGL()
     //glRotatef(80, -1, 0.0, 0.0);
     glRotatef(-60, 1.0, 0.0, 0.0);
 
-    //glTranslatef(0,0,altitud);
 
     /*glRotatef (90,1,0,0);
     glRotatef (90,0,0,1);
@@ -241,7 +240,7 @@ void Game::catchSphere()
 
     //Cosinus
 
-    double cosA1 = (sideA1*sideA1+sideC1*sideC1-sideC1*sideC1)/(2*sideA1*sideC1); // angle beta a atteindre
+    double cosA1 = (sideA1*sideA1+sideC1*sideC1-sideB1*sideB1)/(2*sideA1*sideC1); // angle beta a atteindre
     double cosB1 = (sideA1*sideA1+sideB1*sideB1-sideC1*sideC1)/(2*sideA1*sideB1); // angle gamma a atteindre
 
     //Angles en degres
@@ -404,37 +403,37 @@ void Game::moveArm()
 
 void Game::reinitializeArm()
 {
-    if (myArm.alpha_>1)
+    if (myArm.alpha_>0)
     {
         myArm.alpha_-=1;
         update();
     }
 
-    else if (myArm.alpha_<-1)
+    else if (myArm.alpha_<0)
     {
         myArm.alpha_+=1;
         update();
     }
 
-    if (myArm.beta_>1)
+    else if (myArm.beta_>0)
     {
         myArm.beta_-=1;
         update();
     }
 
-    else if (myArm.beta_<-1)
+    else if (myArm.beta_<0)
     {
         myArm.beta_+=1;
         update();
     }
 
-    if (myArm.gamma_>1)
+    else if (myArm.gamma_>0)
     {
         myArm.gamma_-=1;
         update();
     }
 
-    else if (myArm.gamma_<-1)
+    else if (myArm.gamma_<0)
     {
         myArm.gamma_+=1;
         update();
@@ -442,7 +441,7 @@ void Game::reinitializeArm()
 
     else if (boolSphereArena==false)
         {
-            qDebug()<<"fin bras; alt S:"<<mySphere.getZ();
+            qDebug()<<"Angles du bras: "<<myArm.alpha_<<" -- "<<myArm.beta_<<" -- "<<myArm.gamma_;
             setNextLevel(); // on passe au niveau suivant
             timerMoveArm->stop(); // la sphere est tombee dans le trou
             timerMoveArm->disconnect(timerMoveArm, SIGNAL(timeout()), this, SLOT(putSphereOut()));
@@ -490,7 +489,7 @@ void Game::dropSphere()
 
     //Cosinus
 
-    double cosA2 = (sideA2*sideA2+sideC2*sideC2-sideC2*sideC2)/(2*sideA2*sideC2); // angle beta a atteindre
+    double cosA2 = (sideA2*sideA2+sideC2*sideC2-sideB2*sideB2)/(2*sideA2*sideC2); // angle beta a atteindre
     double cosB2 = (sideA2*sideA2+sideB2*sideB2-sideC2*sideC2)/(2*sideA2*sideB2); // angle gamma a atteindre
 
     //Angles en degres
@@ -504,53 +503,59 @@ void Game::dropSphere()
     float g2 = 180 - angleB2;
     // La sphere est prete a aller dans le trou
 
-        if (a2-myArm.alpha_>5)
-        {
-            myArm.alpha_+=5;
-            update();
-        }
+    /*qDebug()<<"Angles a atteindre: "<<a2<<" % "<<b2<<"  % "<<g2;
+    qDebug()<<"Angles du bras: "<<myArm.alpha_<<" % "<<myArm.beta_<<"  % "<<myArm.gamma_;
+    qDebug()<<"Cotes a avoir: "<<sideA2<<" % "<<sideB2<<" % "<<sideC2;
+    qDebug()<<"Cotes du bras: ";*/
 
-        else if (myArm.alpha_-a2>5)
-        {
-            myArm.alpha_-=5;
-            update();
-        }
+    if (a2-myArm.alpha_>5)
+    {
+        myArm.alpha_+=5;
+        update();
+    }
 
-         // Orientation bonne
+    else if (myArm.alpha_-a2>5)
+    {
+        myArm.alpha_-=5;
+        update();
+    }
 
-        else if (b2-myArm.beta_>5)
-        {
-            myArm.beta_+=5;
-            update();
-        }
+     // Orientation bonne
 
-        else if (myArm.beta_-b2>5)
-        {
-            myArm.beta_-=5;
-            update();
-        }
+    else if (b2-myArm.beta_>5)
+    {
+        myArm.beta_+=5;
+        update();
+    }
 
-        // Angle beta bon
+    else if (myArm.beta_-b2>5)
+    {
+        myArm.beta_-=5;
+        update();
+    }
 
-        else if (g2-myArm.gamma_>5)
-        {
-            myArm.gamma_+=5;
-            update();
-        }
+    // Angle beta bon
 
-        else if (myArm.gamma_-g2>5)
-        {
-            myArm.gamma_-=5;
-            update();
-        }
+    else if (g2-myArm.gamma_>5)
+    {
+        myArm.gamma_+=5;
+        update();
+    }
 
-        // Angle gamma bon
+    else if (myArm.gamma_-g2>5)
+    {
+        myArm.gamma_-=5;
+        update();
+    }
 
-        else if (myArm.delta_>=30)
-        {
-            myArm.delta_-=10;
-            update();
-        }
+    // Angle gamma bon
+
+    else if (myArm.delta_>=30)
+    {
+        myArm.delta_-=10;
+        update();
+    }
+
 
         else
         {
@@ -635,11 +640,9 @@ QPointF Game :: getRandomCoordinates (double d)
     point.setY(0);
 
     double distance = 0;
-    int b = 0;
+
     while (distance<1+d || distance>18-d) // on ne doit pas avoir un element trop proche du bras ni en dehors de l'arene
     {
-         qDebug()<<"Boucle coordonnees: limites"<<"]"<<1+d<<";"<<18-d<<"]";
-        b+=1;
 
         float range = high-low;
 
@@ -648,9 +651,6 @@ QPointF Game :: getRandomCoordinates (double d)
         float randomX = ((float) rand()) / (float) RAND_MAX; // on calcule un relatif pour x
         point.setX(randomX*range+low);
         distance = sqrtf (point.x()*point.x()+point.y()*point.y());
-
-        qDebug()<<"x: "<<point.x()<<" et y: "<<point.y()<<" et distance: "<<distance;
-        qDebug()<<"nb de boucles:"<<b;
 
     }
     return point;
@@ -662,11 +662,8 @@ void Game::mousePressEvent(QMouseEvent *event)
     lastPos = event->pos();
 }
 
-
-
 bool Game::detectVictory()
 {
-
 
     if (mySphere.getRadius() +mySphere.getX() - myTarget.getX()+myTarget.getRadius() <1)
     {
