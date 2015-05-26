@@ -16,7 +16,7 @@ GameWidget::GameWidget(QWidget *parent) :
 
     timerChrono_ = new QTimer(this);
     level_=1;
-    ui->level->setText(QString::number(level_));
+    ui->level->setText("<font color='red'>" + QString::number(level_) + "</font>");
 
 }
 
@@ -216,9 +216,14 @@ void GameWidget::on_buttonStart_clicked()
     startChrono();
 }
 
+/**
+ * @brief GameWidget::show
+ * Permet d'avoir le nom du joueur lorsque l'on lance le jeu
+ * @param n
+ */
 void GameWidget::show(QString n)
 {
     setNamePlayer(n);
-    ui->label->setText(getNamePlayer());
+    ui->label->setText("<font color='blue'>" + getNamePlayer() + "</font>");
     QWidget::show();
 }
