@@ -17,7 +17,7 @@ class Arm : public QGLWidget
 public:
     explicit Arm(QGLWidget *parent = 0);
     ~Arm();
-    GLuint loadtgadisplayCDV ( const char* filename );
+    GLuint loadTexture ( const char* filename );
     void drawArm();
     void drawSphere(double r, int lats, int longs);
     void drawCylinder(double r,int height, int lats, int stacks);

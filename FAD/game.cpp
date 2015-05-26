@@ -26,7 +26,7 @@ Game::Game(QWidget *parent) :
 
     boolArena = false;
     boolArm = true;
-    boolTarget = false;
+    boolTarget = true;
     boolSphereArena = false;
     boolHole = false;
     boolSphereArm = false;
@@ -178,18 +178,12 @@ void Game::draw()
 
     glClear(GL_COLOR_BUFFER_BIT);
 
-    /// Elements qui ne disparaisse jamais
+    // Dessin du bras
     glPushMatrix();
         myArm.drawArm();
     glPopMatrix();
 
-    // On fait apparaitre un trou
-
-    // On fait apparaitre une cible
-
-
-
-    // On fait apparaitre une sphere
+    // Dessin de la sphere dans certaines conditions
 
     if (boolSphereArena == true)
     {
@@ -199,29 +193,30 @@ void Game::draw()
         glPopMatrix();
     }
 
+    // Dessin de l'arene
+    glPushMatrix();
+        myArena.drawArena();
+    glPopMatrix();
+
+    // Dessin du trou
+    glPushMatrix();
+        glColor3f(0,0,0);
+        glTranslatef(myHole.getX(),myHole.getY(),.1);
+        myHole.drawHole(mySphere.getRadius());
+    glPopMatrix();
+
+    if (myTarget.getX()==0 && myTarget.getY()==0) // a l'initialisation du jeu
+    {
+        appearTarget();
+    }
+
+    if (boolTarget == true)
+    {
         glPushMatrix();
-            myArena.drawArena();
+            glTranslatef(myTarget.getX(), myTarget.getY(),0.1);
+            myTarget.drawTarget();
         glPopMatrix();
-
-
-        glPushMatrix();
-            glColor3f(0,0,0);
-            myHole.setX(15);
-            myHole.setY(-1);
-            glTranslatef(myHole.getX(),myHole.getY(),.1);
-            myHole.drawHole(mySphere.getRadius());
-        glPopMatrix();
-
-        if (boolTarget == true)
-        {
-            glPushMatrix();
-
-                glTranslatef(myTarget.getX(), myTarget.getY(),0.1);
-
-                myTarget.drawTarget();
-
-            glPopMatrix();
-        }
+    }
 
 
 }
@@ -577,12 +572,29 @@ void Game :: appearSphere()
 {
 
     boolSphereArena = true; // il y a une sphere sur le jeu
-    mySphere.setX(getRandomCoordinates(mySphere.getRadius()).x());
-    mySphere.setY(getRandomCoordinates(mySphere.getRadius()).y());
 
-    qDebug()<<"Sphere:"<<mySphere.getX()<<" et "<<mySphere.getY();
+    float xLimitLow = myHole.getX() - myHole.getRadius()-1;
+    float yLimitLow = myHole.getY() - myHole.getRadius()+1;
+    float xLimitHigh = myHole.getX() + myHole.getRadius()+1;
+    float yLimitHigh = myHole.getY() + myHole.getRadius()+1;
+
+    QPointF p = getRandomCoordinates(mySphere.getRadius());
+    mySphere.setX(p.x());
+    mySphere.setY(p.y());
+
+    // on s'assure de ne pas placer la cible sur le trou
+
+    while (mySphere.getX()<xLimitHigh && mySphere.getX()>xLimitLow && mySphere.getY()<yLimitHigh && mySphere.getY()>yLimitLow )
+    {
+        qDebug()<<"Boucle Sphere";
+        p = getRandomCoordinates(mySphere.getRadius());
+        mySphere.setX(p.x());
+        mySphere.setY(p.y());
+
+    }
 
     update();
+
 }
 
 
@@ -595,52 +607,51 @@ void Game::appearTarget()
     float xLimitHigh = myHole.getX() + myHole.getRadius()+1;
     float yLimitHigh = myHole.getY() + myHole.getRadius()+1;
 
-    myTarget.setX(getRandomCoordinates(myTarget.getRadius()).x());
-    myTarget.setY(getRandomCoordinates(myTarget.getRadius()).y());
-
-    //myTarget.setRadius(myTarget.getRadius()-.5);
+    QPointF p = getRandomCoordinates(myTarget.getRadius());
+    myTarget.setX(p.x());
+    myTarget.setY(p.y());
 
     // on s'assure de ne pas placer la cible sur le trou
 
     while (myTarget.getX()<xLimitHigh && myTarget.getX()>xLimitLow && myTarget.getY()<yLimitHigh && myTarget.getY()>yLimitLow )
     {
         qDebug()<<"Boucle target";
-        myTarget.setX(getRandomCoordinates(myTarget.getRadius()).x());
-        myTarget.setY(getRandomCoordinates(myTarget.getRadius()).y());
+        p = getRandomCoordinates(myTarget.getRadius());
+        myTarget.setX(p.x());
+        myTarget.setY(p.y());
+
     }
 
-    qDebug()<<"Target:"<<myTarget.getX()<<" et "<<myTarget.getY();
     update();
 }
 
 QPointF Game :: getRandomCoordinates (double d)
 {
-    float high = myArena.getSize() /(float)2;
-    float low = - myArena.getSize() /(float)2;
+    float high = myArena.getSize() - 2;
+    float low = - myArena.getSize() - 2;
 
     QPointF point; // point ou l'on va mettre l'element
     point.setX(0);
     point.setY(0);
 
     double distance = 0;
-
-    while (distance<d || distance>18) // on ne doit pas avoir un element trop proche du bras
+    int b = 0;
+    while (distance<1+d || distance>18-d) // on ne doit pas avoir un element trop proche du bras ni en dehors de l'arene
     {
-         qDebug()<<"Boucle coordonnees";
-        /*point.setX(qrand() % ((high + 1) - low) + low);
-        point.setY(qrand() % ((high + 1) - low) + low);*/
+         qDebug()<<"Boucle coordonnees: limites"<<"]"<<1+d<<";"<<18-d<<"]";
+        b+=1;
 
-        float random = ((float) rand()) / (float) RAND_MAX;
-
-        // generate (in your case) a float between 0 and (4.5-.78)
-        // then add .78, giving you a float between .78 and 4.5
         float range = high-low;
 
-        point.setX(random*range+low);
-        random = ((float) rand()) / (float) RAND_MAX;
-        point.setY(random*range+low);
-        qDebug()<<"Coord trouvees: "<<point.x()<<" - "<<point.y();
-        distance = sqrt (point.x()*point.x()+point.y()*point.y());
+        float randomY = ((float) rand()) / (float) RAND_MAX; // on calcule a nouveau un relatif pour y
+        point.setY(randomY*range+low);
+        float randomX = ((float) rand()) / (float) RAND_MAX; // on calcule un relatif pour x
+        point.setX(randomX*range+low);
+        distance = sqrtf (point.x()*point.x()+point.y()*point.y());
+
+        qDebug()<<"x: "<<point.x()<<" et y: "<<point.y()<<" et distance: "<<distance;
+        qDebug()<<"nb de boucles:"<<b;
+
     }
     return point;
 }

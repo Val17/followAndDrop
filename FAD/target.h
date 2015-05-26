@@ -24,13 +24,13 @@ public:
     void setRadius(float r) {radius_ = r;}
     float getRadius() {return radius_;}
     double getTheta() {return thetaTarget_;}
-    int getDistance() {return r_;}
+    float getDistance() {return r_;}
 
-    double getX() {return xTarget_;}
-    double getY() {return yTarget_;}
+    float getX() {return xTarget_;}
+    float getY() {return yTarget_;}
 
-    void setX(int x) { xTarget_=x;}
-    void setY(int y) { yTarget_=y;}
+    void setX(float x) { xTarget_=x;}
+    void setY(float y) { yTarget_=y;}
 
 
 protected:

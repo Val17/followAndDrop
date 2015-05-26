@@ -12,9 +12,6 @@ Target::Target(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), paren
     tanThetaTarget_ = yTarget_/(double)xTarget_;
     thetaTarget_ = atan(tanThetaTarget_); // angle en radian
     thetaTarget_ = thetaTarget_ * 180 / PI;
-
-    r_ = sqrt (xTarget_*xTarget_+yTarget_*yTarget_);
-
     radius_ = 5; // rayon de la cible au debut du jeu
 
 }
@@ -22,7 +19,7 @@ Target::Target(QWidget *parent) : QGLWidget(QGLFormat(QGL::SampleBuffers), paren
 
 void Target::drawTarget()
 {
-
+    r_ = sqrtf (xTarget_*xTarget_+yTarget_*yTarget_);
     int nb_faces = 100;
     glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
     glEnable( GL_BLEND );
@@ -46,6 +43,8 @@ void Target::drawTarget()
 
     glEnd();
     glDisable(GL_BLEND);
+
+    qDebug()<<"Target - draw:"<<getX()<<" et "<<getY()<<" distance: "<<r_;
 
 }
 
