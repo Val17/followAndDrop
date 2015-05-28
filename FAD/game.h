@@ -27,6 +27,7 @@ public:
     int xTrans;
     int yTrans;
     int zTrans;
+    int b; // nb boucle dessin sphere
     ~Game();
 
     QPoint lastPos; // Point correspondant au point ou l'utilisateur a clique
@@ -76,7 +77,7 @@ public slots:
     void setXRotation(int angle);
     void setYRotation(int angle);
     void setZRotation(int angle);
-    void appearTarget();
+    void appearTarget(int r);
     void catchSphere(); // methode permettant d'attraper la sphere
     void moveArm(); // slot permettant de mettre le bras a sa position initiale
     void dropSphere(); // slot permettant d'amener la sphere dans le trou

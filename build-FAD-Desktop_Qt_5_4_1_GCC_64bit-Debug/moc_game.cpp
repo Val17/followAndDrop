@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Game_t {
-    QByteArrayData data[15];
-    char stringdata[175];
+    QByteArrayData data[16];
+    char stringdata[177];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,17 +39,18 @@ QT_MOC_LITERAL(6, 63, 12), // "setXRotation"
 QT_MOC_LITERAL(7, 76, 12), // "setYRotation"
 QT_MOC_LITERAL(8, 89, 12), // "setZRotation"
 QT_MOC_LITERAL(9, 102, 12), // "appearTarget"
-QT_MOC_LITERAL(10, 115, 11), // "catchSphere"
-QT_MOC_LITERAL(11, 127, 7), // "moveArm"
-QT_MOC_LITERAL(12, 135, 10), // "dropSphere"
-QT_MOC_LITERAL(13, 146, 12), // "putSphereOut"
-QT_MOC_LITERAL(14, 159, 15) // "reinitializeArm"
+QT_MOC_LITERAL(10, 115, 1), // "r"
+QT_MOC_LITERAL(11, 117, 11), // "catchSphere"
+QT_MOC_LITERAL(12, 129, 7), // "moveArm"
+QT_MOC_LITERAL(13, 137, 10), // "dropSphere"
+QT_MOC_LITERAL(14, 148, 12), // "putSphereOut"
+QT_MOC_LITERAL(15, 161, 15) // "reinitializeArm"
 
     },
     "Game\0xRotationChanged\0\0angle\0"
     "yRotationChanged\0zRotationChanged\0"
     "setXRotation\0setYRotation\0setZRotation\0"
-    "appearTarget\0catchSphere\0moveArm\0"
+    "appearTarget\0r\0catchSphere\0moveArm\0"
     "dropSphere\0putSphereOut\0reinitializeArm"
 };
 #undef QT_MOC_LITERAL
@@ -76,12 +77,12 @@ static const uint qt_meta_data_Game[] = {
        6,    1,   83,    2, 0x0a /* Public */,
        7,    1,   86,    2, 0x0a /* Public */,
        8,    1,   89,    2, 0x0a /* Public */,
-       9,    0,   92,    2, 0x0a /* Public */,
-      10,    0,   93,    2, 0x0a /* Public */,
-      11,    0,   94,    2, 0x0a /* Public */,
-      12,    0,   95,    2, 0x0a /* Public */,
-      13,    0,   96,    2, 0x0a /* Public */,
-      14,    0,   97,    2, 0x0a /* Public */,
+       9,    1,   92,    2, 0x0a /* Public */,
+      11,    0,   95,    2, 0x0a /* Public */,
+      12,    0,   96,    2, 0x0a /* Public */,
+      13,    0,   97,    2, 0x0a /* Public */,
+      14,    0,   98,    2, 0x0a /* Public */,
+      15,    0,   99,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -92,7 +93,7 @@ static const uint qt_meta_data_Game[] = {
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int,    3,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   10,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -113,7 +114,7 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 3: _t->setXRotation((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 4: _t->setYRotation((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->setZRotation((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 6: _t->appearTarget(); break;
+        case 6: _t->appearTarget((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 7: _t->catchSphere(); break;
         case 8: _t->moveArm(); break;
         case 9: _t->dropSphere(); break;

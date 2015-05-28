@@ -109,7 +109,7 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
     else if (e->key() == Qt::Key_T)
 
     {
-        ui->myGame->appearTarget();
+        ui->myGame->appearTarget(ui->myGame->myTarget.getRadius());
     }
 
     else if (e->key() == Qt::Key_D)

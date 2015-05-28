@@ -184,11 +184,18 @@ void Game::draw()
 
     // Dessin de la sphere dans certaines conditions
 
+    if (mySphere.getX()==0 && mySphere.getY()==0) // a l'initialisation du jeu
+    {
+        appearSphere();
+    }
+
     if (boolSphereArena == true)
     {
         glPushMatrix();
             glTranslatef(mySphere.getX(), mySphere.getY(),mySphere.getZ());
             mySphere.drawSphere();
+            b+=1;
+            qDebug()<<"Victoire: "<<detectVictory()<<" nb dessin: "<<b;
         glPopMatrix();
     }
 
@@ -206,7 +213,7 @@ void Game::draw()
 
     if (myTarget.getX()==0 && myTarget.getY()==0) // a l'initialisation du jeu
     {
-        appearTarget();
+        appearTarget(myTarget.getRadius()+.5);
     }
 
     if (boolTarget == true)
@@ -257,13 +264,13 @@ void Game::catchSphere()
     if (a1-myArm.alpha_>10)
     {
         myArm.alpha_+=10;
-        update();
+        //update();
     }
 
     else if (myArm.alpha_-a1>10)
     {
         myArm.alpha_-=10;
-        update();
+        //update();
     }
 
      // Orientation bonne
@@ -271,13 +278,13 @@ void Game::catchSphere()
     else if (b1-myArm.beta_>10)
     {
         myArm.beta_+=10;
-        update();
+        //update();
     }
 
     else if (myArm.beta_-b1>10)
     {
         myArm.beta_-=10;
-        update();
+        //update();
     }
 
     // Angle beta bon
@@ -285,13 +292,13 @@ void Game::catchSphere()
     else if (g1-myArm.gamma_>10)
     {
         myArm.gamma_+=10;
-        update();
+        //update();
     }
 
     else if (myArm.gamma_-g1>10)
     {
         myArm.gamma_-=10;
-        update();
+        //update();
     }
 
     // Angle gamma bon
@@ -301,13 +308,14 @@ void Game::catchSphere()
         myArm.delta_+=10;
     }
 
+
     //Pince sert la sphere
 
     else if (boolSphereArena==true)
     {
         boolSphereArena=false; // on fait disparaitre la sphere
         myArm.boolSphereArm_=true; // on fait aparaitre celle dans le bras
-        update();
+        //updateGL();
     }
 
     else
@@ -317,6 +325,8 @@ void Game::catchSphere()
         boolSphereArm = true;
         removeSphere(2);
     }
+
+    updateGL();
 
 }
 
@@ -603,8 +613,9 @@ void Game :: appearSphere()
 }
 
 
-void Game::appearTarget()
+void Game::appearTarget(int r)
 {
+    myTarget.setRadius(r-0.5); // on reduit le rayon de la cible
     boolTarget = true; // il y a un trou sur le jeu
 
     float xLimitLow = myHole.getX() - myHole.getRadius()-1;
@@ -618,7 +629,7 @@ void Game::appearTarget()
 
     // on s'assure de ne pas placer la cible sur le trou
 
-    while (myTarget.getX()<xLimitHigh && myTarget.getX()>xLimitLow && myTarget.getY()<yLimitHigh && myTarget.getY()>yLimitLow )
+    while (myTarget.getX() + myTarget.getRadius()<xLimitHigh && myTarget.getX()+myTarget.getRadius()>xLimitLow && myTarget.getY()+myTarget.getRadius()<yLimitHigh && myTarget.getY()+myTarget.getRadius()>yLimitLow )
     {
         qDebug()<<"Boucle target";
         p = getRandomCoordinates(myTarget.getRadius());
@@ -665,6 +676,11 @@ void Game::mousePressEvent(QMouseEvent *event)
 bool Game::detectVictory()
 {
 
+    qDebug()<<"Sphere: "<<mySphere.getX()<<"  --  "<<mySphere.getY();
+    qDebug()<<"Target: "<<myTarget.getX()<<"  --  "<<myTarget.getY();
+    qDebug()<<"condition 1: "<<mySphere.getRadius() +mySphere.getX() - myTarget.getX()+myTarget.getRadius()<<" --- "<<mySphere.getRadius() +mySphere.getY() - myTarget.getY()+myTarget.getRadius();
+
+    qDebug()<<"condition 2: "<<myTarget.getX()+myTarget.getRadius() - mySphere.getRadius() +mySphere.getX()<<" --- "<<myTarget.getY()+myTarget.getRadius()-mySphere.getRadius() +mySphere.getY();
     if (mySphere.getRadius() +mySphere.getX() - myTarget.getX()+myTarget.getRadius() <1)
     {
         if (mySphere.getRadius() +mySphere.getY() - myTarget.getY()+myTarget.getRadius() <1)
@@ -690,6 +706,6 @@ bool Game::detectVictory()
 
 void Game::setNextLevel()
 {
-    appearTarget();
+    appearTarget(myTarget.getRadius());
     appearSphere();
 }
