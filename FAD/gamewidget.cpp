@@ -29,67 +29,56 @@ GameWidget::~GameWidget()
 void GameWidget::moveSphere(cv::Point handPoint)
 {
 
-     if(handPoint.x > pointRef.x)
+     double x = ui->myGame->mySphere.getX();
+     double y = ui->myGame->mySphere.getY();
+     if (handPoint.x > pointRef.x)
              {
-                 if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
+                 x = x-1;
+                 if (sqrt(x*x + y*y)<17)
                            {
                               ui->myGame->mySphere.setX(ui->myGame->mySphere.getX()-1);
-                              ui->myGame->update();
                           }
-                 else
-                 {
-                     ui->myGame->mySphere.setX(ui->myGame->mySphere.getX()+1);
-                 }
              }
 
              if(handPoint.x < pointRef.x)
              {
-
-                 if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
+                 x = x-1;
+                 if (sqrt(x*x + y*y)<17)
                            {
                               ui->myGame->mySphere.setX(ui->myGame->mySphere.getX()+1);
-                              ui->myGame->update();
                           }
-                 else
-                 {
-                     ui->myGame->mySphere.setX(ui->myGame->mySphere.getX()-1);
-                 }
              }
 
              if(handPoint.y > pointRef.y)
                      {
-                         if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
+                        y = y-1;
+                         if (sqrt(x*x + y*y)<17)
+
                                    {
                                       ui->myGame->mySphere.setY(ui->myGame->mySphere.getY()-1);
-                                      ui->myGame->update();
                                   }
-                         else
-                         {
-                             ui->myGame->mySphere.setY(ui->myGame->mySphere.getY()+1);
-                         }
+
                      }
 
              if(handPoint.y < pointRef.y)
                      {
-                         if (ui->myGame->mySphere.isMovable(1,0,ui->myGame->myArena.getSize())==true)
+                         y = y+1;
+                         if (sqrt(x*x + y*y)<17)
                                    {
                                       ui->myGame->mySphere.setY(ui->myGame->mySphere.getY()+1);
-                                      ui->myGame->update();
                                   }
-                         else
-                         {
-                             ui->myGame->mySphere.setY(ui->myGame->mySphere.getY()-1);
-                         }
                      }
-
+     ui->myGame->updateGL();
      pointRef= handPoint;
 
+     qDebug() << "Coordonnée x de la sphère : " << ui->myGame->mySphere.getX() << endl;
+     qDebug() << "Coordonnée y de la sphère : " << ui->myGame->mySphere.getY() << endl;
      //qDebug() << "Point après la comp : " << pointRef.x << endl;
      //qDebug() << "Point après la comp : " << pointRef.y << endl;
 
      if (ui->myGame->detectVictory()==true)
      {
-         ui->myGame->removeSphere(1);
+         //ui->myGame->removeSphere(1);
      }
 
      else if (ui->myGame->detectVictory()==false)

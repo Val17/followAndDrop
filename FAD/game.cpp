@@ -194,8 +194,10 @@ void Game::draw()
         glPushMatrix();
             glTranslatef(mySphere.getX(), mySphere.getY(),mySphere.getZ());
             mySphere.drawSphere();
+
             b+=1;
             qDebug()<<"Victoire: "<<detectVictory()<<" nb dessin: "<<b;
+            qDebug() << "distance" << mySphere.getDistance();
         glPopMatrix();
     }
 
@@ -609,6 +611,7 @@ void Game :: appearSphere()
     }
 
     update();
+
 
 }
 

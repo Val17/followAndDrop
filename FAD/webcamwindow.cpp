@@ -37,6 +37,8 @@ WebCamWindow::WebCamWindow(QWidget *parent)
     timer_=new QTimer(this);
     connect(timer_, SIGNAL(timeout()), this, SLOT(aquire()));
 
+    startWebCam();
+
  }
 
 WebCamWindow::~WebCamWindow()
