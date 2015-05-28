@@ -47,6 +47,8 @@ private:
     cv::Mat imgOrigin_;
     cv::VideoCapture *webcam_;
     cv::Point matchLoc;
+    cv::Mat imageRef;
+
     };
 
 #endif // WEBCAMWINDOW_H

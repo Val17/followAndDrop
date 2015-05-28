@@ -107,7 +107,7 @@ void WebCamWindow::detectHand()
 
     imageRef = Mat(image_, rectRoi);
     imageRef.copyTo(imgRoi_);
-    roi.copyTo(imgOrigin_);
+    //roi.copyTo(imgOrigin_);
     //imshow("roi", imgRoi_);
     waitKey(10);
 

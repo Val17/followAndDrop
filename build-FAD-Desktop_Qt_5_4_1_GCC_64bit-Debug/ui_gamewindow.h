@@ -16,7 +16,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -32,7 +31,8 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer_2;
-    QLabel *label;
+    QLabel *labelName;
+    QLabel *name;
     QSpacerItem *horizontalSpacer_3;
     QLabel *labelLevel;
     QLabel *level;
@@ -40,7 +40,8 @@ public:
     QLabel *labelTime;
     QLabel *time;
     QSpacerItem *horizontalSpacer_4;
-    QPushButton *buttonStart;
+    QLabel *labelTimeLevel;
+    QLabel *timeLevel;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_8;
@@ -63,10 +64,15 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_2);
 
-        label = new QLabel(GameWidget);
-        label->setObjectName(QStringLiteral("label"));
+        labelName = new QLabel(GameWidget);
+        labelName->setObjectName(QStringLiteral("labelName"));
 
-        horizontalLayout->addWidget(label);
+        horizontalLayout->addWidget(labelName);
+
+        name = new QLabel(GameWidget);
+        name->setObjectName(QStringLiteral("name"));
+
+        horizontalLayout->addWidget(name);
 
         horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -102,10 +108,15 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_4);
 
-        buttonStart = new QPushButton(GameWidget);
-        buttonStart->setObjectName(QStringLiteral("buttonStart"));
+        labelTimeLevel = new QLabel(GameWidget);
+        labelTimeLevel->setObjectName(QStringLiteral("labelTimeLevel"));
 
-        horizontalLayout->addWidget(buttonStart);
+        horizontalLayout->addWidget(labelTimeLevel);
+
+        timeLevel = new QLabel(GameWidget);
+        timeLevel->setObjectName(QStringLiteral("timeLevel"));
+
+        horizontalLayout->addWidget(timeLevel);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -152,12 +163,14 @@ public:
     void retranslateUi(QWidget *GameWidget)
     {
         GameWidget->setWindowTitle(QApplication::translate("GameWidget", "Follow And Drop - Jeu", 0));
-        label->setText(QApplication::translate("GameWidget", "Follow And Drop", 0));
+        labelName->setText(QApplication::translate("GameWidget", "Joueur: ", 0));
+        name->setText(QApplication::translate("GameWidget", "Nom", 0));
         labelLevel->setText(QApplication::translate("GameWidget", "Niveau: ", 0));
         level->setText(QString());
         labelTime->setText(QApplication::translate("GameWidget", "Time:", 0));
         time->setText(QString());
-        buttonStart->setText(QApplication::translate("GameWidget", "Start", 0));
+        labelTimeLevel->setText(QApplication::translate("GameWidget", "TIme Level: ", 0));
+        timeLevel->setText(QString());
     } // retranslateUi
 
 };

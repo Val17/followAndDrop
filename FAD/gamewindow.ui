@@ -32,9 +32,16 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="labelName">
          <property name="text">
-          <string>Follow And Drop</string>
+          <string>Joueur: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="name">
+         <property name="text">
+          <string>Nom</string>
          </property>
         </widget>
        </item>
@@ -115,9 +122,16 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="buttonStart">
+        <widget class="QLabel" name="labelTimeLevel">
          <property name="text">
-          <string>Start</string>
+          <string>TIme Level: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="timeLevel">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
@@ -165,6 +179,7 @@
            <height>700</height>
           </size>
          </property>
+         <zorder>horizontalSpacer_7</zorder>
         </widget>
        </item>
        <item>
