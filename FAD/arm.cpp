@@ -119,10 +119,9 @@ void Arm::drawSphere(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadTexture("../FAD/Images/robot.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadTexture("../FAD/Images/tse.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
-
 
 }
 
@@ -130,7 +129,7 @@ void Arm::drawSphereGame(double r, int lats, int stacks)
 {
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadTexture("../FAD/Images/eau.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadTexture("../FAD/Images/blue.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, r, lats, stacks);
 }
@@ -139,7 +138,7 @@ void Arm::drawCylinder(double radius,int height, int slices, int stacks)
 {
     GLUquadric* quadric;
     quadric = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadTexture("../FAD/Images/telecom2.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadTexture("../FAD/Images/tse.tga"));
     gluQuadricTexture(quadric, GL_TRUE);
     gluCylinder(quadric, radius, radius, height, slices, stacks);
 }
@@ -148,7 +147,7 @@ void Arm::drawBase()
 {
     GLUquadric* quadric;
     quadric = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadTexture("../FAD/Images/robot.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadTexture("../FAD/Images/tse.tga"));
     gluQuadricTexture(quadric, GL_TRUE);
 
     glScalef(2,2,.1);

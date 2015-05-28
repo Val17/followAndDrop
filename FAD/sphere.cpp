@@ -22,7 +22,7 @@ void Sphere::drawSphere()
 
     GLUquadric* param;
     param = gluNewQuadric();
-    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/eau.tga"));
+    glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV("../FAD/Images/blue.tga"));
     gluQuadricTexture(param, GL_TRUE);
     gluSphere(param, radius_, slices, stacks);
 
