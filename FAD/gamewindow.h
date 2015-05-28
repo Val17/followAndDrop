@@ -8,13 +8,13 @@ namespace Ui {
 class GameWidget;
 }
 
-class GameWidget : public QWidget
+class GameWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit GameWidget(QWidget *parent = 0);
-    ~GameWidget();
+    explicit GameWindow(QWidget *parent = 0);
+    ~GameWindow();
     void setNamePlayer(QString n) {namePlayer_=n;}
     QString getNamePlayer() {return namePlayer_;}
     void show(QString n);

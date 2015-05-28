@@ -29,7 +29,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QLabel *labelWelcome;
     QHBoxLayout *horizontalLayout;
@@ -59,15 +59,15 @@ public:
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setMinimumSize(QSize(500, 500));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 458, 103));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 10, 458, 103));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        labelWelcome = new QLabel(widget);
+        labelWelcome = new QLabel(layoutWidget);
         labelWelcome->setObjectName(QStringLiteral("labelWelcome"));
 
         verticalLayout->addWidget(labelWelcome);
@@ -75,12 +75,12 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        labelName = new QLabel(widget);
+        labelName = new QLabel(layoutWidget);
         labelName->setObjectName(QStringLiteral("labelName"));
 
         horizontalLayout->addWidget(labelName);
 
-        namePlayer = new QLineEdit(widget);
+        namePlayer = new QLineEdit(layoutWidget);
         namePlayer->setObjectName(QStringLiteral("namePlayer"));
 
         horizontalLayout->addWidget(namePlayer);
@@ -95,7 +95,7 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer_2);
 
-        buttonGame = new QPushButton(widget);
+        buttonGame = new QPushButton(layoutWidget);
         buttonGame->setObjectName(QStringLiteral("buttonGame"));
         buttonGame->setEnabled(false);
         buttonGame->setMinimumSize(QSize(88, 31));

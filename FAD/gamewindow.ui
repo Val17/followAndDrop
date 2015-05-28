@@ -152,7 +152,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="Game" name="myGame" native="true">
+        <widget class="GameWidget" name="myGame" native="true">
          <property name="minimumSize">
           <size>
            <width>500</width>
@@ -198,18 +198,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Game</class>
-   <extends>QWidget</extends>
-   <header>game.h</header>
-   <container>1</container>
-   <slots>
-    <slot>clicked()</slot>
-   </slots>
-  </customwidget>
-  <customwidget>
    <class>WebCamWindow</class>
    <extends>QWidget</extends>
    <header>webcamwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GameWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">gamewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <gamewidget.h>
+#include <gamewindow.h>
 #include <qgraphicsscene.h>
 #include <qgraphicsview.h>
 #include "ui_mainwindow.h"
@@ -32,7 +32,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    GameWidget myGameWidget;
+    GameWindow myGameWidget;
 
 };
 
