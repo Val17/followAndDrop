@@ -101,7 +101,7 @@ void Game::setZRotation(int angle)
 void Game::initializeGL()
 {
     d+=1;
-    qDebug()<<"Passage "<<d<<" dans paintGL()";
+    //qDebug()<<"Passage "<<d<<" dans paintGL()";
     //glDisable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
@@ -118,7 +118,7 @@ void Game::initializeGL()
 void Game::paintGL()
 {
     c+=1;
-    qDebug()<<"Passage "<<c<<" dans paintGL()";
+    //qDebug()<<"Passage "<<c<<" dans paintGL()";
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1,1,1);
     glLoadIdentity();
@@ -151,7 +151,7 @@ void Game::paintGL()
 void Game::resizeGL(int width, int height)
 {
     e+=1;
-    qDebug()<<"Passage "<<e<<" dans paintGL()";
+    //qDebug()<<"Passage "<<e<<" dans paintGL()";
     int side = qMin(width, height);
     glViewport(0,0,width,height); // new version
 
@@ -181,7 +181,7 @@ void Game::mouseMoveEvent(QMouseEvent *event)
 void Game::draw()
 {
     b+=1;
-    qDebug()<<"Passage "<<b<<" dans draw()";
+    //qDebug()<<"Passage "<<b<<" dans draw()";
 
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -270,15 +270,15 @@ void Game::catchSphere()
     double g1 = 180 - angleB1;
 
 
-    if (a1-myArm.alpha_>30)
+    if (a1-myArm.alpha_>10)
     {
-        myArm.alpha_+=30;
+        myArm.alpha_+=10;
         //update();
     }
 
-    else if (myArm.alpha_-a1>30)
+    else if (myArm.alpha_-a1>10)
     {
-        myArm.alpha_-=30;
+        myArm.alpha_-=10;
         //update();
     }
 
@@ -462,7 +462,7 @@ void Game::reinitializeArm()
 
     else if (boolSphereArena==false)
         {
-            qDebug()<<"Angles du bras: "<<myArm.alpha_<<" -- "<<myArm.beta_<<" -- "<<myArm.gamma_;
+
             setNextLevel(); // on passe au niveau suivant
             timerMoveArm->stop(); // la sphere est tombee dans le trou
             timerMoveArm->disconnect(timerMoveArm, SIGNAL(timeout()), this, SLOT(putSphereOut()));
@@ -691,29 +691,17 @@ void Game::mousePressEvent(QMouseEvent *event)
 bool Game::detectVictory()
 {
 
-    qDebug()<<"Sphere: "<<mySphere.getX()<<"  --  "<<mySphere.getY();
-    qDebug()<<"Target: "<<myTarget.getX()<<"  --  "<<myTarget.getY();
-    qDebug()<<"condition 1: "<<mySphere.getRadius() +mySphere.getX() - myTarget.getX()+myTarget.getRadius()<<" --- "<<mySphere.getRadius() +mySphere.getY() - myTarget.getY()+myTarget.getRadius();
+   float distanceST = sqrt((mySphere.getX() - myTarget.getX())*(mySphere.getX() - myTarget.getX()) + (mySphere.getY() - myTarget.getY())*(mySphere.getY() - myTarget.getY()));
 
-    qDebug()<<"condition 2: "<<myTarget.getX()+myTarget.getRadius() - mySphere.getRadius() +mySphere.getX()<<" --- "<<myTarget.getY()+myTarget.getRadius()-mySphere.getRadius() +mySphere.getY();
-    if (mySphere.getRadius() +mySphere.getX() - myTarget.getX()+myTarget.getRadius() <1)
+    qDebug()<<"Distance anpd: "<<myTarget.getRadius()+mySphere.getRadius()<<" -- "<<"Dis: "<<distanceST;
+    //qDebug()<<"Sphere: "<<mySphere.getX()
+    if (distanceST<(myTarget.getRadius()+mySphere.getRadius()/2))
     {
-        if (mySphere.getRadius() +mySphere.getY() - myTarget.getY()+myTarget.getRadius() <1)
-        {
-            removeSphere(1);
-            return true;
-        }
+        removeSphere(1);
+        return true;
 
     }
 
-    else if (myTarget.getX()+myTarget.getRadius() - mySphere.getRadius() +mySphere.getX() <1)
-    {
-        if (myTarget.getY()+myTarget.getRadius()-mySphere.getRadius() +mySphere.getY() <1)
-        {
-            removeSphere(1);
-            return true;
-        }
-    }
 
     else
     {
