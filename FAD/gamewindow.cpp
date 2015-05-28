@@ -2,11 +2,11 @@
 /// Createurs: Valentin DAVY et Arnaud DENIZET
 /// Binome: DAVY/DENIZET
 
-#include "gamewidget.h"
+#include "gamewindow.h"
 #include "ui_gamewidget.h"
 
 
-GameWidget::GameWidget(QWidget *parent) :
+GameWindow::GameWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameWidget)
 {
@@ -20,13 +20,13 @@ GameWidget::GameWidget(QWidget *parent) :
 
 }
 
-GameWidget::~GameWidget()
+GameWindow::~GameWindow()
 {
     delete ui;
     delete timerChrono_;
 }
 
-void GameWidget::moveSphere(cv::Point handPoint)
+void GameWindow::moveSphere(cv::Point handPoint)
 {
 
      if(handPoint.x > pointRef.x)
@@ -90,6 +90,7 @@ void GameWidget::moveSphere(cv::Point handPoint)
      if (ui->myGame->detectVictory()==true)
      {
          ui->myGame->removeSphere(1);
+         ui->labelLevel+=1;
      }
 
      else if (ui->myGame->detectVictory()==false)
@@ -99,7 +100,7 @@ void GameWidget::moveSphere(cv::Point handPoint)
 
 }
 
-void GameWidget::keyPressEvent(QKeyEvent *e)
+void GameWindow::keyPressEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Escape)
     {
@@ -193,7 +194,7 @@ void GameWidget::keyPressEvent(QKeyEvent *e)
 
 }
 
-void GameWidget::startChrono()
+void GameWindow::startChrono()
 {
     time_.start();
     incrementChrono();
@@ -202,7 +203,7 @@ void GameWidget::startChrono()
 
 }
 
-void GameWidget::incrementChrono()
+void GameWindow::incrementChrono()
 {
     int secs = time_.elapsed() / 1000;
     int mins = (secs / 60) % 60;
@@ -211,7 +212,7 @@ void GameWidget::incrementChrono()
 
 }
 
-void GameWidget::on_buttonStart_clicked()
+void GameWindow::on_buttonStart_clicked()
 {
     startChrono();
 }
@@ -221,7 +222,7 @@ void GameWidget::on_buttonStart_clicked()
  * Permet d'avoir le nom du joueur lorsque l'on lance le jeu
  * @param n
  */
-void GameWidget::show(QString n)
+void GameWindow::show(QString n)
 {
     setNamePlayer(n);
     ui->label->setText("<font color='blue'>" + getNamePlayer() + "</font>");

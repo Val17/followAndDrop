@@ -12,23 +12,23 @@ INCLUDEPATH += .
 HEADERS += mainwindow.h \
     arena.h \
     target.h \
-    game.h \
     sphere.h \
-    gamewidget.h \
-    webcamwindow.h \
     hole.h \
-    arm.h
+    arm.h \
+    gamewindow.h \
+    webcamwindow.h \
+    game.h
 FORMS += mainwindow.ui \
-    gamewidget.ui
+    gamewindow.ui
 SOURCES += main.cpp mainwindow.cpp \
     arena.cpp \
     target.cpp \
-    game.cpp \
     sphere.cpp \
-    gamewidget.cpp \
-    webcamwindow.cpp \
     hole.cpp \
-    arm.cpp
+    arm.cpp \
+    gamewindow.cpp \
+    webcamwindow.cpp \
+    game.cpp
 QT += core gui opengl
 
 LIBS += -L$$(OPENCV_DIR)\lib \

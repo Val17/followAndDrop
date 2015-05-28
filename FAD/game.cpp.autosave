@@ -101,7 +101,7 @@ void Game::setZRotation(int angle)
 void Game::initializeGL()
 {
     d+=1;
-    //qDebug()<<"Passage "<<d<<" dans paintGL()";
+    qDebug()<<"Passage "<<d<<" dans paintGL()";
     //glDisable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
@@ -118,7 +118,7 @@ void Game::initializeGL()
 void Game::paintGL()
 {
     c+=1;
-    //qDebug()<<"Passage "<<c<<" dans paintGL()";
+    qDebug()<<"Passage "<<c<<" dans paintGL()";
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1,1,1);
     glLoadIdentity();
@@ -151,7 +151,7 @@ void Game::paintGL()
 void Game::resizeGL(int width, int height)
 {
     e+=1;
-    //qDebug()<<"Passage "<<e<<" dans paintGL()";
+    qDebug()<<"Passage "<<e<<" dans paintGL()";
     int side = qMin(width, height);
     glViewport(0,0,width,height); // new version
 
@@ -181,7 +181,8 @@ void Game::mouseMoveEvent(QMouseEvent *event)
 void Game::draw()
 {
     b+=1;
-    //qDebug()<<"Passage "<<b<<" dans draw()";
+    
+    qDebug()<<"Passage "<<b<<" dans draw()";
 
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -203,7 +204,7 @@ void Game::draw()
             glTranslatef(mySphere.getX(), mySphere.getY(),mySphere.getZ());
             mySphere.drawSphere();
             b+=1;
-            //qDebug()<<"Victoire: "<<detectVictory()<<" nb dessin: "<<b;
+            qDebug()<<"Victoire: "<<detectVictory()<<" nb dessin: "<<b;
             detectVictory();
         glPopMatrix();
     }
@@ -616,10 +617,14 @@ void Game :: appearSphere()
 
     while (mySphere.getX()<xLimitHigh && mySphere.getX()>xLimitLow && mySphere.getY()<yLimitHigh && mySphere.getY()>yLimitLow )
     {
-        qDebug()<<"Boucle Sphere";
-        p = getRandomCoordinates(mySphere.getRadius());
-        mySphere.setX(p.x());
-        mySphere.setY(p.y());
+        while (detectVictory()==true)
+        {
+            qDebug()<<"Boucle Sphere";
+            p = getRandomCoordinates(mySphere.getRadius());
+            mySphere.setX(p.x());
+            mySphere.setY(p.y());
+        }
+
 
     }
 
@@ -693,14 +698,10 @@ bool Game::detectVictory()
 
    float distanceST = sqrt((mySphere.getX() - myTarget.getX())*(mySphere.getX() - myTarget.getX()) + (mySphere.getY() - myTarget.getY())*(mySphere.getY() - myTarget.getY()));
 
-    qDebug()<<"Distance anpd: "<<myTarget.getRadius()+mySphere.getRadius()<<" -- "<<"Dis: "<<distanceST;
-    //qDebug()<<"Sphere: "<<mySphere.getX()
     if (distanceST<(myTarget.getRadius()+mySphere.getRadius()/4))
     {
-        removeSphere(1);
         return true;
     }
-
 
     else
     {

@@ -616,10 +616,14 @@ void Game :: appearSphere()
 
     while (mySphere.getX()<xLimitHigh && mySphere.getX()>xLimitLow && mySphere.getY()<yLimitHigh && mySphere.getY()>yLimitLow )
     {
-        qDebug()<<"Boucle Sphere";
-        p = getRandomCoordinates(mySphere.getRadius());
-        mySphere.setX(p.x());
-        mySphere.setY(p.y());
+        while (detectVictory()==true)
+        {
+            qDebug()<<"Boucle Sphere";
+            p = getRandomCoordinates(mySphere.getRadius());
+            mySphere.setX(p.x());
+            mySphere.setY(p.y());
+        }
+
 
     }
 
@@ -693,15 +697,10 @@ bool Game::detectVictory()
 
    float distanceST = sqrt((mySphere.getX() - myTarget.getX())*(mySphere.getX() - myTarget.getX()) + (mySphere.getY() - myTarget.getY())*(mySphere.getY() - myTarget.getY()));
 
-    qDebug()<<"Distance anpd: "<<myTarget.getRadius()+mySphere.getRadius()<<" -- "<<"Dis: "<<distanceST;
-    //qDebug()<<"Sphere: "<<mySphere.getX()
-    if (distanceST<(myTarget.getRadius()+mySphere.getRadius()/2))
+    if (distanceST<(myTarget.getRadius()+mySphere.getRadius()/4))
     {
-        removeSphere(1);
         return true;
-
     }
-
 
     else
     {
