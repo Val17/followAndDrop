@@ -270,15 +270,15 @@ void Game::catchSphere()
     double g1 = 180 - angleB1;
 
 
-    if (a1-myArm.alpha_>30)
+    if (a1-myArm.alpha_>10)
     {
-        myArm.alpha_+=30;
+        myArm.alpha_+=10;
         //update();
     }
 
-    else if (myArm.alpha_-a1>30)
+    else if (myArm.alpha_-a1>10)
     {
-        myArm.alpha_-=30;
+        myArm.alpha_-=10;
         //update();
     }
 

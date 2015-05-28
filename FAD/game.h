@@ -28,6 +28,9 @@ public:
     int yTrans;
     int zTrans;
     int b; // nb boucle dessin sphere
+    int c;
+    int d;
+    int e;
     ~Game();
 
     QPoint lastPos; // Point correspondant au point ou l'utilisateur a clique
