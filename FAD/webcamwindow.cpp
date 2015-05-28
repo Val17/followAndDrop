@@ -14,28 +14,26 @@ WebCamWindow::WebCamWindow(QWidget *parent)
     templateWidth_=50;
     templateHeight_=50;
 
-    webCamButton_ = new QPushButton(tr("Demarrer aquisition"));
     label_ = new QLabel(tr("Image"));
     detectCheckBox_ = new QCheckBox(tr("Detection initiale"));
-    trackCheckBox_= new QCheckBox(tr("Tracking"));
+    trackCheckBox_= new QCheckBox(tr("Démarrer le tracking"));
 
-    connect(webCamButton_, SIGNAL(clicked()), this, SLOT(startWebCam()));
+    Mat imageRef;
+    Mat imageAcquisition;
 
-    QVBoxLayout *vl1=new QVBoxLayout;
-    vl1->addWidget(detectCheckBox_);
-    vl1->addWidget(trackCheckBox_);
     QHBoxLayout *hl=new QHBoxLayout;
-    hl->addWidget(webCamButton_);
-    hl->addLayout(vl1);
+    hl->addWidget(detectCheckBox_);
+    hl->addWidget(trackCheckBox_);
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(label_);
     layout->addLayout(hl);
 
     setLayout(layout);
-    setWindowTitle(tr("Track WebCam"));
 
     timer_=new QTimer(this);
     connect(timer_, SIGNAL(timeout()), this, SLOT(aquire()));
+
+
 
     startWebCam();
 
@@ -91,7 +89,6 @@ void WebCamWindow::startWebCam()
          //qDebug()<<"height: "<<webcam_->get(CV_CAP_PROP_FRAME_HEIGHT);
 
         timer_->start(20);
-        webCamButton_->setText(tr("Arreter aquisition"));
 
     }
     else
@@ -108,8 +105,8 @@ void WebCamWindow::detectHand()
     cv::Rect rectRoi((frameWidth_-templateWidth_)/2,(frameHeight_-templateHeight_)/2,templateWidth_,templateHeight_);
     rectangle(image_,rectRoi,Scalar( 0, 255, 255),2,8,0);
 
-    Mat roi(image_, rectRoi);
-    roi.copyTo(imgRoi_);
+    imageRef = Mat(image_, rectRoi);
+    imageRef.copyTo(imgRoi_);
     roi.copyTo(imgOrigin_);
     //imshow("roi", imgRoi_);
     waitKey(10);
